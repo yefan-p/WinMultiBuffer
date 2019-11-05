@@ -33,7 +33,7 @@ namespace WindowsFormsAppMultiBuffer
         {
             Controls.Clear();
 
-            foreach (var item in buffer)
+            foreach (TwiceKeyDictionaryItem<Keys, string> item in buffer)
             {
                 GroupBox groupBox = new GroupBox();
                 groupBox.Size = new Size(200, 281);
@@ -42,7 +42,7 @@ namespace WindowsFormsAppMultiBuffer
                 {
                     Size = new Size(188, 23),
                     Location = new Point(6, 19),
-                    Text = $"{item.Key} / {item.Value}",
+                    Text = $"{item.FirtsKey} / {item.SecondKey}",
                 };
 
                 TextBox text = new TextBox
@@ -51,7 +51,7 @@ namespace WindowsFormsAppMultiBuffer
                     Multiline = true,
                     Location = new Point(6, 50),
                     ReadOnly = true,
-                    Text = buffer.Values[item.Value],
+                    Text = item.Value,
                 };
 
                 groupBox.Controls.Add(label);

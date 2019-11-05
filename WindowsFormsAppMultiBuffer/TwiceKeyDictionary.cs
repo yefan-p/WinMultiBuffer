@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace WindowsFormsAppMultiBuffer
 {
-    public class TwiceKeyDictionary<TKey, TValue> : Twi
+    public class TwiceKeyDictionary<TKey, TValue> : IEnumerable
     {
         Dictionary<TKey, TKey> _keyPairs = new Dictionary<TKey, TKey>();
         Dictionary<TKey, TValue> _valuePairs = new Dictionary<TKey, TValue>();
@@ -78,6 +79,11 @@ namespace WindowsFormsAppMultiBuffer
         public bool ContainsKey(TKey key)
         {
             return (_keyPairs.ContainsKey(key) || _valuePairs.ContainsKey(key));
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return new TwiceKeyDictionaryEnumerator<TKey, TValue>(_keyPairs, _valuePairs);
         }
     }
 }

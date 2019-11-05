@@ -6,9 +6,9 @@ using System.Text;
 
 namespace WindowsFormsAppMultiBuffer
 {
-    class TwiceKeyDictionaryEnumerator<TKeys, TValue> : IEnumerator<TwiceKeyDictionaryItem<TKeys, TValue>>
+    public class TwiceKeyDictionaryEnumerator<TKeys, TValue> : IEnumerator<TwiceKeyDictionaryItem<TKeys, TValue>>
     {
-        int _postion = default;
+        int _postion = -1;
         Dictionary<TKeys, TKeys> _keyPairs;
         Dictionary<TKeys, TValue> _valuePairs;
 
@@ -32,7 +32,7 @@ namespace WindowsFormsAppMultiBuffer
             }
         }
 
-        object IEnumerator.Current => throw new NotImplementedException();
+        object IEnumerator.Current => Current;
 
         public void Dispose()
         {
@@ -51,7 +51,7 @@ namespace WindowsFormsAppMultiBuffer
 
         public void Reset()
         {
-            _postion = default;
+            _postion = -1;
         }
     }
 }
