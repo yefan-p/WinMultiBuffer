@@ -13,15 +13,15 @@ namespace WindowsFormsAppMultiBuffer
 
     public partial class Form1 : Form
     {
-        MultiBuffer buffer;
+        MultiBuffer _buffer;
 
         public Form1()
         {
             InitializeComponent();
 
-            buffer = new MultiBuffer();
-            buffer.BufferUpdate += Buffer_BufferUpdate;
-            UpdateView(buffer.Storage);
+            _buffer = new MultiBuffer();
+            _buffer.BufferUpdate += Buffer_BufferUpdate;
+            UpdateView(_buffer.Storage);
         }
 
         private void Buffer_BufferUpdate(object sender, MultiBufferEventArgs e)
@@ -29,38 +29,74 @@ namespace WindowsFormsAppMultiBuffer
             UpdateView(e.Storage);
         }
 
-        private void UpdateView(TwiceKeyDictionary<Keys, string> buffer)
+        private void CreateView(TwiceKeyDictionary<Keys, string> buffer)
         {
-            Controls.Clear();
-
             foreach (TwiceKeyDictionaryItem<Keys, string> item in buffer)
             {
                 GroupBox groupBox = new GroupBox();
-                groupBox.Size = new Size(200, 281);
 
-                Label label = new Label
-                {
-                    Size = new Size(188, 23),
-                    Location = new Point(6, 19),
-                    Text = $"{item.FirtsKey} / {item.SecondKey}",
-                };
-
+                Label label = new Label();
+                label.Text = $"{item.FirtsKey} / {item.SecondKey}";
+                
                 TextBox text = new TextBox
                 {
-                    Size = new Size(188, 219),
                     Multiline = true,
-                    Location = new Point(6, 50),
                     ReadOnly = true,
                     Text = item.Value,
                 };
 
                 groupBox.Controls.Add(label);
                 groupBox.Controls.Add(text);
-
                 Controls.Add(groupBox);
             }
+        }
 
-                Resize += Form1_Resize;
+        private void UpdateView(TwiceKeyDictionary<Keys, string> buffer)
+        {
+            int currentCol = 0;
+            int currentRow = 0;
+
+            foreach (TwiceKeyDictionaryItem<Keys, string> item in buffer)
+            {
+                GroupBox groupBox = new GroupBox();
+                int groupBoxWidth = (Width / FormLiterals.Column) - FormLiterals.Margin;
+                int groupBoxHeight = (Height / FormLiterals.Rows) - FormLiterals.Margin;
+                groupBox.Size = new Size(groupBoxWidth, groupBoxHeight);
+                int groupBoxLocationX = (groupBoxWidth + FormLiterals.Margin) * currentCol;
+                int groupBoxLocationY = (int)Math.Ceiling((groupBoxHeight + FormLiterals.Margin * FormLiterals.GroupHeightMargin) * currentRow);
+                groupBox.Location = new Point(groupBoxLocationX, groupBoxLocationY);
+                currentCol++;
+                if (currentCol == FormLiterals.Column)
+                {
+                    currentCol = 0;
+                    currentRow++;
+                }
+
+                int labelWidth = (int)Math.Ceiling((Width / FormLiterals.Column) - (FormLiterals.Margin * FormLiterals.GroupWidth));
+                Label label = new Label
+                {
+                    Size = new Size(labelWidth, FormLiterals.LabelHeight),
+                    Location = new Point(FormLiterals.LabelLocationX, FormLiterals.LabelLocationY),
+                    Text = $"{item.FirtsKey} / {item.SecondKey}",
+                };
+
+                int textBoxWidth = (int)Math.Ceiling((Width / FormLiterals.Column) - (FormLiterals.Margin * FormLiterals.GroupWidth));
+                int textBoxHeight = (int)Math.Ceiling((Height / FormLiterals.Rows) - (FormLiterals.Margin * FormLiterals.GroupHeight));
+                TextBox text = new TextBox
+                {
+                    Size = new Size(textBoxWidth, textBoxHeight),
+                    Multiline = true,
+                    Location = new Point(FormLiterals.TextBoxLocationX, FormLiterals.TextBoxLocationY),
+                    ReadOnly = true,
+                    Text = item.Value,
+                };
+
+                groupBox.Controls.Add(label);
+                groupBox.Controls.Add(text);
+                Controls.Add(groupBox);
+            }
+            
+            Resize += Form1_Resize;
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -75,6 +111,7 @@ namespace WindowsFormsAppMultiBuffer
             foreach (GroupBox item in Controls.OfType<GroupBox>())
             {
                 item.Location = new Point(CurrentCol * WidthPadding, CurrentRow * HeightPadding);
+                Label label = item.Controls.OfType<Label>().First();
                 CurrentCol++;
                 if (CurrentCol == MaxCountCol)
                 {
@@ -86,7 +123,7 @@ namespace WindowsFormsAppMultiBuffer
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            buffer.Dispose();
+            _buffer.Dispose();
         }
     }
 }
