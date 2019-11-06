@@ -20,6 +20,7 @@ namespace WindowsFormsAppMultiBuffer
             }
 
             HotkeyManager.Current.AddOrReplace("ActivateMultiBuffer", Keys.Oemtilde | Keys.Control, ActivateBuffer);
+            //HotkeyManager.Current.AddOrReplace("BufferHooked", Keys.Control | Keys.C, )
 
             IKeyboardEvents keyboardEvents;
             keyboardEvents = Hook.GlobalEvents();
