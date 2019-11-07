@@ -21,9 +21,17 @@ namespace WpfAppMultiBuffer
     /// </summary>
     public partial class MainWindow : Window
     {
+        MultiBuffer multiBuffer;
+
         public MainWindow()
         {
             InitializeComponent();
+            multiBuffer = new MultiBuffer();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            multiBuffer.Dispose();
         }
     }
 }

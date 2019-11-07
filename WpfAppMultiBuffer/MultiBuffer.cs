@@ -1,72 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
+using System.Text;
+using System.Threading.Tasks;
 using NHotkey;
-using NHotkey.WindowsForms;
-using WindowsInput;
+using NHotkey.Wpf;
+using System.Windows.Input;
+using System.Windows;
 using Gma.System.MouseKeyHook;
+using System.Windows.Forms;
+using WindowsInput;
 using WindowsInput.Native;
 
-namespace WindowsFormsAppMultiBuffer
+namespace WpfAppMultiBuffer
 {
     class MultiBuffer : IDisposable
     {
-        #region Outer member
         public MultiBuffer()
         {
-            for (int i = 0; i < _keyCopy.Length; i++)
-            {
-                _storage.Add(_keyCopy[i], _keyPaste[i], "");
-            }
-
-            HotkeyManager.Current.AddOrReplace("ActivateMultiBuffer", Keys.Oemtilde | Keys.Control, ActivateBuffer);
+            HotkeyManager.Current.AddOrReplace("ActivateMultiBufferWPF", Key.OemTilde, ModifierKeys.Control, ActivateBuffer);
 
             IKeyboardEvents keyboardEvents;
             keyboardEvents = Hook.GlobalEvents();
             keyboardEvents.KeyDown += KeyboardEvents_KeyDown;
         }
 
-        public event EventHandler<MultiBufferEventArgs> BufferUpdate;
-
-        public TwiceKeyDictionary<Keys, string> Storage 
-        { 
-            get { return _storage; } 
-        }
-
-        public void Dispose()
+        private void KeyboardEvents_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            HotkeyManager.Current.Remove("ActivateMultiBuffer");
-        }
-        #endregion
-
-        #region Inner member
-        readonly TwiceKeyDictionary<Keys, string> _storage = new TwiceKeyDictionary<Keys, string>();
-
-        readonly Keys[] _keyCopy =
-            {
-                Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.D0, Keys.OemMinus, Keys.Oemplus,
-                Keys.A, Keys.S, Keys.D, Keys.F, Keys.G, Keys.H, Keys.J, Keys.K, Keys.L
-            };
-
-        readonly Keys[] _keyPaste =
-            {
-                Keys.Q, Keys.W, Keys.E, Keys.R, Keys.T, Keys.Y, Keys.U, Keys.I, Keys.O, Keys.P, Keys.OemOpenBrackets, Keys.Oem6,
-                Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N, Keys.M, Keys.Oemcomma, Keys.OemPeriod
-            };
-
-        bool IsActive = false;
-
-        private void ActivateBuffer(object sender, HotkeyEventArgs e)
-        {
-            IsActive = true;
-        }
-
-        private void KeyboardEvents_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (IsActive)
+            if (_isActive)
             {
                 e.SuppressKeyPress = true;
-                IsActive = false;
+                _isActive = false;
                 InputSimulator inputSimulator = new InputSimulator();
                 Keys key = e.KeyCode;
 
@@ -102,6 +66,17 @@ namespace WindowsFormsAppMultiBuffer
             MultiBufferEventArgs bufferArgs = new MultiBufferEventArgs(_storage);
             BufferUpdate?.Invoke(this, bufferArgs);
         }
-        #endregion
+
+        bool _isActive = false;
+
+        void ActivateBuffer(object sender, HotkeyEventArgs e)
+        {
+            _isActive = true;
+        }
+
+        public void Dispose()
+        {
+            HotkeyManager.Current.Remove("ActivateMultiBufferWPF");
+        }
     }
 }
