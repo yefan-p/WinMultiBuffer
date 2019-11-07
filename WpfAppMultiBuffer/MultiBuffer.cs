@@ -11,6 +11,7 @@ using Gma.System.MouseKeyHook;
 using System.Windows.Forms;
 using WindowsInput;
 using WindowsInput.Native;
+using TextCopy;
 
 namespace WpfAppMultiBuffer
 {
@@ -20,10 +21,27 @@ namespace WpfAppMultiBuffer
         {
             HotkeyManager.Current.AddOrReplace("ActivateMultiBufferWPF", Key.OemTilde, ModifierKeys.Control, ActivateBuffer);
 
+            _storage.AddRange(MultiBufferLiterals.KeysCopy, MultiBufferLiterals.KeysPaste, "");
+
             IKeyboardEvents keyboardEvents;
             keyboardEvents = Hook.GlobalEvents();
             keyboardEvents.KeyDown += KeyboardEvents_KeyDown;
         }
+
+        /// <summary>
+        /// Освобождаем занятые HotKeys
+        /// </summary>
+        public void Dispose()
+        {
+            HotkeyManager.Current.Remove("ActivateMultiBufferWPF");
+        }
+
+        /// <summary>
+        /// В буфер добавлен новый текст
+        /// </summary>
+        public event EventHandler<EventArgs> BufferUpdate;
+        bool _isActive = false;
+        readonly TwiceKeyDictionary<Keys, string> _storage = new TwiceKeyDictionary<Keys, string>();
 
         private void KeyboardEvents_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
@@ -34,49 +52,47 @@ namespace WpfAppMultiBuffer
                 InputSimulator inputSimulator = new InputSimulator();
                 Keys key = e.KeyCode;
 
-                if (_keyCopy.Contains(key))
+                if (MultiBufferLiterals.KeysCopy.Contains(key))
                 {
+                    string contentsClipboard = TextCopy.Clipboard.GetText();
                     inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
                     inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_C);
                     inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
 
                     Timer timer = new Timer();
-                    timer.Tick += (timerInner, eventArgs) => Timer_Tick(timerInner, eventArgs, key);
-                    timer.Interval = 250;
+                    timer.Tick += (timerInner, eventArgs) =>
+                        {
+                            timer.Stop();
+                            _storage[key] = TextCopy.Clipboard.GetText();
+                            BufferUpdate?.Invoke(this, EventArgs.Empty);
+                            TextCopy.Clipboard.SetText(contentsClipboard);
+                        };
+                    timer.Interval = MultiBufferLiterals.IntervalCopy;
                     timer.Start();
                 }
-                else if (_keyPaste.Contains(key))
+                else if (MultiBufferLiterals.KeysPaste.Contains(key) && _storage[key] != null && _storage[key] != "")
                 {
-                    if (_storage[key] != null && _storage[key] != "")
-                        Clipboard.SetText(_storage[key]);
-
+                    string contentsClipboard = TextCopy.Clipboard.GetText();
+                    TextCopy.Clipboard.SetText(_storage[key]);
                     inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
                     inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
                     inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
+
+                    Timer timer = new Timer();
+                    timer.Tick += (timerInner, eventArgs) =>
+                        {
+                            timer.Stop();
+                            TextCopy.Clipboard.SetText(contentsClipboard);
+                        };
+                    timer.Interval = MultiBufferLiterals.IntervalCopy;
+                    timer.Start();
                 }
             }
         }
 
-        private void Timer_Tick(object timerInner, EventArgs eventArgs, Keys key)
-        {
-            Timer timer = (Timer)timerInner;
-            timer.Stop();
-            _storage[key] = Clipboard.GetText(TextDataFormat.UnicodeText);
-
-            MultiBufferEventArgs bufferArgs = new MultiBufferEventArgs(_storage);
-            BufferUpdate?.Invoke(this, bufferArgs);
-        }
-
-        bool _isActive = false;
-
         void ActivateBuffer(object sender, HotkeyEventArgs e)
         {
             _isActive = true;
-        }
-
-        public void Dispose()
-        {
-            HotkeyManager.Current.Remove("ActivateMultiBufferWPF");
         }
     }
 }
