@@ -54,7 +54,7 @@ namespace WpfAppMultiBuffer
 
                 if (MultiBufferLiterals.KeysCopy.Contains(key))
                 {
-                    string contentsClipboard = TextCopy.Clipboard.GetText();
+                    string contentsClipboard = TextCopy.Clipboard.GetText() ?? "";
                     inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
                     inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_C);
                     inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
@@ -72,7 +72,7 @@ namespace WpfAppMultiBuffer
                 }
                 else if (MultiBufferLiterals.KeysPaste.Contains(key) && _storage[key] != null && _storage[key] != "")
                 {
-                    string contentsClipboard = TextCopy.Clipboard.GetText();
+                    string contentsClipboard = TextCopy.Clipboard.GetText() ?? "";
                     TextCopy.Clipboard.SetText(_storage[key]);
                     inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
                     inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
