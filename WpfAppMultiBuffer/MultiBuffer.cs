@@ -18,6 +18,13 @@ namespace WpfAppMultiBuffer
         /// </summary>
         public event EventHandler<EventArgs> BufferUpdate;
         /// <summary>
+        /// Предоставляет доступ к хранилищу
+        /// </summary>
+        public TwiceKeyDictionary<Keys, string> Storage 
+        { 
+            get { return _storage; }
+        }
+        /// <summary>
         /// Хранилище скопированного текста
         /// </summary>
         readonly TwiceKeyDictionary<Keys, string> _storage = new TwiceKeyDictionary<Keys, string>();

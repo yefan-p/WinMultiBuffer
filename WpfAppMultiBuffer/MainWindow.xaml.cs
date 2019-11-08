@@ -19,11 +19,17 @@ namespace WpfAppMultiBuffer
             InitializeComponent();
 
             _multiBuffer = new MultiBuffer();
+            CreateControlls(_multiBuffer.Storage);
             HotkeyManager.Current.AddOrReplace("ActivateMultiBufferWPF", Key.OemTilde, ModifierKeys.Control, ActivateBuffer);
 
             IKeyboardEvents keyboardEvents;
             keyboardEvents = Hook.GlobalEvents();
             keyboardEvents.KeyDown += KeyboardEvents_KeyDown;
+        }
+
+        private void CreateControlls(TwiceKeyDictionary<System.Windows.Forms.Keys, string> storage)
+        {
+
         }
 
         private void KeyboardEvents_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
