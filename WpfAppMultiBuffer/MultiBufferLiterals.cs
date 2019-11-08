@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace WpfAppMultiBuffer
 {
@@ -29,8 +24,8 @@ namespace WpfAppMultiBuffer
 
         /// <summary>
         /// Количество миллисекунд, которые должны пройти, прежде чем произойдет обращение к буферу обмена после нажатия клавиши.
-        /// Задержка необходима для того, чтобы выделенный текст успел дойти до буфера обмена
+        /// Задержка необходима для того, чтобы выделенный текст успел дойти до буфера обмена при копировании или успел вставиться при вставке.
         /// </summary>
-        public static int IntervalCopy = 250;
+        public static int Interval = 250;
     }
 }
