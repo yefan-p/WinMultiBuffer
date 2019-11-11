@@ -17,6 +17,7 @@ namespace WpfAppMultiBuffer
         /// Вызывается при добавлении или обновлении содержимого в хранилище
         /// </summary>
         public event EventHandler<EventArgs> BufferUpdate;
+
         /// <summary>
         /// Предоставляет доступ к хранилищу
         /// </summary>
