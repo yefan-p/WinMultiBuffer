@@ -4,6 +4,7 @@ using NHotkey;
 using NHotkey.Wpf;
 using System.Windows.Input;
 using Gma.System.MouseKeyHook;
+using System.Windows.Controls;
 
 namespace WpfAppMultiBuffer
 {
@@ -29,7 +30,16 @@ namespace WpfAppMultiBuffer
 
         private void CreateControlls(TwiceKeyDictionary<System.Windows.Forms.Keys, string> storage)
         {
-
+            foreach (TwiceKeyDictionaryItem<System.Windows.Forms.Keys, string> item in storage)
+            {
+                ItemBufferControl itemBuffer = new ItemBufferControl()
+                {
+                    Header = $"{item.FirtsKey} / {item.SecondKey}",
+                    Body = item.Value,
+                    Name = item.FirtsKey.ToString(),
+                };
+                UniformGrid.Children.Add(itemBuffer);
+            }            
         }
 
         private void KeyboardEvents_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
