@@ -38,10 +38,9 @@ namespace WpfAppMultiBuffer
         /// Обработчик нажатия на клавишу
         /// </summary>
         /// <param name="key"></param>
-        public void KeyDownManager(Keys key)
+        public void KeyDownManager(Keys key, MainWindow form)
         {
             InputSimulator inputSimulator = new InputSimulator();
-            Timer timer = new Timer();
 
             if (MultiBufferLiterals.KeysCopy.Contains(key))
             {
@@ -50,12 +49,14 @@ namespace WpfAppMultiBuffer
                 inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_C);
                 inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
 
+                Timer timer = new Timer();
                 timer.Tick += (timerInner, eventArgs) =>
                 {
                     timer.Stop();
                     _storage[key] = TextCopy.Clipboard.GetText();
                     BufferUpdate?.Invoke(this, EventArgs.Empty);
                     TextCopy.Clipboard.SetText(contentsClipboard);
+                    timer.Dispose();
                 };
                 timer.Interval = MultiBufferLiterals.Interval;
                 timer.Start();
@@ -68,15 +69,16 @@ namespace WpfAppMultiBuffer
                 inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
                 inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
 
+                Timer timer = new Timer();
                 timer.Tick += (timerInner, eventArgs) =>
                 {
                     timer.Stop();
                     TextCopy.Clipboard.SetText(contentsClipboard);
+                    timer.Dispose();
                 };
                 timer.Interval = MultiBufferLiterals.Interval;
                 timer.Start();
             }
-            timer.Dispose();
         }
     }
 }

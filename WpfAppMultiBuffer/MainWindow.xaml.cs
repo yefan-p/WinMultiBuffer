@@ -38,7 +38,7 @@ namespace WpfAppMultiBuffer
             {
                 e.SuppressKeyPress = true;
                 _multiBuffer.IsActive = false;
-                _multiBuffer.KeyDownManager(e.KeyCode);
+                _multiBuffer.KeyDownManager(e.KeyCode, this);
             }
         }
 
