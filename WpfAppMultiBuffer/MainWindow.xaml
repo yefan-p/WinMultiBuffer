@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAppMultiBuffer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="333.071" Width="717.323" Closed="Window_Closed" MinWidth="1100" MinHeight="500">
-    <UniformGrid Name="UniformGrid" Rows="3" Columns="7">
-        
-    </UniformGrid>
+        Title="MainWindow" Height="333.071" Width="717.323" Closed="Window_Closed">
+    <Grid>
+        <TextBlock Name="label" Text="Ready"/>
+    </Grid>
 </Window>

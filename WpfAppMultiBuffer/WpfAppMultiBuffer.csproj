@@ -76,9 +76,6 @@
     <Compile Include="TwiceKeyDictionary\TwiceKeyDictionary.cs" />
     <Compile Include="TwiceKeyDictionary\TwiceKeyDictionaryEnumerator.cs" />
     <Compile Include="TwiceKeyDictionary\TwiceKeyDictionaryItem.cs" />
-    <Compile Include="ItemBufferControl.xaml.cs">
-      <DependentUpon>ItemBufferControl.xaml</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,14 +88,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ItemBufferControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
