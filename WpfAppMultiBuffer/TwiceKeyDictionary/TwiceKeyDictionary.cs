@@ -1,28 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Runtime.CompilerServices;
 
 namespace WpfAppMultiBuffer
 {
-    public class TwiceKeyDictionary<TKey, TValue> : IEnumerable, INotifyCollectionChanged
+    public class TwiceKeyDictionary<TKey, TValue> : IEnumerable
     {
         Dictionary<TKey, TKey> _keyPairs = new Dictionary<TKey, TKey>();
         Dictionary<TKey, TValue> _valuePairs = new Dictionary<TKey, TValue>();
-        List<TwiceKeyDictionaryItem<TKey, TValue>> _storage = new List<TwiceKeyDictionaryItem<TKey, TValue>>();
-
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         public void Add(TKey key1, TKey key2, TValue value)
         {
-            TwiceKeyDictionaryItem<TKey, TValue> item = new TwiceKeyDictionaryItem<TKey, TValue>()
-            {
-                FirtsKey = key1,
-                SecondKey = key2,
-                Value = value,
-            };
-            _storage.Add(item);
+            _keyPairs.Add(key1, key2);
+            _valuePairs.Add(key2, value);
         }
 
         public void AddRange(TKey[] keyFirst, TKey[] keySecond, TValue value)
@@ -49,7 +39,8 @@ namespace WpfAppMultiBuffer
                 {
                     return _valuePairs[refKey];
                 }
-                else if (_keyPairs.ContainsKey(refKey))
+
+                if (_keyPairs.ContainsKey(refKey))
                 {
                     TKey valueKey = _keyPairs[refKey];
                     if (_valuePairs.ContainsKey(valueKey))
@@ -74,7 +65,8 @@ namespace WpfAppMultiBuffer
                 {
                     _valuePairs[refKey] = value;
                 }
-                else if(_keyPairs.ContainsKey(refKey))
+
+                if (_keyPairs.ContainsKey(refKey))
                 {
                     TKey valueKey = _keyPairs[refKey];
                     if (_valuePairs.ContainsKey(valueKey))
@@ -103,11 +95,6 @@ namespace WpfAppMultiBuffer
         public IEnumerator GetEnumerator()
         {
             return new TwiceKeyDictionaryEnumerator<TKey, TValue>(_keyPairs, _valuePairs);
-        }
-
-        public void OnPropertyChanged(NotifyCollectionChangedEventArgs e)
-        {
-            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(e));
         }
     }
 }
