@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Data;
 using NHotkey;
 using NHotkey.Wpf;
 using System.Windows.Input;
@@ -38,6 +39,14 @@ namespace WpfAppMultiBuffer
                     Body = item.Value,
                     Name = item.FirtsKey.ToString(),
                 };
+
+                Binding b = new Binding()
+                {
+                    Source = itemBuffer,
+                    Path = new PropertyPath("Value"),
+                };
+
+                itemBuffer.SetBinding(itemBuffer.BodyItem.Text, b);
                 UniformGrid.Children.Add(itemBuffer);
             }            
         }

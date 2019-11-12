@@ -20,6 +20,8 @@ namespace WpfAppMultiBuffer
     /// </summary>
     public partial class ItemBufferControl : UserControl
     {
+        public static readonly DependencyProperty BodyProperty;
+
         public string Header 
         {
             get { return HeadItem.Text; } 
