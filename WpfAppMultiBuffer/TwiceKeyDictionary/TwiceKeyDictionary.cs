@@ -71,8 +71,9 @@ namespace WpfAppMultiBuffer
             {
                 if (_valuePairs.ContainsKey(refKey))
                 {
+                    TValue tmp = _valuePairs[refKey];
                     _valuePairs[refKey] = value;
-                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, refKey));
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, tmp));
                 }
 
                 if (_keyPairs.ContainsKey(refKey))
@@ -80,8 +81,9 @@ namespace WpfAppMultiBuffer
                     TKey valueKey = _keyPairs[refKey];
                     if (_valuePairs.ContainsKey(valueKey))
                     {
+                        TValue tmp = _valuePairs[valueKey];
                         _valuePairs[valueKey] = value;
-                        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, refKey));
+                        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, tmp));
                     }
                     else
                     {
