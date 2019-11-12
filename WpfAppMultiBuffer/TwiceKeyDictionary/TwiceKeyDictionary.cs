@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 
 namespace WpfAppMultiBuffer
 {
-    public class TwiceKeyDictionary<TKey, TValue> : IEnumerable
+    public class TwiceKeyDictionary<TKey, TValue> : IEnumerable, INotifyCollectionChanged
     {
         Dictionary<TKey, TKey> _keyPairs = new Dictionary<TKey, TKey>();
         Dictionary<TKey, TValue> _valuePairs = new Dictionary<TKey, TValue>();
+
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+        {
+            CollectionChanged?.Invoke(this, e);
+        }
 
         public void Add(TKey key1, TKey key2, TValue value)
         {
@@ -64,6 +72,7 @@ namespace WpfAppMultiBuffer
                 if (_valuePairs.ContainsKey(refKey))
                 {
                     _valuePairs[refKey] = value;
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, refKey));
                 }
 
                 if (_keyPairs.ContainsKey(refKey))
@@ -72,6 +81,7 @@ namespace WpfAppMultiBuffer
                     if (_valuePairs.ContainsKey(valueKey))
                     {
                         _valuePairs[valueKey] = value;
+                        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, refKey));
                     }
                     else
                     {
