@@ -21,7 +21,7 @@ namespace WpfAppMultiBuffer
             InitializeComponent();
 
             _multiBuffer = new MultiBuffer();
-            CreateControlls(_multiBuffer.Storage);
+            CreateControlls();
             HotkeyManager.Current.AddOrReplace("ActivateMultiBufferWPF", Key.OemTilde, ModifierKeys.Control, ActivateBuffer);
 
             IKeyboardEvents keyboardEvents;
@@ -29,24 +29,24 @@ namespace WpfAppMultiBuffer
             keyboardEvents.KeyDown += KeyboardEvents_KeyDown;
         }
 
-        private void CreateControlls(TwiceKeyDictionary<System.Windows.Forms.Keys, string> storage)
+        private void CreateControlls()
         {
-            foreach (TwiceKeyDictionaryItem<System.Windows.Forms.Keys, string> item in storage)
+            foreach (TwiceKeyDictionaryItem<System.Windows.Forms.Keys, string> item in _multiBuffer.Storage)
             {
                 ItemBufferControl itemBuffer = new ItemBufferControl()
                 {
                     Header = $"{item.FirtsKey} / {item.SecondKey}",
                     Body = item.Value,
-                    Name = item.FirtsKey.ToString(),
                 };
 
-                Binding b = new Binding()
+                Binding binding = new Binding()
                 {
-                    Source = itemBuffer,
-                    Path = new PropertyPath("Value"),
+                    Source = _multiBuffer,
+                    Path = new PropertyPath($"Storage[{item.SecondKey}]"),
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                 };
 
-                itemBuffer.SetBinding(itemBuffer.BodyItem.Text, b);
+                itemBuffer.SetBinding(ItemBufferControl.BodyProperty, binding);
                 UniformGrid.Children.Add(itemBuffer);
             }            
         }

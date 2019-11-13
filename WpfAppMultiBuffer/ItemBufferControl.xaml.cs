@@ -20,7 +20,18 @@ namespace WpfAppMultiBuffer
     /// </summary>
     public partial class ItemBufferControl : UserControl
     {
-        public static readonly DependencyProperty BodyProperty;
+        public static readonly DependencyProperty BodyProperty =
+                DependencyProperty.Register("Body",
+                                             typeof(string),
+                                             typeof(ItemBufferControl),
+                                             new UIPropertyMetadata("", 
+                                                                    new PropertyChangedCallback(BodyChanged)));
+
+        static void BodyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            ItemBufferControl itemBuffer = (ItemBufferControl)dependencyObject;
+            itemBuffer.BodyItem.Text = args.NewValue.ToString();
+        }
 
         public string Header 
         {
@@ -30,8 +41,8 @@ namespace WpfAppMultiBuffer
 
         public string Body 
         { 
-            get { return BodyItem.Text; }
-            set { BodyItem.Text = value; }
+            get { return (string)GetValue(BodyProperty); }
+            set { SetValue(BodyProperty, value); }
         }
 
         public ItemBufferControl()

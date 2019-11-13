@@ -2,19 +2,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace WpfAppMultiBuffer
 {
-    public class TwiceKeyDictionary<TKey, TValue> : IEnumerable, INotifyCollectionChanged
+    public class TwiceKeyDictionary<TKey, TValue> : IEnumerable, INotifyCollectionChanged, INotifyPropertyChanged
     {
         Dictionary<TKey, TKey> _keyPairs = new Dictionary<TKey, TKey>();
         Dictionary<TKey, TValue> _valuePairs = new Dictionary<TKey, TValue>();
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
             CollectionChanged?.Invoke(this, e);
+        }
+
+        bool _isChanged;
+        public bool IsChanged
+        {
+            get => _isChanged;
+            set
+            {
+                if (value == _isChanged) return;
+                {
+                    _isChanged = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            if (propertyName != nameof(IsChanged))
+            {
+                IsChanged = true;
+            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void Add(TKey key1, TKey key2, TValue value)
@@ -74,6 +100,7 @@ namespace WpfAppMultiBuffer
                     TValue tmp = _valuePairs[refKey];
                     _valuePairs[refKey] = value;
                     OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, tmp));
+                    OnPropertyChanged($"Storage[{refKey}]");
                 }
 
                 if (_keyPairs.ContainsKey(refKey))
@@ -84,6 +111,7 @@ namespace WpfAppMultiBuffer
                         TValue tmp = _valuePairs[valueKey];
                         _valuePairs[valueKey] = value;
                         OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, tmp));
+                        OnPropertyChanged($"Storage[{valueKey}]");
                     }
                     else
                     {
