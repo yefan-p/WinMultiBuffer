@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfAppMultiBuffer.Views"
         mc:Ignorable="d"
         Title="BufferView" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <UniformGrid Name="UniformGrid" Rows="3" Columns="7">
+
+    </UniformGrid>
 </Window>

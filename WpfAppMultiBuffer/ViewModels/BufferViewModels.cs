@@ -13,6 +13,10 @@ namespace WpfAppMultiBuffer.ViewModels
 {
     class BufferViewModels
     {
+        public BufferViewModels()
+        {
+            Storage.AddRange(Literals.KeysCopy, Literals.KeysPaste, "");
+        }
         /// <summary>
         /// Флаг, который указывает, ожидает ли программа ожидает нажатие клавиши
         /// </summary>
@@ -20,7 +24,7 @@ namespace WpfAppMultiBuffer.ViewModels
         /// <summary>
         /// Содержимое буфера
         /// </summary>
-        public BufferCollection Storage { get; set; }
+        public BufferCollection Storage { get; set; } = new BufferCollection();
         /// <summary>
         /// Вставить или копировать текст, зависит от нажатой клавиши
         /// </summary>
