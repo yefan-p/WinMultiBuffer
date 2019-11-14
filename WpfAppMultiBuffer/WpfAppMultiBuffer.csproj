@@ -71,7 +71,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Keys.cs" />
     <Compile Include="Models\BufferCollection.cs" />
     <Compile Include="Models\BufferItem.cs" />
     <Compile Include="MultiBuffer.cs" />
@@ -82,6 +81,9 @@
     <Compile Include="ItemBufferControl.xaml.cs">
       <DependentUpon>ItemBufferControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\BufferViewModels.cs" />
+    <Compile Include="ViewModels\Literals.cs" />
+    <Compile Include="Views\InputView.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
