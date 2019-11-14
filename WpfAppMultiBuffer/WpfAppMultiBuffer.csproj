@@ -83,6 +83,9 @@
     </Compile>
     <Compile Include="ViewModels\BufferViewModels.cs" />
     <Compile Include="ViewModels\Literals.cs" />
+    <Compile Include="Views\BufferView.xaml.cs">
+      <DependentUpon>BufferView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InputView.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -101,6 +104,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ItemBufferControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BufferView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
