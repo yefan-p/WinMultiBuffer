@@ -71,6 +71,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Keys.cs" />
+    <Compile Include="Models\BufferCollection.cs" />
+    <Compile Include="Models\BufferItem.cs" />
     <Compile Include="MultiBuffer.cs" />
     <Compile Include="MultiBufferLiterals.cs" />
     <Compile Include="TwiceKeyDictionary\TwiceKeyDictionary.cs" />
