@@ -78,10 +78,7 @@ namespace WpfAppMultiBuffer.Models
             }
             set
             {
-                BufferItem item =
-                    (from el in this
-                    where el.RefKey == inputKey || el.ValueKey == inputKey
-                    select el).Single();
+                BufferItem item;
 
                 try
                 {
