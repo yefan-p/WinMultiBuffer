@@ -73,14 +73,6 @@
     </ApplicationDefinition>
     <Compile Include="Models\BufferCollection.cs" />
     <Compile Include="Models\BufferItem.cs" />
-    <Compile Include="MultiBuffer.cs" />
-    <Compile Include="MultiBufferLiterals.cs" />
-    <Compile Include="TwiceKeyDictionary\TwiceKeyDictionary.cs" />
-    <Compile Include="TwiceKeyDictionary\TwiceKeyDictionaryEnumerator.cs" />
-    <Compile Include="TwiceKeyDictionary\TwiceKeyDictionaryItem.cs" />
-    <Compile Include="ItemBufferControl.xaml.cs">
-      <DependentUpon>ItemBufferControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\BufferViewModels.cs" />
     <Compile Include="ViewModels\Literals.cs" />
     <Compile Include="Views\BufferView.xaml.cs">
@@ -90,26 +82,10 @@
     <Compile Include="Views\ItemBufferControl.xaml.cs">
       <DependentUpon>ItemBufferControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ItemBufferControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\BufferView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
