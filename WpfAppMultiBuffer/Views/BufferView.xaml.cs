@@ -44,7 +44,7 @@ namespace WpfAppMultiBuffer.Views
 
                 Binding binding = new Binding()
                 {
-                    Source = _buffer.Storage,
+                    Source = item,
                     Path = new PropertyPath("Value"),
                     UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                 };
