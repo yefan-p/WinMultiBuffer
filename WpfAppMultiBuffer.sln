@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsAppMultiBuffer", "WindowsFormsAppMultiBuffer\WindowsFormsAppMultiBuffer.csproj", "{0AF3B552-9DBC-4C11-802F-282245DBBDA4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppMultiBuffer", "WpfAppMultiBuffer\WpfAppMultiBuffer.csproj", "{8826FC59-6AAF-47C9-8165-43E363262190}"
 EndProject
 Global
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0AF3B552-9DBC-4C11-802F-282245DBBDA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0AF3B552-9DBC-4C11-802F-282245DBBDA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0AF3B552-9DBC-4C11-802F-282245DBBDA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0AF3B552-9DBC-4C11-802F-282245DBBDA4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8826FC59-6AAF-47C9-8165-43E363262190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8826FC59-6AAF-47C9-8165-43E363262190}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8826FC59-6AAF-47C9-8165-43E363262190}.Release|Any CPU.ActiveCfg = Release|Any CPU

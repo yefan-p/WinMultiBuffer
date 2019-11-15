@@ -21,12 +21,14 @@ namespace WpfAppMultiBuffer.Views
     public partial class BufferView : Window
     {
         BufferViewModels _buffer;
+        InputView _input;
+
         public BufferView()
         {
             InitializeComponent();
 
             _buffer = new BufferViewModels();
-            InputView input = new InputView(_buffer);
+            _input = new InputView(_buffer);
             CreateControls();
         }
 
@@ -50,6 +52,11 @@ namespace WpfAppMultiBuffer.Views
                 itemBuffer.SetBinding(ItemBufferControl.BodyProperty, binding);
                 UniformGrid.Children.Add(itemBuffer);
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _input.Dispose();
         }
     }
 }
