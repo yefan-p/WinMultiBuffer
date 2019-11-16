@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WpfAppMultiBuffer.ViewModels;
 
 namespace WpfAppMultiBuffer.Views
@@ -20,9 +10,6 @@ namespace WpfAppMultiBuffer.Views
     /// </summary>
     public partial class BufferView : Window
     {
-        BufferViewModels _buffer;
-        InputView _input;
-
         public BufferView()
         {
             InitializeComponent();
@@ -31,14 +18,24 @@ namespace WpfAppMultiBuffer.Views
             _input = new InputView(_buffer);
             CreateControls();
         }
-
+        /// <summary>
+        /// Основная логика программы, содержит информацию о каждом буфере
+        /// </summary>
+        BufferViewModels _buffer;
+        /// <summary>
+        /// Предоставляет события о нажатых пользователем клавиш
+        /// </summary>
+        InputView _input;
+        /// <summary>
+        /// Создает элементы управления, в которых будет отображаться элементы каждого буфера
+        /// </summary>
         void CreateControls()
         {
             foreach (var item in _buffer.Storage)
             {
                 ItemBufferControl itemBuffer = new ItemBufferControl()
                 {
-                    Header = $"{item.RefKey} / {item.ValueKey}",
+                    Header = $"{item.CopyKey} / {item.PasteKey}",
                     Body = item.Value,
                 };
 
@@ -53,7 +50,11 @@ namespace WpfAppMultiBuffer.Views
                 MainPanel.Children.Add(itemBuffer);
             }
         }
-
+        /// <summary>
+        /// Освобождает занятые ресурсы перед выходом из программы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Closed(object sender, EventArgs e)
         {
             _input.Dispose();

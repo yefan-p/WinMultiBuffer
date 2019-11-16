@@ -6,6 +6,7 @@ using WpfAppMultiBuffer.ViewModels;
 
 namespace WpfAppMultiBuffer.Views
 {
+    //TODO: Сделать через события
     class InputView
     {
         BufferViewModels _buffer;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows.Forms;
 using WindowsInput;
 using WindowsInput.Native;
@@ -11,6 +7,9 @@ using WpfAppMultiBuffer.Models;
 
 namespace WpfAppMultiBuffer.ViewModels
 {
+    /// <summary>
+    /// Основная логика работы программы, содержит коллекцию данных буфера обмена
+    /// </summary>
     class BufferViewModels
     {
         public BufferViewModels()

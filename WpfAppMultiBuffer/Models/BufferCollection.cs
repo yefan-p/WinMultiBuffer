@@ -5,24 +5,27 @@ using System.Windows.Forms;
 
 namespace WpfAppMultiBuffer.Models
 {
+    /// <summary>
+    /// Коллекция данных, которая хранит информацию о буфере обмена
+    /// </summary>
     class BufferCollection : ObservableCollection<BufferItem>
     {
         /// <summary>
         /// Добавляет новое содержимое в буфер
         /// </summary>
-        /// <param name="refKey">Ссылочный ключ, предоставляет доступ к значимому ключу</param>
-        /// <param name="valueKey">Значимый ключ, предоставляет доступ к значению</param>
+        /// <param name="copyKey">Клавиша для копирования значений</param>
+        /// <param name="pasteKey">Клавиша для вставки значения</param>
         /// <param name="value">Значение</param>
-        public void Add(Keys refKey, Keys valueKey, string value)
+        public void Add(Keys copyKey, Keys pasteKey, string value)
         {
-            if (refKey == valueKey)
+            if (copyKey == pasteKey)
                 throw new Exception("Ref key and value key must be unique.");
 
             BufferItem item = new BufferItem
             {
                 Index = base.Count,
-                RefKey = refKey,
-                ValueKey = valueKey,
+                CopyKey = copyKey,
+                PasteKey = pasteKey,
                 Value = value,
             };
 
@@ -31,8 +34,8 @@ namespace WpfAppMultiBuffer.Models
         /// <summary>
         /// Добавляет массив элементов в буфер
         /// </summary>
-        /// <param name="refKeys">Массив ссылоных ключей</param>
-        /// <param name="valueKeys">Массив значимых ключей, длина должна быть равна массиву ссылочных ключей</param>
+        /// <param name="refKeys">Массив клавиш для копирования</param>
+        /// <param name="valueKeys">Массив клавиш для вставки, длина должна быть равна массиву клавиш для вставки</param>
         /// <param name="value">Значение по умолчанию</param>
         public void AddRange(Keys[] refKeys, Keys[] valueKeys, string value)
         {
@@ -55,11 +58,12 @@ namespace WpfAppMultiBuffer.Models
             {
                 string value;
 
+                //TODO: Заменить на if
                 try
                 {
                     value =
                         (from el in this
-                         where el.RefKey == inputKey || el.ValueKey == inputKey
+                         where el.CopyKey == inputKey || el.PasteKey == inputKey
                          select el.Value).Single();
                 }
                 catch (ArgumentNullException e)
@@ -81,7 +85,7 @@ namespace WpfAppMultiBuffer.Models
                 {
                     item =
                         (from el in this
-                         where el.RefKey == inputKey || el.ValueKey == inputKey
+                         where el.CopyKey == inputKey || el.PasteKey == inputKey
                          select el).Single();
                 }
                 catch (ArgumentNullException e)

@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace WpfAppMultiBuffer.Models
 {
+    /// <summary>
+    /// Предоставляет информацию о каждом отдельном буфере.
+    /// </summary>
     class BufferItem : INotifyPropertyChanged
     {
         /// <summary>
@@ -11,13 +14,13 @@ namespace WpfAppMultiBuffer.Models
         /// </summary>
         public int Index { get; set; }
         /// <summary>
-        /// Ссылочный ключ, предоставляет доступ к значимому ключу
+        /// Клавиша, которая будет копировать в эту ячейку буфера
         /// </summary>
-        public Keys RefKey { get; set; }
+        public Keys CopyKey { get; set; }
         /// <summary>
-        /// Значимый ключ, предоставляет доступ к значению
+        /// Клавиша, которая будет вставлять значений из этой ячейки буфера
         /// </summary>
-        public Keys ValueKey { get; set; }
+        public Keys PasteKey { get; set; }
         /// <summary>
         /// Хранимое значение
         /// </summary>
@@ -36,7 +39,7 @@ namespace WpfAppMultiBuffer.Models
             }
         }
         /// <summary>
-        /// Свойство обновлено
+        /// Свойство обновлено. Возникает после обновления свойства
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
         /// <summary>
