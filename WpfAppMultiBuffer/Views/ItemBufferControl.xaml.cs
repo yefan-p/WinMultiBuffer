@@ -28,6 +28,15 @@ namespace WpfAppMultiBuffer.Views
         {
             ItemBufferControl itemBuffer = (ItemBufferControl)dependencyObject;
             itemBuffer.BodyItem.Text = args.NewValue.ToString();
+
+            if (itemBuffer.BodyItem.Text == "")
+            {
+                itemBuffer.Width = 0;
+            }
+            else
+            {
+                itemBuffer.Width = double.NaN;
+            }
         }
 
         public string Header
@@ -45,6 +54,7 @@ namespace WpfAppMultiBuffer.Views
         public ItemBufferControl()
         {
             InitializeComponent();
+            Width = 0;
         }
     }
 }

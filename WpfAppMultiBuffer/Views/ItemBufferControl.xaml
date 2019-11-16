@@ -5,16 +5,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfAppMultiBuffer.Views"
-             mc:Ignorable="d" MinHeight="150" MinWidth="150">
-    <Grid>
+             mc:Ignorable="d">
+    <Grid Name="Grid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" MinHeight="25"/>
-            <RowDefinition Height="10*" MinHeight="100"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <TextBlock Margin="10,10,10,0" 
                    TextWrapping="Wrap" 
                    Name="HeadItem" 
-                   TextAlignment="Center" MinWidth="50" MinHeight="10"/>
+                   TextAlignment="Center"/>
         <TextBox Name="BodyItem" 
                  Margin="10" 
                  Grid.Row="1" 
@@ -24,7 +24,7 @@
                  VerticalContentAlignment="Stretch" 
                  HorizontalScrollBarVisibility="Visible" 
                  VerticalScrollBarVisibility="Auto" 
-                 IsReadOnly="True" MinWidth="50" MinHeight="25"/>
+                 IsReadOnly="True"/>
 
     </Grid>
 </UserControl>

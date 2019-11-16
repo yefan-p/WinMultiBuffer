@@ -50,7 +50,7 @@ namespace WpfAppMultiBuffer.Views
                 };
 
                 itemBuffer.SetBinding(ItemBufferControl.BodyProperty, binding);
-                UniformGrid.Children.Add(itemBuffer);
+                MainPanel.Children.Add(itemBuffer);
             }
         }
 

@@ -5,8 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAppMultiBuffer.Views"
         mc:Ignorable="d"
-        Title="BufferView" Height="450" Width="800" MinWidth="1100" MinHeight="500" Closed="Window_Closed">
-    <UniformGrid Name="UniformGrid" Rows="3" Columns="7">
-
-    </UniformGrid>
+        Title="BufferView" Closed="Window_Closed" MinWidth="250" MinHeight="250" WindowStartupLocation="CenterScreen">
+    <WrapPanel x:Name="MainPanel" />
 </Window>
