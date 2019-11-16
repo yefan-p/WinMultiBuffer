@@ -56,45 +56,38 @@ namespace WpfAppMultiBuffer.Models
         {
             get
             {
-                string value;
-
-                //TODO: Заменить на if
-                try
+                if (this is null || this.Count == 0)
                 {
-                    value =
+                    throw new ArgumentNullException("Buffer collection is null or empty");
+                }
+                
+                string value = 
                         (from el in this
                          where el.CopyKey == inputKey || el.PasteKey == inputKey
-                         select el.Value).Single();
-                }
-                catch (ArgumentNullException e)
+                         select el.Value).FirstOrDefault();
+
+                if (value == null)
                 {
-                    throw new ArgumentNullException("Buffer collection is null", e);
-                }
-                catch (InvalidOperationException e)
-                {
-                    throw new InvalidOperationException("Did not find input key in buffer collection", e);
+                    throw new InvalidOperationException("Did not find input key in buffer collection");
                 }
 
                 return value;
             }
             set
             {
-                BufferItem item;
-
-                try
+                if (this is null || this.Count == 0)
                 {
-                    item =
+                    throw new ArgumentNullException("Buffer collection is null or empty");
+                }
+
+                BufferItem item =
                         (from el in this
                          where el.CopyKey == inputKey || el.PasteKey == inputKey
-                         select el).Single();
-                }
-                catch (ArgumentNullException e)
+                         select el).FirstOrDefault();
+
+                if (item == null)
                 {
-                    throw new ArgumentNullException("Buffer collection is null", e);
-                }
-                catch (InvalidOperationException e)
-                {
-                    throw new InvalidOperationException("Did not find input key in buffer collection", e);
+                    throw new InvalidOperationException("Did not find input key in buffer collection");
                 }
 
                 item.Value = value;
