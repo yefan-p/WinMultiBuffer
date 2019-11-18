@@ -5,6 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAppMultiBuffer.Views"
         mc:Ignorable="d"
-        Title="BufferView" Closed="Window_Closed" MinWidth="250" MinHeight="250" WindowStartupLocation="CenterScreen">
-    <WrapPanel x:Name="MainPanel" />
+        Title="BufferView" Closed="Window_Closed" MinWidth="250" MinHeight="250" 
+        WindowStartupLocation="CenterScreen" 
+        Width="{Binding ActualWidth, ElementName=MainPanel, UpdateSourceTrigger=PropertyChanged}"
+        Height="{Binding ActualHeight, ElementName=MainPanel, UpdateSourceTrigger=PropertyChanged}">
+    <WrapPanel x:Name="MainPanel" MinWidth="250" MinHeight="250" />
 </Window>
