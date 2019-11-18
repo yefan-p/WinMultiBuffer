@@ -18,10 +18,6 @@ namespace WpfAppMultiBuffer.ViewModels
             Storage.AddRange(Literals.KeysCopy, Literals.KeysPaste, "");
         }
         /// <summary>
-        /// Флаг, который указывает, ожидает ли программа ожидает нажатие клавиши
-        /// </summary>
-        public bool IsActive { get; set; } = false;
-        /// <summary>
         /// Содержимое буфера
         /// </summary>
         public BufferCollection Storage { get; set; } = new BufferCollection();
