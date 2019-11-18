@@ -15,7 +15,9 @@ namespace WpfAppMultiBuffer.Views
             InitializeComponent();
 
             _buffer = new BufferViewModels();
-            _input = new InputView(_buffer);
+            _input = new InputView();
+            _input.KeyDown += _buffer.KeyPress;
+
             CreateControls();
         }
         /// <summary>

@@ -4,6 +4,7 @@ using WindowsInput;
 using WindowsInput.Native;
 using TextCopy;
 using WpfAppMultiBuffer.Models;
+using WpfAppMultiBuffer.Views;
 
 namespace WpfAppMultiBuffer.ViewModels
 {
@@ -25,14 +26,14 @@ namespace WpfAppMultiBuffer.ViewModels
         /// </summary>
         public BufferCollection Storage { get; set; } = new BufferCollection();
         /// <summary>
-        /// Вставить или копировать текст, зависит от нажатой клавиши
+        /// Вставляет или копирует текст, зависит от нажатой клавиши
         /// </summary>
         /// <param name="key">Нажатая клавиша</param>
-        public void CopyPaste(Keys key)
+        public void KeyPress(object sender, InputViewEventArgs key)
         {
             InputSimulator inputSimulator = new InputSimulator();
 
-            if (Literals.KeysCopy.Contains(key))
+            if (Literals.KeysCopy.Contains(key.InputKey))
             {
                 string contentsClipboard = TextCopy.Clipboard.GetText() ?? "";
                 inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
@@ -43,17 +44,17 @@ namespace WpfAppMultiBuffer.ViewModels
                 timer.Tick += (timerInner, eventArgs) =>
                 {
                     timer.Stop();
-                    Storage[key] = TextCopy.Clipboard.GetText();
+                    Storage[key.InputKey] = TextCopy.Clipboard.GetText();
                     TextCopy.Clipboard.SetText(contentsClipboard);
                     timer.Dispose();
                 };
                 timer.Interval = Literals.Interval;
                 timer.Start();
             }
-            else if (Literals.KeysPaste.Contains(key) && Storage[key] != null && Storage[key] != "")
+            else if (Literals.KeysPaste.Contains(key.InputKey) && Storage[key.InputKey] != null && Storage[key.InputKey] != "")
             {
                 string contentsClipboard = TextCopy.Clipboard.GetText() ?? "";
-                TextCopy.Clipboard.SetText(Storage[key]);
+                TextCopy.Clipboard.SetText(Storage[key.InputKey]);
                 inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
                 inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
                 inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
