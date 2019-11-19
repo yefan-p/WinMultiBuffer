@@ -7,14 +7,31 @@
              xmlns:local="clr-namespace:WpfAppMultiBuffer.Views"
              mc:Ignorable="d">
     <Grid Name="Grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <TextBlock Margin="10,10,10,0" 
+        <TextBlock Margin="10,10,0,0" 
                    TextWrapping="Wrap" 
-                   Name="HeadItem" 
-                   TextAlignment="Center"/>
+                   x:Name="HeadItem" 
+                   TextAlignment="Center" 
+                   Foreground="Black" 
+                   FontWeight="SemiBold"
+                   Grid.Row="0"
+                   Grid.Column="0">
+            <TextBlock.Background>
+                <SolidColorBrush Color="White" Opacity="0.3"/>
+            </TextBlock.Background>
+        </TextBlock>
+        <Button Content="X" 
+                Margin="5,10,10,0" 
+                Background="{x:Null}"
+                Grid.Row="0"
+                Grid.Column="1" BorderBrush="{x:Null}" FontWeight="SemiBold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
         <TextBox Name="BodyItem" 
                  Margin="10" 
                  Grid.Row="1" 
@@ -24,7 +41,8 @@
                  VerticalContentAlignment="Stretch" 
                  HorizontalScrollBarVisibility="Visible" 
                  VerticalScrollBarVisibility="Auto" 
-                 IsReadOnly="True"/>
-
+                 IsReadOnly="True" 
+                 SelectionBrush="#FFD75800" 
+                 Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>
