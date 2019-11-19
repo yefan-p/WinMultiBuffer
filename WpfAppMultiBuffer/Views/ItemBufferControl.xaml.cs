@@ -12,6 +12,7 @@ namespace WpfAppMultiBuffer.Views
         {
             InitializeComponent();
             Width = 0;
+            Height = 0;
         }
         /// <summary>
         /// Свойство зависимости, необходимо для создания привязки, которая будет автоматически обновлять
@@ -36,10 +37,12 @@ namespace WpfAppMultiBuffer.Views
             if (itemBuffer.BodyItem.Text == "")
             {
                 itemBuffer.Width = 0;
+                itemBuffer.Height = 0;
             }
             else
             {
                 itemBuffer.Width = double.NaN;
+                itemBuffer.Height = double.NaN;
             }
         }
         /// <summary>

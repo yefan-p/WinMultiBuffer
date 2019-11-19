@@ -7,7 +7,16 @@
         mc:Ignorable="d"
         Title="BufferView" Closed="Window_Closed" MinWidth="250" MinHeight="250" 
         WindowStartupLocation="CenterScreen" 
-        Width="{Binding ActualWidth, ElementName=MainPanel, UpdateSourceTrigger=PropertyChanged}"
-        Height="{Binding ActualHeight, ElementName=MainPanel, UpdateSourceTrigger=PropertyChanged}">
-    <WrapPanel x:Name="MainPanel" MinWidth="250" MinHeight="250" />
+        HorizontalAlignment="Left" 
+        VerticalAlignment="Top"
+        Height="{Binding Height, ElementName=MainPanel, UpdateSourceTrigger=PropertyChanged}"
+        Width="{Binding Width, ElementName=MainPanel, UpdateSourceTrigger=PropertyChanged}">
+    <WrapPanel x:Name="MainPanel" HorizontalAlignment="Left" MinWidth="200" MinHeight="200" VerticalAlignment="Top" >
+        <WrapPanel.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF2D3EAC" Offset="0"/>
+                <GradientStop Color="#FF30B093" Offset="1"/>
+            </LinearGradientBrush>
+        </WrapPanel.Background>
+    </WrapPanel>
 </Window>
