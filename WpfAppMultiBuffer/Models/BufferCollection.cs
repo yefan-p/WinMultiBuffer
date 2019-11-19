@@ -94,5 +94,13 @@ namespace WpfAppMultiBuffer.Models
                 base.SetItem(item.Index, item);
             }
         }
+        /// <summary>
+        /// Очищает значение буфера
+        /// </summary>
+        /// <param name="index">Адрес буфера, который необходимо очистить</param>
+        public void Clear(int index)
+        {
+            base[index].Value = "";
+        }
     }
 }

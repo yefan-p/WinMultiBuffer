@@ -27,11 +27,17 @@
                 <SolidColorBrush Color="White" Opacity="0.3"/>
             </TextBlock.Background>
         </TextBlock>
-        <Button Content="X" 
+        <Button x:Name="Clear"
+                Content="X" 
                 Margin="5,10,10,0" 
                 Background="{x:Null}"
                 Grid.Row="0"
-                Grid.Column="1" BorderBrush="{x:Null}" FontWeight="SemiBold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                Grid.Column="1" 
+                BorderBrush="{x:Null}" 
+                FontWeight="SemiBold" 
+                VerticalContentAlignment="Center" 
+                HorizontalContentAlignment="Center" 
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
         <TextBox Name="BodyItem" 
                  Margin="10" 
                  Grid.Row="1" 

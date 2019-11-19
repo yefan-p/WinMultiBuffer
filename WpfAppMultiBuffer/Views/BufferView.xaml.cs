@@ -16,7 +16,7 @@ namespace WpfAppMultiBuffer.Views
 
             _buffer = new BufferViewModels();
             _input = new InputView();
-            _input.KeyDown += _buffer.KeyPress;
+            _input.KeyDown += _buffer.Update;
 
             CreateControls();
         }
@@ -39,6 +39,7 @@ namespace WpfAppMultiBuffer.Views
                 {
                     Header = $"{item.CopyKey} / {item.PasteKey}",
                     Body = item.Value,
+                    Index = item.Index,
                 };
 
                 Binding binding = new Binding()
@@ -47,7 +48,7 @@ namespace WpfAppMultiBuffer.Views
                     Path = new PropertyPath("Value"),
                     UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                 };
-
+                itemBuffer.ClearClick += _buffer.Clear;
                 itemBuffer.SetBinding(ItemBufferControl.BodyProperty, binding);
                 MainPanel.Children.Add(itemBuffer);
             }

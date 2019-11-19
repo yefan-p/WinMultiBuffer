@@ -5,6 +5,7 @@ using WindowsInput.Native;
 using TextCopy;
 using WpfAppMultiBuffer.Models;
 using WpfAppMultiBuffer.Views;
+using System;
 
 namespace WpfAppMultiBuffer.ViewModels
 {
@@ -25,7 +26,7 @@ namespace WpfAppMultiBuffer.ViewModels
         /// Вставляет или копирует текст, зависит от нажатой клавиши
         /// </summary>
         /// <param name="key">Нажатая клавиша</param>
-        public void KeyPress(object sender, InputViewEventArgs key)
+        public void Update(object sender, InputViewEventArgs key)
         {
             InputSimulator inputSimulator = new InputSimulator();
 
@@ -65,6 +66,16 @@ namespace WpfAppMultiBuffer.ViewModels
                 timer.Interval = Literals.Interval;
                 timer.Start();
             }
+        }
+        /// <summary>
+        /// Очистить содержимое указанного буфера
+        /// </summary>
+        /// <param name="sender">ItemBufferControl. Буфер, который необходимо очистить</param>
+        /// <param name="e"></param>
+        public void Clear(object sender, EventArgs e)
+        {
+            ItemBufferControl itemBuffer = (ItemBufferControl)sender;
+            Storage.Clear(itemBuffer.Index);
         }
     }
 }

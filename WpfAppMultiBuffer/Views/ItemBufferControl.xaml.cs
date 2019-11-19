@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace WpfAppMultiBuffer.Views
@@ -13,6 +14,20 @@ namespace WpfAppMultiBuffer.Views
             InitializeComponent();
             Width = 0;
             Height = 0;
+            Clear.Click += Clear_Click;
+        }
+        /// <summary>
+        /// Клик по кнопке Очистить содержимое
+        /// </summary>
+        public event EventHandler<EventArgs> ClearClick;
+        /// <summary>
+        /// Пробрасывает событие дальше
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            ClearClick?.Invoke(this, EventArgs.Empty);
         }
         /// <summary>
         /// Свойство зависимости, необходимо для создания привязки, которая будет автоматически обновлять
@@ -61,5 +76,9 @@ namespace WpfAppMultiBuffer.Views
             get { return (string)GetValue(BodyProperty); }
             set { SetValue(BodyProperty, value); }
         }
+        /// <summary>
+        /// Адрес буфера, необходим для передачи в события очистки
+        /// </summary>
+        public int Index { get; set; }
     }
 }
