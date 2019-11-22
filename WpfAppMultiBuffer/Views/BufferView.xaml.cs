@@ -16,7 +16,8 @@ namespace WpfAppMultiBuffer.Views
 
             _buffer = new BufferViewModels();
             _input = new InputView();
-            _input.KeyDown += _buffer.Update;
+            _input.CopyKeyPress += _buffer.Copy;
+            _input.PasteKeyPress += _buffer.Paste;
 
             CreateControls();
         }

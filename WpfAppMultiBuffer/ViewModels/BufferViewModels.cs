@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using WindowsInput;
+﻿using WindowsInput;
 using WindowsInput.Native;
 using TextCopy;
 using WpfAppMultiBuffer.Models;
@@ -16,58 +15,67 @@ namespace WpfAppMultiBuffer.ViewModels
     {
         public BufferViewModels()
         {
-            Storage.AddRange(Literals.KeysCopy, Literals.KeysPaste, "");
+            Storage.AddRange(InputView.KeysCopy, InputView.KeysPaste, "");
         }
+        /// <summary>
+        /// Количество миллисекунд, которые должны пройти, прежде чем произойдет обращение к буферу обмена после нажатия клавиши.
+        /// Задержка необходима для того, чтобы выделенный текст успел дойти до буфера обмена при копировании или успел вставиться при вставке.
+        /// </summary>
+        const int Interval = 250;
         /// <summary>
         /// Содержимое буфера
         /// </summary>
         public BufferCollection Storage { get; set; } = new BufferCollection();
         /// <summary>
-        /// Вставляет или копирует текст, зависит от нажатой клавиши
+        /// Копирует выделенный текст
         /// </summary>
-        /// <param name="key">Нажатая клавиша</param>
-        public void Update(object sender, InputViewEventArgs key)
+        /// <param name="key">Нажатая клавиша, указывающая, в какой буфер будет положен текст</param>
+        public void Copy(object sender, InputViewEventArgs key)
         {
             InputSimulator inputSimulator = new InputSimulator();
+            string contentsClipboard = Clipboard.GetText() ?? "";
+            inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
+            inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_C);
+            inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
 
-            if (Literals.KeysCopy.Contains(key.InputKey))
+            DispatcherTimer timer = new DispatcherTimer()
             {
-                string contentsClipboard = TextCopy.Clipboard.GetText() ?? "";
-                inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
-                inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_C);
-                inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
+                Interval = TimeSpan.FromMilliseconds(Interval),
+            };
 
-                DispatcherTimer timer = new DispatcherTimer()
-                { 
-                    Interval = TimeSpan.FromMilliseconds(Literals.Interval), 
-                };
-
-                timer.Tick += (timerInner, eventArgs) =>
-                {
-                    timer.Stop();
-                    Storage[key.InputKey] = TextCopy.Clipboard.GetText();
-                    TextCopy.Clipboard.SetText(contentsClipboard);
-                };
-
-                timer.Start();
-            }
-            else if (Literals.KeysPaste.Contains(key.InputKey) && Storage[key.InputKey] != null && Storage[key.InputKey] != "")
+            timer.Tick += (timerInner, eventArgs) =>
             {
-                string contentsClipboard = TextCopy.Clipboard.GetText() ?? "";
-                TextCopy.Clipboard.SetText(Storage[key.InputKey]);
+                timer.Stop();
+                Storage[key.InputKey] = Clipboard.GetText();
+                Clipboard.SetText(contentsClipboard);
+            };
+
+            timer.Start();
+        }
+        /// <summary>
+        /// Вставляет текст из указанного буфера
+        /// </summary>
+        /// <param name="key">Нажатая клавиша, указывающая, из какого буфера будет вставлен текст</param>
+        public void Paste(object sender, InputViewEventArgs key)
+        {
+            if (Storage[key.InputKey] != null && Storage[key.InputKey] != "")
+            {
+                InputSimulator inputSimulator = new InputSimulator();
+                string contentsClipboard = Clipboard.GetText() ?? "";
+                Clipboard.SetText(Storage[key.InputKey]);
                 inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
                 inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
                 inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
 
                 DispatcherTimer timer = new DispatcherTimer()
                 {
-                    Interval = TimeSpan.FromMilliseconds(Literals.Interval),
+                    Interval = TimeSpan.FromMilliseconds(Interval),
                 };
 
                 timer.Tick += (timerInner, eventArgs) =>
                 {
                     timer.Stop();
-                    TextCopy.Clipboard.SetText(contentsClipboard);
+                    Clipboard.SetText(contentsClipboard);
                 };
                 timer.Start();
             }

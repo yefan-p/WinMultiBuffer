@@ -76,7 +76,6 @@
     <Compile Include="Models\BufferCollection.cs" />
     <Compile Include="Models\BufferItem.cs" />
     <Compile Include="ViewModels\BufferViewModels.cs" />
-    <Compile Include="ViewModels\Literals.cs" />
     <Compile Include="Views\BufferView.xaml.cs">
       <DependentUpon>BufferView.xaml</DependentUpon>
     </Compile>
