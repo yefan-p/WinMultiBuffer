@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 
 namespace WpfAppMultiBuffer.Views
 {
@@ -15,6 +16,39 @@ namespace WpfAppMultiBuffer.Views
             Width = 0;
             Height = 0;
             Clear.Click += Clear_Click;
+            SizeChanged += ItemBufferControl_SizeChanged;
+        }
+        bool animationWidthPlay = false;
+        bool animationHeightPlay = false;
+        /// <summary>
+        /// Отображает анимацию разворачивания и скрытия блока
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ItemBufferControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+
+            if (!animationWidthPlay && !animationHeightPlay)
+            {
+                animationWidthPlay = true;
+                animationHeightPlay = true;
+                DoubleAnimation animationHeight = new DoubleAnimation
+                {
+                    From = e.PreviousSize.Height,
+                    To = e.NewSize.Width,
+                    Duration = new Duration(TimeSpan.FromMilliseconds(500)),
+                };
+                animationHeight.Completed += (o, e) => { animationHeightPlay = false; };
+                DoubleAnimation animationWidth = new DoubleAnimation
+                {
+                    From = e.PreviousSize.Width,
+                    To = e.NewSize.Width,
+                    Duration = new Duration(TimeSpan.FromMilliseconds(500)),
+                };
+                animationWidth.Completed += (o, e) => { animationWidthPlay = false; };
+                BeginAnimation(HeightProperty, animationHeight);
+                BeginAnimation(WidthProperty, animationWidth);
+            }
         }
         /// <summary>
         /// Клик по кнопке Очистить содержимое
