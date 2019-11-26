@@ -16,7 +16,7 @@ namespace WpfAppMultiBuffer.Views
             Width = 0;
             Height = 0;
             Clear.Click += Clear_Click;
-            SizeChanged += ItemBufferControl_SizeChanged;
+            //SizeChanged += ItemBufferControl_SizeChanged;
         }
         bool animationWidthPlay = false;
         bool animationHeightPlay = false;
@@ -27,28 +27,54 @@ namespace WpfAppMultiBuffer.Views
         /// <param name="e"></param>
         private void ItemBufferControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-
             if (!animationWidthPlay && !animationHeightPlay)
             {
-                animationWidthPlay = true;
-                animationHeightPlay = true;
-                DoubleAnimation animationHeight = new DoubleAnimation
+                if (e.HeightChanged && e.PreviousSize.Height < e.NewSize.Height)
                 {
-                    From = e.PreviousSize.Height,
-                    To = e.NewSize.Width,
-                    Duration = new Duration(TimeSpan.FromMilliseconds(500)),
-                };
-                animationHeight.Completed += (o, e) => { animationHeightPlay = false; };
-                DoubleAnimation animationWidth = new DoubleAnimation
+                    e.Handled = true;
+                    animationHeightPlay = true;
+                    HideAnimation(e.PreviousSize.Height, e.NewSize.Height, HeightProperty, ref animationHeightPlay);
+                }
+                else if(e.HeightChanged && e.PreviousSize.Height > e.NewSize.Height)
                 {
-                    From = e.PreviousSize.Width,
-                    To = e.NewSize.Width,
-                    Duration = new Duration(TimeSpan.FromMilliseconds(500)),
-                };
-                animationWidth.Completed += (o, e) => { animationWidthPlay = false; };
-                BeginAnimation(HeightProperty, animationHeight);
-                BeginAnimation(WidthProperty, animationWidth);
+                    e.Handled = true;
+                    animationHeightPlay = true;
+                    HideAnimation(e.NewSize.Height, e.PreviousSize.Height, HeightProperty, ref animationHeightPlay);
+                }
+
+                if (e.WidthChanged && e.PreviousSize.Width < e.NewSize.Width)
+                {
+                    //e.Handled = true;
+                    animationWidthPlay = true;
+                    HideAnimation(e.PreviousSize.Width, e.NewSize.Width, WidthProperty, ref animationWidthPlay);
+                }
+                else if(e.WidthChanged && e.PreviousSize.Width > e.NewSize.Width)
+                {
+                    e.Handled = true;
+                    animationWidthPlay = true;
+                    HideAnimation(e.NewSize.Width, e.PreviousSize.Width, WidthProperty, ref animationWidthPlay);
+                }
             }
+        }
+        /// <summary>
+        /// Воспроизвести анимацию для заданного свойства
+        /// </summary>
+        /// <param name="from">Начальное значение</param>
+        /// <param name="to">Конечное значение</param>
+        /// <param name="property">Свойство, которое будет меняться</param>
+        /// <param name="playFlag">Флаг, указывающий, что анимация воспроизводиться</param>
+        void HideAnimation(double from, double to, DependencyProperty property, ref bool playFlag)
+        {
+            bool flag = playFlag;
+            DoubleAnimation animation = new DoubleAnimation
+            {
+                From = from,
+                To = to,
+                Duration = new Duration(TimeSpan.FromMilliseconds(500)),
+            };
+            animation.Completed += (o, e) => { flag = false; };
+            playFlag = flag;
+            BeginAnimation(property, animation);
         }
         /// <summary>
         /// Клик по кнопке Очистить содержимое
