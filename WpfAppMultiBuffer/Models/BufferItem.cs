@@ -7,7 +7,7 @@ namespace WpfAppMultiBuffer.Models
     /// <summary>
     /// Предоставляет информацию о каждом отдельном буфере.
     /// </summary>
-    class BufferItem : INotifyPropertyChanged
+    public class BufferItem : INotifyPropertyChanged
     {
         /// <summary>
         /// Индекс элемента в коллецкии, заполняется автоматический при добавлении в BufferCollection
