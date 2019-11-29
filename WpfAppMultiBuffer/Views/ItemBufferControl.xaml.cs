@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 
 namespace WpfAppMultiBuffer.Views
 {
@@ -14,6 +15,7 @@ namespace WpfAppMultiBuffer.Views
             InitializeComponent();
             Width = 0;
             Height = 0;
+            Opacity = 0;
             Clear.Click += Clear_Click;
         }
         /// <summary>
@@ -47,17 +49,35 @@ namespace WpfAppMultiBuffer.Views
         static void BodyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
             ItemBufferControl itemBuffer = (ItemBufferControl)dependencyObject;
-            itemBuffer.BodyItem.Text = args.NewValue.ToString();
 
-            if (itemBuffer.BodyItem.Text == "")
+            if (args.NewValue.ToString() == "")
             {
-                itemBuffer.Width = 0;
-                itemBuffer.Height = 0;
+                DoubleAnimation animation = new DoubleAnimation
+                {
+                    From = 1.0,
+                    To = 0.0,
+                    Duration = new Duration(TimeSpan.FromMilliseconds(350)),
+                };
+                animation.Completed += (o, e) =>
+                    {
+                        itemBuffer.BodyItem.Text = "";
+                        itemBuffer.Width = 0;
+                        itemBuffer.Height = 0;
+                    };
+                itemBuffer.BeginAnimation(OpacityProperty, animation);
             }
             else
             {
+                itemBuffer.BodyItem.Text = args.NewValue.ToString();
                 itemBuffer.Width = double.NaN;
                 itemBuffer.Height = double.NaN;
+                DoubleAnimation animation = new DoubleAnimation
+                {
+                    From = 0.0,
+                    To = 1.0,
+                    Duration = new Duration(TimeSpan.FromMilliseconds(350)),
+                };
+                itemBuffer.BeginAnimation(OpacityProperty, animation);
             }
         }
         /// <summary>
