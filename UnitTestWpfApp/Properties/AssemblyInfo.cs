@@ -5,9 +5,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("UnitTestWpfApp")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ЗАО "Техносерв Консалтинг"")]
 [assembly: AssemblyProduct("UnitTestWpfApp")]
-[assembly: AssemblyCopyright("Copyright © ЗАО "Техносерв Консалтинг" 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
