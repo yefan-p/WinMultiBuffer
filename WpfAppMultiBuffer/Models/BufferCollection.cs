@@ -8,7 +8,7 @@ namespace WpfAppMultiBuffer.Models
     /// <summary>
     /// Коллекция данных, которая хранит информацию о буфере обмена
     /// </summary>
-    public class BufferCollection : ObservableCollection<BufferItem>
+    class BufferCollection : ObservableCollection<BufferItem>
     {
         /// <summary>
         /// Добавляет новое содержимое в буфер
