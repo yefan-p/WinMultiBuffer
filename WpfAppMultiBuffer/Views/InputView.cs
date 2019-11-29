@@ -11,7 +11,7 @@ namespace WpfAppMultiBuffer.Views
     /// <summary>
     /// Возвращает код нажатой клавиши, если до этого был нажат hotkey
     /// </summary>
-    class InputView
+    public class InputView
     {
         public InputView()
         {
