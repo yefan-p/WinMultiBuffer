@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 using WpfAppMultiBuffer.ViewModels;
+using System.Linq;
 
 namespace WpfAppMultiBuffer.Views
 {
@@ -18,8 +19,18 @@ namespace WpfAppMultiBuffer.Views
             _input = new InputView();
             _input.CopyKeyPress += _buffer.Copy;
             _input.PasteKeyPress += _buffer.Paste;
+            _input.CopyKeyPress += _input_CopyKeyPress;
 
             CreateControls();
+        }
+        /// <summary>
+        /// Было выполнено копирование в буфер
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void _input_CopyKeyPress(object sender, InputViewEventArgs e)
+        {
+            KeyboardVisibleManager();
         }
         /// <summary>
         /// Основная логика программы, содержит информацию о каждом буфере
@@ -50,8 +61,37 @@ namespace WpfAppMultiBuffer.Views
                     UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                 };
                 itemBuffer.ClearClick += _buffer.Clear;
+                itemBuffer.ClearClick += ItemBuffer_ClearClick;
                 itemBuffer.SetBinding(ItemBufferControl.BodyProperty, binding);
                 MainPanel.Children.Add(itemBuffer);
+            }
+        }
+        /// <summary>
+        /// Был выполнен клик по кнопке очисть буфер
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ItemBuffer_ClearClick(object sender, EventArgs e)
+        {
+            KeyboardVisibleManager();
+        }
+        /// <summary>
+        /// Управляет видимостью подсказки с клавиатурой
+        /// </summary>
+        void KeyboardVisibleManager()
+        {
+            int result =
+                (from el in _buffer.Storage
+                 where el.Value != ""
+                 select el).Count();
+
+            if (result == 0)
+            {
+                //TODO : отобразить подсказку с клавиатурой
+            }
+            else
+            {
+                //TODO : скрыть подсказку с клавиатурой
             }
         }
         /// <summary>
