@@ -19,6 +19,10 @@ namespace WpfAppMultiBuffer.Views
             Clear.Click += Clear_Click;
         }
         /// <summary>
+        /// Длительность анимации в миллисекундах
+        /// </summary>
+        const int animationTime = 350;
+        /// <summary>
         /// Клик по кнопке Очистить содержимое
         /// </summary>
         public event EventHandler<EventArgs> ClearClick;
@@ -56,7 +60,7 @@ namespace WpfAppMultiBuffer.Views
                 {
                     From = 1.0,
                     To = 0.0,
-                    Duration = new Duration(TimeSpan.FromMilliseconds(350)),
+                    Duration = new Duration(TimeSpan.FromMilliseconds(animationTime)),
                 };
                 animation.Completed += (o, e) =>
                     {
@@ -75,7 +79,7 @@ namespace WpfAppMultiBuffer.Views
                 {
                     From = 0.0,
                     To = 1.0,
-                    Duration = new Duration(TimeSpan.FromMilliseconds(350)),
+                    Duration = new Duration(TimeSpan.FromMilliseconds(animationTime)),
                 };
                 itemBuffer.BeginAnimation(OpacityProperty, animation);
             }
