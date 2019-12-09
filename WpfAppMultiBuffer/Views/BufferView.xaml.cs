@@ -30,7 +30,7 @@ namespace WpfAppMultiBuffer.Views
         /// <param name="e"></param>
         private void _input_CopyKeyPress(object sender, InputViewEventArgs e)
         {
-            KeyboardVisibleManager();
+            KeyboardVisibleManager(true);
         }
         /// <summary>
         /// Основная логика программы, содержит информацию о каждом буфере
@@ -78,20 +78,22 @@ namespace WpfAppMultiBuffer.Views
         /// <summary>
         /// Управляет видимостью подсказки с клавиатурой
         /// </summary>
-        void KeyboardVisibleManager()
+        void KeyboardVisibleManager(bool KeyClickFlag = false)
         {
             int result =
                 (from el in _buffer.Storage
                  where el.Value != ""
                  select el).Count();
 
-            if (result == 0)
+            if (result == 0 && !KeyClickFlag)
             {
-                //TODO : отобразить подсказку с клавиатурой
+                HelpKeyboard.Width = double.NaN;
+                HelpKeyboard.Height = double.NaN;
             }
             else
             {
-                //TODO : скрыть подсказку с клавиатурой
+                HelpKeyboard.Width = 0;
+                HelpKeyboard.Height = 0;
             }
         }
         /// <summary>

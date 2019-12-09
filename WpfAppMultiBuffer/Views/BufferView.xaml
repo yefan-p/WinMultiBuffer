@@ -14,5 +14,6 @@
                 <GradientStop Color="#FF30B093" Offset="1"/>
             </LinearGradientBrush>
         </WrapPanel.Background>
+        <Image x:Name="HelpKeyboard" Height="446" Source="../keyboardHelp.png" MaxWidth="1014" MaxHeight="446" Opacity="0.9"/>
     </WrapPanel>
 </Window>
