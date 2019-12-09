@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Data;
 using WpfAppMultiBuffer.ViewModels;
 using System.Linq;
+using System.Windows.Media.Animation;
 
 namespace WpfAppMultiBuffer.Views
 {
@@ -32,6 +33,10 @@ namespace WpfAppMultiBuffer.Views
         {
             KeyboardVisibleManager(true);
         }
+        /// <summary>
+        /// Длительность анимации в миллисекундах
+        /// </summary>
+        const int animationTime = 350;
         /// <summary>
         /// Основная логика программы, содержит информацию о каждом буфере
         /// </summary>
@@ -89,11 +94,29 @@ namespace WpfAppMultiBuffer.Views
             {
                 HelpKeyboard.Width = double.NaN;
                 HelpKeyboard.Height = double.NaN;
+
+                DoubleAnimation animation = new DoubleAnimation
+                {
+                    From = 0.0,
+                    To = 0.9,
+                    Duration = new Duration(TimeSpan.FromMilliseconds(animationTime)),
+                };
+                HelpKeyboard.BeginAnimation(OpacityProperty, animation);
             }
             else
             {
-                HelpKeyboard.Width = 0;
-                HelpKeyboard.Height = 0;
+                DoubleAnimation animation = new DoubleAnimation
+                {
+                    From = 0.9,
+                    To = 0.0,
+                    Duration = new Duration(TimeSpan.FromMilliseconds(animationTime)),
+                };
+                animation.Completed += (o, e) =>
+                {
+                    HelpKeyboard.Width = 0;
+                    HelpKeyboard.Height = 0;
+                };
+                HelpKeyboard.BeginAnimation(OpacityProperty, animation);
             }
         }
         /// <summary>
