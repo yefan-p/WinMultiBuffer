@@ -36,7 +36,7 @@ namespace WpfAppMultiBuffer.Views
         /// <summary>
         /// Длительность анимации в миллисекундах
         /// </summary>
-        const int animationTime = 350;
+        const int animationTime = 200;
         /// <summary>
         /// Основная логика программы, содержит информацию о каждом буфере
         /// </summary>

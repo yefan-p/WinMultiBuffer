@@ -14,6 +14,31 @@
                 <GradientStop Color="#FF30B093" Offset="1"/>
             </LinearGradientBrush>
         </WrapPanel.Background>
-        <Image x:Name="HelpKeyboard" Height="446" Source="../keyboardHelp.png" MaxWidth="1014" MaxHeight="446" Opacity="0.9"/>
+        <Grid x:Name="HelpKeyboard">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Margin="10,10,10,0" 
+                   TextWrapping="Wrap" 
+                   TextAlignment="Center" 
+                   Foreground="Black" 
+                   FontWeight="Bold"
+                   Grid.Row="0"
+                   Padding="5" FontSize="14">
+                <TextBlock.Background>
+                    <SolidColorBrush Color="White" Opacity="0.3"/>
+                </TextBlock.Background>
+                <Run Foreground="Blue">Main Keys Activate</Run>
+                <Run Foreground="BlueViolet">Copy Keys</Run>
+                <Run Foreground="Green">Paste Keys</Run>
+            </TextBlock>
+            <Image 
+                   Source="../keyboardHelp.png" 
+                   MaxWidth="1014" 
+                   MaxHeight="446" 
+                   Opacity="0.9"
+                   Grid.Row="1" Margin="10,10,10,0"/>
+        </Grid>
     </WrapPanel>
 </Window>

@@ -68,6 +68,7 @@ namespace WpfAppMultiBuffer.Views
             if (_isActive)
             {
                 e.SuppressKeyPress = true;
+                e.Handled = true;
                 _isActive = false;
 
                 if (KeysCopy.Contains(e.KeyCode))
