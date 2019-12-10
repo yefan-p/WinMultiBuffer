@@ -5,15 +5,16 @@ using NHotkey.Wpf;
 using System.Windows.Input;
 using Gma.System.MouseKeyHook;
 using System.Windows.Forms;
+using WpfAppMultiBuffer.Views;
 
-namespace WpfAppMultiBuffer.Views
+namespace WpfAppMultiBuffer.Controllers
 {
     /// <summary>
     /// Возвращает код нажатой клавиши, если до этого был нажат hotkey
     /// </summary>
-    public class InputView
+    public class InputController
     {
-        public InputView()
+        public InputController()
         {
             HotkeyManager.Current.AddOrReplace("ActivateMultiBufferWPF", Key.OemTilde, ModifierKeys.Control, ActivateBuffer);
 
@@ -87,6 +88,53 @@ namespace WpfAppMultiBuffer.Views
         public void Dispose()
         {
             HotkeyManager.Current.Remove("ActivateMultiBufferWPF");
+        }
+
+        public static Keys GetKey(Keys key)
+        {
+            for (int i = 0; i < KeysPaste.Length; i++)
+            {
+                if (KeysPaste[i] == key)
+                {
+                    return KeysCopy[i];
+                }
+            }
+
+            for (int i = 0; i < KeysCopy.Length; i++)
+            {
+                if (KeysCopy[i] == key)
+                {
+                    return KeysPaste[i];
+                }
+            }
+
+            throw new Exception("Клавиша не найдена");
+        }
+
+        public static Keys GetPasteKey(Keys key)
+        {
+            for (int i = 0; i < KeysPaste.Length; i++)
+            {
+                if (KeysPaste[i] == key)
+                {
+                    return KeysPaste[i];
+                }
+            }
+
+            throw new Exception("Клавиша не найдена");
+        }
+
+        public static Keys GetCopyKey(Keys key)
+        {
+            for (int i = 0; i < KeysCopy.Length; i++)
+            {
+                if (KeysCopy[i] == key)
+                {
+                    return KeysCopy[i];
+                }
+            }
+
+            throw new Exception("Клавиша не найдена");
         }
     }
 }
