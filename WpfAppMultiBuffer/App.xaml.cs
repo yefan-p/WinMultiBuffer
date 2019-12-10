@@ -5,6 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfAppMultiBuffer.Controllers;
+using WpfAppMultiBuffer.Utils;
+using WpfAppMultiBuffer.ViewModels;
+using WpfAppMultiBuffer.Views;
 
 namespace WpfAppMultiBuffer
 {
@@ -13,5 +17,20 @@ namespace WpfAppMultiBuffer
     /// </summary>
     public partial class App : Application
     {
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            InputController inputController = new InputController();
+
+
+            var window = new MainWindow();
+            var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);
+
+            mainNavManager.Register<BuffersViewModels, BuffersView>(
+                new BuffersViewModels(mainNavManager, inputController), NavigationKeys.BuffersView);
+
+            mainNavManager.Navigate(NavigationKeys.BuffersView);
+            window.Show();
+        }
     }
 }

@@ -73,13 +73,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\BufferCollection.cs" />
+    <Compile Include="Interfaces\Command.cs" />
     <Compile Include="Models\BufferItem.cs" />
-    <Compile Include="ViewModels\BufferViewModels.cs" />
-    <Compile Include="Views\BufferView.xaml.cs">
-      <DependentUpon>BufferView.xaml</DependentUpon>
+    <Compile Include="Utils\INavigationAware.cs" />
+    <Compile Include="Utils\INavigationManager.cs" />
+    <Compile Include="Utils\NavigationKeys.cs" />
+    <Compile Include="Utils\NavigationManager.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\BuffersViewModels.cs" />
+    <Compile Include="Views\BuffersView.xaml.cs">
+      <DependentUpon>BuffersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\InputView.cs" />
+    <Compile Include="Contollers\InputController.cs" />
     <Compile Include="Views\InputViewEventArgs.cs" />
     <Compile Include="Views\ItemBufferControl.xaml.cs">
       <DependentUpon>ItemBufferControl.xaml</DependentUpon>
@@ -88,13 +93,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\BufferView.xaml">
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\BuffersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ItemBufferControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
