@@ -92,6 +92,7 @@ namespace WpfAppMultiBuffer.Controllers
 
         public static Keys GetKey(Keys key)
         {
+            //TODO: Сделать через Contains?
             for (int i = 0; i < KeysPaste.Length; i++)
             {
                 if (KeysPaste[i] == key)
@@ -113,6 +114,7 @@ namespace WpfAppMultiBuffer.Controllers
 
         public static Keys GetPasteKey(Keys key)
         {
+            //TODO: Сделать через Contains?
             for (int i = 0; i < KeysPaste.Length; i++)
             {
                 if (KeysPaste[i] == key)
@@ -126,6 +128,7 @@ namespace WpfAppMultiBuffer.Controllers
 
         public static Keys GetCopyKey(Keys key)
         {
+            //TODO: Сделать через Contains?
             for (int i = 0; i < KeysCopy.Length; i++)
             {
                 if (KeysCopy[i] == key)
