@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Threading;
 using WindowsInput;
 using WindowsInput.Native;
@@ -14,14 +12,6 @@ namespace WpfAppMultiBuffer.ViewModels
 {
     public class BuffersViewModels : BaseViewModel
     {
-        public ObservableCollection<BufferItem> Buffers { get; private set; }
-
-        /// <summary>
-        /// Количество миллисекунд, которые должны пройти, прежде чем произойдет обращение к буферу обмена после нажатия клавиши.
-        /// Задержка необходима для того, чтобы выделенный текст успел дойти до буфера обмена при копировании или успел вставиться при вставке.
-        /// </summary>
-        const int Interval = 250;
-
         public BuffersViewModels(
                         INavigationManager navigationManager,
                         InputController inputController)
@@ -31,10 +21,16 @@ namespace WpfAppMultiBuffer.ViewModels
 
             inputController.PasteKeyPress += Paste;
             inputController.CopyKeyPress += Copy;
-
-            //AddRange(InputController.KeysCopy, InputController.KeysPaste, "");
         }
-
+        /// <summary>
+        /// Хранит информацию о существующих буферах
+        /// </summary>
+        public ObservableCollection<BufferItem> Buffers { get; private set; }
+        /// <summary>
+        /// Количество миллисекунд, которые должны пройти, прежде чем произойдет обращение к буферу обмена после нажатия клавиши.
+        /// Задержка необходима для того, чтобы выделенный текст успел дойти до буфера обмена при копировании или успел вставиться при вставке.
+        /// </summary>
+        const int Interval = 250;
         /// <summary>
         /// Вставляет текст из указанного буфера
         /// </summary>
@@ -69,28 +65,10 @@ namespace WpfAppMultiBuffer.ViewModels
             };
             timer.Start();
         }
-
-        public void CreateNewItem()
-        {
-
-        }
-
-        public void AddRange(Keys[] refKeys, Keys[] valueKeys, string value)
-        {
-            for (int i = 0; i < refKeys.Length; i++)
-            {
-                BufferItem item = new BufferItem
-                {
-                    Index = i,
-                    CopyKey = refKeys[i],
-                    PasteKey = valueKeys[i],
-                    Value = string.Empty,
-                };
-
-                Buffers.Add(item);
-            }
-        }
-
+        /// <summary>
+        /// Копирует текст в указанный буфер
+        /// </summary>
+        /// <param name="key">Нажатая клавиша, указывающая, в какой буфер будет вставлен текст</param>
         public void Copy(object sender, InputViewEventArgs key)
         {
             InputSimulator inputSimulator = new InputSimulator();
