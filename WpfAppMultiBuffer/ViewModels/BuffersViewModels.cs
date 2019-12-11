@@ -23,9 +23,9 @@ namespace WpfAppMultiBuffer.ViewModels
         const int Interval = 250;
 
         public BuffersViewModels(
-            INavigationManager navigationManager,
-            InputController inputController)
-            : base(navigationManager)
+                        INavigationManager navigationManager,
+                        InputController inputController)
+                        : base(navigationManager)
         {
             Buffers = new ObservableCollection<BufferItem>();
 
@@ -126,7 +126,7 @@ namespace WpfAppMultiBuffer.ViewModels
                         CopyKey = InputController.GetCopyKey(key.InputKey),
                         PasteKey = InputController.GetKey(key.InputKey),
                         Value = TextCopy.Clipboard.GetText()
-                };
+                    };
                     Buffers.Add(item);
                 }
 
