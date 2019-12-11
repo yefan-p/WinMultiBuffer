@@ -7,7 +7,6 @@ namespace WpfAppMultiBuffer.Models
     /// <summary>
     /// Предоставляет информацию о каждом отдельном буфере.
     /// </summary>
-    /// ??
     public class BufferItem : INotifyPropertyChanged
     {
         /// <summary>
@@ -50,6 +49,39 @@ namespace WpfAppMultiBuffer.Models
         void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        /// <summary>
+        /// Объекты равны, если хотя бы одна из клавиш равна
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            BufferItem temp = (BufferItem)obj;
+            if (temp.CopyKey == CopyKey || temp.PasteKey == PasteKey)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Хэш код объекта, основан на строковом представлении
+        /// </summary>
+        /// <returns>Число</returns>
+        public override int GetHashCode()
+        {
+            return ToString().GetHashCode();
+        }
+        /// <summary>
+        /// Строковое представление
+        /// </summary>
+        /// <returns>Строка, в которой указаны клавиша копирования и вставки</returns>
+        public override string ToString()
+        {
+            return $"{CopyKey} / {PasteKey}";
         }
     }
 }
