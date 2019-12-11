@@ -86,31 +86,24 @@ namespace WpfAppMultiBuffer.ViewModels
             {
                 timer.Stop();
 
-                bool isInstance = false;
-                foreach (var item in Buffers)
-                {
-                    if (item.CopyKey == key.InputKey || item.PasteKey == key.InputKey)
-                    {
-                        isInstance = true;
-                        item.Value = TextCopy.Clipboard.GetText();
-                        break;
-                    }
-                }
+                BufferItem tmpItem = new BufferItem() 
+                { 
+                    CopyKey = key.InputKey, 
+                };
 
-                if (!isInstance)
+                if (Buffers.Contains(tmpItem))
                 {
-                    var item = new BufferItem()
-                    {
-                        CopyKey = InputController.GetCopyKey(key.InputKey),
-                        PasteKey = InputController.GetKey(key.InputKey),
-                        Value = TextCopy.Clipboard.GetText()
-                    };
-                    Buffers.Add(item);
+                    int index = Buffers.IndexOf(tmpItem);
+                    Buffers[index].Value = TextCopy.Clipboard.GetText();
                 }
-
+                else
+                {
+                    tmpItem.PasteKey = InputController.GetKey(key.InputKey);
+                    tmpItem.Value = TextCopy.Clipboard.GetText();
+                    Buffers.Add(tmpItem);
+                }
                 TextCopy.Clipboard.SetText(contentsClipboard);
             };
-
             timer.Start();
         }
     }

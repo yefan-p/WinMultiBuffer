@@ -111,33 +111,5 @@ namespace WpfAppMultiBuffer.Controllers
 
             throw new Exception("Клавиша не найдена");
         }
-
-        public static Keys GetPasteKey(Keys key)
-        {
-            //TODO: Сделать через Contains?
-            for (int i = 0; i < KeysPaste.Length; i++)
-            {
-                if (KeysPaste[i] == key)
-                {
-                    return KeysPaste[i];
-                }
-            }
-
-            throw new Exception("Клавиша не найдена");
-        }
-
-        public static Keys GetCopyKey(Keys key)
-        {
-            //TODO: Сделать через Contains?
-            for (int i = 0; i < KeysCopy.Length; i++)
-            {
-                if (KeysCopy[i] == key)
-                {
-                    return KeysCopy[i];
-                }
-            }
-
-            throw new Exception("Клавиша не найдена");
-        }
     }
 }
