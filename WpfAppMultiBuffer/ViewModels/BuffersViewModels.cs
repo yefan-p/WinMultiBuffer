@@ -35,7 +35,8 @@ namespace WpfAppMultiBuffer.ViewModels
             }
             else
             {
-                Buffers[index] = obj;
+                Buffers.Remove(obj);
+                Buffers.Add(obj);
             }
         }
 

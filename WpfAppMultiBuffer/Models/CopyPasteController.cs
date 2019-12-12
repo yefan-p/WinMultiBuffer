@@ -95,18 +95,19 @@ namespace WpfAppMultiBuffer.Models
                 {
                     CopyKey = key.CopyKey,
                     PasteKey = key.PasteKey,
+                    Value = TextCopy.Clipboard.GetText()
                 };
 
-                if (buffer.Contains(tmpItem))
+                int index = buffer.IndexOf(tmpItem);
+                if (index > -1)
                 {
-                    int index = buffer.IndexOf(tmpItem);
-                    buffer[index].Value = TextCopy.Clipboard.GetText();
+                    buffer[index] = tmpItem;
                 }
                 else
                 {
-                    tmpItem.Value = TextCopy.Clipboard.GetText();
                     buffer.Add(tmpItem);
                 }
+
                 TextCopy.Clipboard.SetText(contentsClipboard);
 
                 Update?.Invoke(tmpItem);

@@ -29,15 +29,7 @@ namespace WpfAppMultiBuffer.Models
         /// Значение.
         /// Оповещает о своем изменении
         /// </summary>
-        public string Value
-        {
-            get => _value;
-            set
-            {
-                _value = value;
-                OnPropertyChanged();
-            }
-        }
+        public string Value { get; set; }
         /// <summary>
         /// Свойство обновлено. Возникает после обновления свойства
         /// </summary>
@@ -57,15 +49,18 @@ namespace WpfAppMultiBuffer.Models
         /// <returns></returns>
         public override bool Equals(object obj)
         {
+            if (!(obj is BufferItem))
+            {
+                return false;
+            }
+
             BufferItem temp = (BufferItem)obj;
             if (temp.CopyKey == CopyKey && temp.PasteKey == PasteKey)
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            
+            return false;
         }
         /// <summary>
         /// Хэш код объекта, основан на строковом представлении
