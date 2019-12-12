@@ -5,7 +5,6 @@ using NHotkey.Wpf;
 using System.Windows.Input;
 using Gma.System.MouseKeyHook;
 using System.Windows.Forms;
-using WpfAppMultiBuffer.Views;
 
 namespace WpfAppMultiBuffer.Controllers
 {
@@ -25,11 +24,11 @@ namespace WpfAppMultiBuffer.Controllers
         /// <summary>
         /// Указывает, что была нажата клавиша вставки
         /// </summary>
-        public event EventHandler<InputViewEventArgs> PasteKeyPress;
+        public event EventHandler<InputControllerEventArgs> PasteKeyPress;
         /// <summary>
         /// Указывает, что была нажата клавиша копирования
         /// </summary>
-        public event EventHandler<InputViewEventArgs> CopyKeyPress;
+        public event EventHandler<InputControllerEventArgs> CopyKeyPress;
         /// <summary>
         /// Флаг, который указывает, были ли нажаты клавиши активации буфера
         /// </summary>
@@ -74,11 +73,11 @@ namespace WpfAppMultiBuffer.Controllers
 
                 if (KeysCopy.Contains(e.KeyCode))
                 {
-                    CopyKeyPress?.Invoke(this, new InputViewEventArgs(e.KeyCode));
+                    CopyKeyPress?.Invoke(this, new InputControllerEventArgs(e.KeyCode, GetKey(e.KeyCode)));
                 }
                 else if(KeysPaste.Contains(e.KeyCode))
                 {
-                    PasteKeyPress?.Invoke(this, new InputViewEventArgs(e.KeyCode));
+                    PasteKeyPress?.Invoke(this, new InputControllerEventArgs(GetKey(e.KeyCode), e.KeyCode));
                 }
             }
         }

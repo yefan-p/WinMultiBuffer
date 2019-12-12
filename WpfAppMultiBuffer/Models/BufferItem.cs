@@ -51,14 +51,14 @@ namespace WpfAppMultiBuffer.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         /// <summary>
-        /// Объекты равны, если хотя бы одна из клавиш равна
+        /// Объекты равны, если горячие клавиши у них одинаковые
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public override bool Equals(object obj)
         {
             BufferItem temp = (BufferItem)obj;
-            if (temp.CopyKey == CopyKey || temp.PasteKey == PasteKey)
+            if (temp.CopyKey == CopyKey && temp.PasteKey == PasteKey)
             {
                 return true;
             }

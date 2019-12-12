@@ -85,7 +85,7 @@
       <DependentUpon>BuffersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contollers\InputController.cs" />
-    <Compile Include="Views\InputViewEventArgs.cs" />
+    <Compile Include="Contollers\InputControllerEventArgs.cs" />
     <Compile Include="Views\ItemBufferControl.xaml.cs">
       <DependentUpon>ItemBufferControl.xaml</DependentUpon>
     </Compile>
