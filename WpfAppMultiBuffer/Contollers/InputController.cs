@@ -89,27 +89,29 @@ namespace WpfAppMultiBuffer.Controllers
         {
             HotkeyManager.Current.Remove("ActivateMultiBufferWPF");
         }
-
+        /// <summary>
+        /// Возвращает клавишу копирования если передана клавиша вставки, и возвращает клавишу вставки, если передана клавиша копирования
+        /// </summary>
+        /// <param name="key">Клавиша, для которой нужно получить соответствующую</param>
+        /// <returns>Клавиша, соответствующая переданной</returns>
         public static Keys GetKey(Keys key)
         {
-            //TODO: Сделать через Contains?
+            if (KeysPaste.Length != KeysCopy.Length)
+                throw new Exception("Keys copy and Keys paste must be same count");
+
             for (int i = 0; i < KeysPaste.Length; i++)
             {
                 if (KeysPaste[i] == key)
                 {
                     return KeysCopy[i];
                 }
-            }
-
-            for (int i = 0; i < KeysCopy.Length; i++)
-            {
-                if (KeysCopy[i] == key)
+                else if(KeysCopy[i] == key)
                 {
                     return KeysPaste[i];
                 }
             }
 
-            throw new Exception("Клавиша не найдена");
+            throw new Exception("Key not found");
         }
     }
 }
