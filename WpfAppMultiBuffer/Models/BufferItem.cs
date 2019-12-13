@@ -8,7 +8,7 @@ namespace WpfAppMultiBuffer.Models
     /// <summary>
     /// Предоставляет информацию о каждом отдельном буфере.
     /// </summary>
-    public class BufferItem : INotifyPropertyChanged
+    public class BufferItem
     {
 
         /// <summary>
@@ -30,37 +30,10 @@ namespace WpfAppMultiBuffer.Models
         public Keys PasteKey { get; set; }
 
         /// <summary>
-        /// Хранимое значение
-        /// </summary>
-        string _value;
-
-        /// <summary>
         /// Значение.
         /// Оповещает о своем изменении
         /// </summary>
-        public string Value 
-        { 
-            get { return _value; }
-            set
-            {
-                _value = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Свойство обновлено. Возникает после обновления свойства
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Функция вызова события "Свойство обновленно"
-        /// </summary>
-        /// <param name="propertyName">Имя вызывающего метода или свойства. Заполняется автоматически</param>
-        void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public string Value { get; set; }
 
         /// <summary>
         /// Объекты равны, если горячие клавиши у них одинаковые
