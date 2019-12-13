@@ -42,6 +42,16 @@ namespace WpfAppMultiBuffer.Models
         /// <returns></returns>
         public override bool Equals(object obj)
         {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(obj, this))
+            {
+                return true;
+            }
+
             if (!(obj is BufferItem))
             {
                 return false;
