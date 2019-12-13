@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Threading;
-using WindowsInput;
-using WindowsInput.Native;
-using WpfAppMultiBuffer.Controllers;
+﻿using System.Collections.ObjectModel;
 using WpfAppMultiBuffer.Interfaces;
 using WpfAppMultiBuffer.Models;
 using WpfAppMultiBuffer.Utils;
@@ -21,13 +16,11 @@ namespace WpfAppMultiBuffer.ViewModels
             Buffers = new ObservableCollection<BufferItem>();
 
             _copyPasteController = copyPasteController;
-            _navigationManager = navigationManager;
 
             copyPasteController.Update += CopyPasteController_Update;
         }
 
         readonly ICopyPasteController _copyPasteController;
-        readonly INavigationManager _navigationManager;
 
         private void CopyPasteController_Update(BufferItem obj)
         {
@@ -44,11 +37,11 @@ namespace WpfAppMultiBuffer.ViewModels
 
             if (Buffers.Count == 0)
             {
-                _navigationManager.Navigate(NavigationKeys.HelpView);
+                NavigationManager.Navigate(NavigationKeys.HelpView);
             }
             else
             {
-                _navigationManager.Navigate(NavigationKeys.BuffersView);
+                NavigationManager.Navigate(NavigationKeys.BuffersView);
             }
         }
 
