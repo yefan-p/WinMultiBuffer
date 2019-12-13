@@ -12,11 +12,11 @@ namespace WpfAppMultiBuffer.Models
     {
         public event Action<BufferItem> Update;
 
-        private readonly InputController _inputController;
+        private readonly IInputController _inputController;
 
         private readonly List<BufferItem> buffer;
 
-        public CopyPasteController(InputController inputController)
+        public CopyPasteController(IInputController inputController)
         {
             buffer = new List<BufferItem>();
             _inputController = inputController;

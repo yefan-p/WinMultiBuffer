@@ -75,6 +75,7 @@
     </ApplicationDefinition>
     <Compile Include="Interfaces\Command.cs" />
     <Compile Include="Interfaces\ICopyPasteController.cs" />
+    <Compile Include="Interfaces\IInputController.cs" />
     <Compile Include="Models\BufferItem.cs" />
     <Compile Include="Models\CopyPasteController.cs" />
     <Compile Include="Utils\INavigationAware.cs" />

@@ -5,6 +5,7 @@ using NHotkey.Wpf;
 using System.Windows.Input;
 using Gma.System.MouseKeyHook;
 using System.Windows.Forms;
+using WpfAppMultiBuffer.Interfaces;
 
 namespace WpfAppMultiBuffer.Controllers
 {
@@ -12,7 +13,7 @@ namespace WpfAppMultiBuffer.Controllers
     /// <summary>
     /// Возвращает код нажатой клавиши, если до этого был нажат hotkey
     /// </summary>
-    public class InputController
+    public class InputController : IInputController
     {
         public InputController()
         {
