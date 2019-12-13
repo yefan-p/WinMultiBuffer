@@ -12,7 +12,7 @@ namespace WpfAppMultiBuffer.ViewModels
 {
     public class BuffersViewModels : BaseViewModel
     {
-        ICopyPasteController copyPasteController;
+        readonly ICopyPasteController _copyPasteController;
 
         public BuffersViewModels(
                         INavigationManager navigationManager,
@@ -21,13 +21,13 @@ namespace WpfAppMultiBuffer.ViewModels
         {
             Buffers = new ObservableCollection<BufferItem>();
 
-            this.copyPasteController = copyPasteController;
+            _copyPasteController = copyPasteController;
             copyPasteController.Update += CopyPasteController_Update;
         }
 
         private void CopyPasteController_Update(BufferItem obj)
         {
-            var index = Buffers.IndexOf(obj);
+            int index = Buffers.IndexOf(obj);
 
             if(index == -1)
             {
@@ -35,8 +35,7 @@ namespace WpfAppMultiBuffer.ViewModels
             }
             else
             {
-                Buffers.Remove(obj);
-                Buffers.Add(obj);
+                Buffers[index].Value = obj.Value;
             }
         }
 
@@ -44,10 +43,5 @@ namespace WpfAppMultiBuffer.ViewModels
         /// Хранит информацию о существующих буферах
         /// </summary>
         public ObservableCollection<BufferItem> Buffers { get; private set; }
-        /// <summary>
-        /// Количество миллисекунд, которые должны пройти, прежде чем произойдет обращение к буферу обмена после нажатия клавиши.
-        /// Задержка необходима для того, чтобы выделенный текст успел дойти до буфера обмена при копировании или успел вставиться при вставке.
-        /// </summary>
-        
     }
 }

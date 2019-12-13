@@ -18,12 +18,10 @@ namespace WpfAppMultiBuffer
     /// </summary>
     public partial class App : Application
     {
-
         protected override void OnStartup(StartupEventArgs e)
         {
             InputController inputController = new InputController();
             CopyPasteController copyPasteController = new CopyPasteController(inputController);
-
 
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);

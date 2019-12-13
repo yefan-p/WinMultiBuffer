@@ -12,18 +12,17 @@ namespace WpfAppMultiBuffer.Models
     {
         public event Action<BufferItem> Update;
 
-        private readonly InputController inputController;
+        private readonly InputController _inputController;
 
         private readonly List<BufferItem> buffer;
 
         public CopyPasteController(InputController inputController)
         {
             buffer = new List<BufferItem>();
-            this.inputController = inputController;
+            _inputController = inputController;
 
-            this.inputController.PasteKeyPress += Paste;
-            this.inputController.CopyKeyPress += Copy;
-
+            _inputController.PasteKeyPress += Paste;
+            _inputController.CopyKeyPress += Copy;
         }
 
         /// <summary>
@@ -47,9 +46,9 @@ namespace WpfAppMultiBuffer.Models
                 PasteKey = key.PasteKey,
             };
 
-            if (buffer.Contains(tmpItem))
+            int index = buffer.IndexOf(tmpItem);
+            if (index > -1)
             {
-                int index = buffer.IndexOf(tmpItem);
                 TextCopy.Clipboard.SetText(buffer[index].Value);
 
                 inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
@@ -95,7 +94,7 @@ namespace WpfAppMultiBuffer.Models
                 {
                     CopyKey = key.CopyKey,
                     PasteKey = key.PasteKey,
-                    Value = TextCopy.Clipboard.GetText()
+                    Value = TextCopy.Clipboard.GetText(),
                 };
 
                 int index = buffer.IndexOf(tmpItem);

@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace WpfAppMultiBuffer.Controllers
 {
+
     /// <summary>
     /// Возвращает код нажатой клавиши, если до этого был нажат hotkey
     /// </summary>
@@ -21,34 +22,40 @@ namespace WpfAppMultiBuffer.Controllers
             keyboardEvents = Hook.GlobalEvents();
             keyboardEvents.KeyDown += KeyboardEvents_KeyDown;
         }
+
         /// <summary>
         /// Указывает, что была нажата клавиша вставки
         /// </summary>
         public event EventHandler<InputControllerEventArgs> PasteKeyPress;
+
         /// <summary>
         /// Указывает, что была нажата клавиша копирования
         /// </summary>
         public event EventHandler<InputControllerEventArgs> CopyKeyPress;
+
         /// <summary>
         /// Флаг, который указывает, были ли нажаты клавиши активации буфера
         /// </summary>
         bool _isActive = false;
+
         /// <summary>
         /// Горячие клавиши для копирования
         /// </summary>
         public static readonly Keys[] KeysCopy =
-            {
-                Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.D0, Keys.OemMinus, Keys.Oemplus,
-                Keys.A, Keys.S, Keys.D, Keys.F, Keys.G, Keys.H, Keys.J, Keys.K, Keys.L
-            };
+                                {
+                                    Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.D0, Keys.OemMinus, Keys.Oemplus,
+                                    Keys.A, Keys.S, Keys.D, Keys.F, Keys.G, Keys.H, Keys.J, Keys.K, Keys.L
+                                };
+
         /// <summary>
         /// Горячие клавиши для вставки
         /// </summary>
         public static readonly Keys[] KeysPaste =
-            {
-                Keys.Q, Keys.W, Keys.E, Keys.R, Keys.T, Keys.Y, Keys.U, Keys.I, Keys.O, Keys.P, Keys.OemOpenBrackets, Keys.Oem6,
-                Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N, Keys.M, Keys.Oemcomma, Keys.OemPeriod
-            };
+                                {
+                                    Keys.Q, Keys.W, Keys.E, Keys.R, Keys.T, Keys.Y, Keys.U, Keys.I, Keys.O, Keys.P, Keys.OemOpenBrackets, Keys.Oem6,
+                                    Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N, Keys.M, Keys.Oemcomma, Keys.OemPeriod
+                                };
+
         /// <summary>
         /// Указываем, что hotkey нажат
         /// </summary>
@@ -58,6 +65,7 @@ namespace WpfAppMultiBuffer.Controllers
         {
             _isActive = true;
         }
+
         /// <summary>
         /// hotkey нажат, ожидаем нажатие следующей клавиши
         /// </summary>
@@ -81,6 +89,7 @@ namespace WpfAppMultiBuffer.Controllers
                 }
             }
         }
+
         /// <summary>
         /// Удаляет регистрацию горячих клавиш
         /// </summary>
@@ -88,6 +97,7 @@ namespace WpfAppMultiBuffer.Controllers
         {
             HotkeyManager.Current.Remove("ActivateMultiBufferWPF");
         }
+
         /// <summary>
         /// Возвращает клавишу копирования если передана клавиша вставки, и возвращает клавишу вставки, если передана клавиша копирования
         /// </summary>

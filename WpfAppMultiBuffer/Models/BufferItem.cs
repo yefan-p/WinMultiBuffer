@@ -4,36 +4,55 @@ using System.Windows.Forms;
 
 namespace WpfAppMultiBuffer.Models
 {
+
     /// <summary>
     /// Предоставляет информацию о каждом отдельном буфере.
     /// </summary>
     public class BufferItem : INotifyPropertyChanged
     {
+
         /// <summary>
-        /// Индекс элемента в коллецкии, заполняется автоматический при добавлении в BufferCollection
+        /// Заголовок буфера
         /// </summary>
-        public int Index { get; set; }
+        public string Name 
+        { 
+            get { return ToString(); }
+        }
+
         /// <summary>
         /// Клавиша, которая будет копировать в эту ячейку буфера
         /// </summary>
         public Keys CopyKey { get; set; }
+
         /// <summary>
         /// Клавиша, которая будет вставлять значений из этой ячейки буфера
         /// </summary>
         public Keys PasteKey { get; set; }
+
         /// <summary>
         /// Хранимое значение
         /// </summary>
         string _value;
+
         /// <summary>
         /// Значение.
         /// Оповещает о своем изменении
         /// </summary>
-        public string Value { get; set; }
+        public string Value 
+        { 
+            get { return _value; }
+            set
+            {
+                _value = value;
+                OnPropertyChanged();
+            }
+        }
+
         /// <summary>
         /// Свойство обновлено. Возникает после обновления свойства
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
         /// <summary>
         /// Функция вызова события "Свойство обновленно"
         /// </summary>
@@ -42,6 +61,7 @@ namespace WpfAppMultiBuffer.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
         /// <summary>
         /// Объекты равны, если горячие клавиши у них одинаковые
         /// </summary>
@@ -62,6 +82,7 @@ namespace WpfAppMultiBuffer.Models
             
             return false;
         }
+
         /// <summary>
         /// Хэш код объекта, основан на строковом представлении
         /// </summary>
@@ -70,6 +91,7 @@ namespace WpfAppMultiBuffer.Models
         {
             return ToString().GetHashCode();
         }
+
         /// <summary>
         /// Строковое представление
         /// </summary>

@@ -34,7 +34,9 @@
                                    Foreground="Black" 
                                    FontWeight="SemiBold"
                                    Grid.Row="0"
-                                   Grid.Column="0" Padding="5">
+                                   Grid.Column="0" 
+                                   Padding="5"
+                                   Text="{Binding Name}">
                             <TextBlock.Background>
                                 <SolidColorBrush Color="White" Opacity="0.3"/>
                             </TextBlock.Background>
