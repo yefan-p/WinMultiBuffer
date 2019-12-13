@@ -8,17 +8,18 @@ using WpfAppMultiBuffer.Interfaces;
 
 namespace WpfAppMultiBuffer.Models
 {
-    public class CopyPasteController : ICopyPasteController
+    public class CopyPasteController<TCollection>
+        : ICopyPasteController<TCollection> where TCollection : IList<BufferItem>
     {
         public event Action<BufferItem> Update;
 
         private readonly IInputController _inputController;
 
-        private readonly List<BufferItem> buffer;
+        public TCollection Buffer { get; private set; }
 
-        public CopyPasteController(IInputController inputController)
+        public CopyPasteController(IInputController inputController, TCollection collection)
         {
-            buffer = new List<BufferItem>();
+            Buffer = collection;
             _inputController = inputController;
 
             _inputController.PasteKeyPress += Paste;
@@ -46,10 +47,10 @@ namespace WpfAppMultiBuffer.Models
                 PasteKey = key.PasteKey,
             };
 
-            int index = buffer.IndexOf(tmpItem);
+            int index = Buffer.IndexOf(tmpItem);
             if (index > -1)
             {
-                TextCopy.Clipboard.SetText(buffer[index].Value);
+                TextCopy.Clipboard.SetText(Buffer[index].Value);
 
                 inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
                 inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
@@ -97,14 +98,14 @@ namespace WpfAppMultiBuffer.Models
                     Value = TextCopy.Clipboard.GetText(),
                 };
 
-                int index = buffer.IndexOf(tmpItem);
+                int index = Buffer.IndexOf(tmpItem);
                 if (index > -1)
                 {
-                    buffer[index] = tmpItem;
+                    Buffer[index] = tmpItem;
                 }
                 else
                 {
-                    buffer.Add(tmpItem);
+                    Buffer.Add(tmpItem);
                 }
 
                 TextCopy.Clipboard.SetText(contentsClipboard);

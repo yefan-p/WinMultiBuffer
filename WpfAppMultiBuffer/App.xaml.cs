@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
@@ -21,7 +22,10 @@ namespace WpfAppMultiBuffer
         protected override void OnStartup(StartupEventArgs e)
         {
             InputController inputController = new InputController();
-            CopyPasteController copyPasteController = new CopyPasteController(inputController);
+
+            ObservableCollection<BufferItem> collection = new ObservableCollection<BufferItem>();
+            CopyPasteController<ObservableCollection<BufferItem>> copyPasteController
+                = new CopyPasteController<ObservableCollection<BufferItem>>(inputController, collection);
 
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);

@@ -7,34 +7,22 @@ namespace WpfAppMultiBuffer.ViewModels
 {
     public class BuffersViewModel : BaseViewModel
     {
+        public ObservableCollection<BufferItem> Buffers { get; }
 
         public BuffersViewModel(
                         INavigationManager navigationManager,
-                        ICopyPasteController copyPasteController)
+                        ICopyPasteController<ObservableCollection<BufferItem>> copyPasteController)
                         : base(navigationManager)
         {
-            Buffers = new ObservableCollection<BufferItem>();
-
             _copyPasteController = copyPasteController;
-
-            copyPasteController.Update += CopyPasteController_Update;
+            _copyPasteController.Update += CopyPasteController_Update;
+            Buffers = copyPasteController.Buffer;
         }
 
-        readonly ICopyPasteController _copyPasteController;
+        readonly ICopyPasteController<ObservableCollection<BufferItem>> _copyPasteController;
 
         private void CopyPasteController_Update(BufferItem obj)
         {
-            int index = Buffers.IndexOf(obj);
-
-            if(index == -1)
-            {
-                Buffers.Add(obj);
-            }
-            else
-            {
-                Buffers[index].Value = obj.Value;
-            }
-
             if (Buffers.Count == 0)
             {
                 NavigationManager.Navigate(NavigationKeys.HelpView);
@@ -44,10 +32,5 @@ namespace WpfAppMultiBuffer.ViewModels
                 NavigationManager.Navigate(NavigationKeys.BuffersView);
             }
         }
-
-        /// <summary>
-        /// Хранит информацию о существующих буферах
-        /// </summary>
-        public ObservableCollection<BufferItem> Buffers { get; private set; }
     }
 }
