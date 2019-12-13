@@ -5,39 +5,91 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfAppMultiBuffer.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <WrapPanel x:Name="MainPanel" >
-        <WrapPanel.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF2D3EAC" Offset="0"/>
-                <GradientStop Color="#FF30B093" Offset="1"/>
-            </LinearGradientBrush>
-        </WrapPanel.Background>
-        <Grid x:Name="HelpKeyboard">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="10*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Margin="10,10,10,0" 
-                   TextWrapping="Wrap" 
-                   TextAlignment="Center" 
-                   Foreground="Black" 
-                   FontWeight="Bold"
-                   Grid.Row="0"
-                   Padding="5" FontSize="14">
-                <TextBlock.Background>
-                    <SolidColorBrush Color="White" Opacity="0.3"/>
-                </TextBlock.Background>
-                <Run Foreground="Blue">Main Keys Activate</Run>
-                <Run Foreground="BlueViolet">Copy Keys</Run>
-                <Run Foreground="Green">Paste Keys</Run>
-            </TextBlock>
-            <Image 
-                   Source="../keyboardHelp.png" 
-                   MaxWidth="1014" 
-                   MaxHeight="446" 
-                   Opacity="0.9"
-                   Grid.Row="1" Margin="10,10,10,0"/>
-        </Grid>
-    </WrapPanel>
+             d:DesignHeight="450" d:DesignWidth="1000">
+
+    <Canvas x:Name="HelpKeyboard" Margin="20,66,19,65">
+        <Border BorderBrush="Black" BorderThickness="1" Height="28" Canvas.Left="16" Background="White" Canvas.Top="19" Width="47">
+            <TextBlock Text="Esc" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="28" Canvas.Left="89" Background="White" Canvas.Top="19" Width="47">
+            <TextBlock Text="F1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="28" Canvas.Left="142" Background="White" Canvas.Top="19" Width="46">
+            <TextBlock Text="F2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="28" Canvas.Left="194" Background="White" Canvas.Top="19" Width="46">
+            <TextBlock Text="F3" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="28" Canvas.Left="246" Background="White" Canvas.Top="19" Width="46">
+            <TextBlock Text="F4" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="28" Canvas.Left="311" Background="White" Canvas.Top="17" Width="47">
+            <TextBlock Text="F5" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="31" Canvas.Left="375" Background="White" Canvas.Top="15" Width="50">
+            <TextBlock Text="F6" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="31" Canvas.Left="430" Background="White" Canvas.Top="15" Width="50">
+            <TextBlock Text="F7" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="31" Canvas.Left="485" Background="White" Canvas.Top="15" Width="50">
+            <TextBlock Text="F8" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="31" Canvas.Left="560" Background="White" Canvas.Top="15" Width="50">
+            <TextBlock Text="F9" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="31" Canvas.Left="615" Background="White" Canvas.Top="15" Width="50">
+            <TextBlock Text="F10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="31" Canvas.Left="670" Background="White" Canvas.Top="15" Width="50">
+            <TextBlock Text="F11" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="31" Canvas.Left="725" Background="White" Canvas.Top="15" Width="50">
+            <TextBlock Text="F12" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="16" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="~" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="68" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="640" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="=" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="588" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="536" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="484" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="9" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="432" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="8" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="380" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="7" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="328" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="6" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="276" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="5" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="224" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="4" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="172" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="3" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="120" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Height="47" Canvas.Left="692" Background="White" Canvas.Top="52" Width="47">
+            <TextBlock Text="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+
+
+    </Canvas>
 </UserControl>
