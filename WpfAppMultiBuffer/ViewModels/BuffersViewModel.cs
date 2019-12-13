@@ -10,11 +10,10 @@ using WpfAppMultiBuffer.Utils;
 
 namespace WpfAppMultiBuffer.ViewModels
 {
-    public class BuffersViewModels : BaseViewModel
+    public class BuffersViewModel : BaseViewModel
     {
-        readonly ICopyPasteController _copyPasteController;
 
-        public BuffersViewModels(
+        public BuffersViewModel(
                         INavigationManager navigationManager,
                         ICopyPasteController copyPasteController)
                         : base(navigationManager)
@@ -22,8 +21,13 @@ namespace WpfAppMultiBuffer.ViewModels
             Buffers = new ObservableCollection<BufferItem>();
 
             _copyPasteController = copyPasteController;
+            _navigationManager = navigationManager;
+
             copyPasteController.Update += CopyPasteController_Update;
         }
+
+        readonly ICopyPasteController _copyPasteController;
+        readonly INavigationManager _navigationManager;
 
         private void CopyPasteController_Update(BufferItem obj)
         {
@@ -36,6 +40,15 @@ namespace WpfAppMultiBuffer.ViewModels
             else
             {
                 Buffers[index].Value = obj.Value;
+            }
+
+            if (Buffers.Count == 0)
+            {
+                _navigationManager.Navigate(NavigationKeys.HelpView);
+            }
+            else
+            {
+                _navigationManager.Navigate(NavigationKeys.BuffersView);
             }
         }
 

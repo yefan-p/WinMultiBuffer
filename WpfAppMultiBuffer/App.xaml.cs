@@ -26,10 +26,13 @@ namespace WpfAppMultiBuffer
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);
 
-            mainNavManager.Register<BuffersViewModels, BuffersView>(
-                new BuffersViewModels(mainNavManager, copyPasteController), NavigationKeys.BuffersView);
+            mainNavManager.Register<HelpViewModel, HelpView>(
+                new HelpViewModel(mainNavManager), NavigationKeys.HelpView);
 
-            mainNavManager.Navigate(NavigationKeys.BuffersView);
+            mainNavManager.Register<BuffersViewModel, BuffersView>(
+                new BuffersViewModel(mainNavManager, copyPasteController), NavigationKeys.BuffersView);
+
+            mainNavManager.Navigate(NavigationKeys.HelpView);
             window.Show();
         }
     }
