@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using WpfAppMultiBuffer.Interfaces;
 
 namespace WpfAppMultiBuffer.ViewModels
@@ -9,6 +10,14 @@ namespace WpfAppMultiBuffer.ViewModels
     /// </summary>
     public class BufferItem : IBufferItem
     {
+
+        public Command DeleteCommand { get; }
+
+        public BufferItem()
+        {
+            DeleteCommand = new Command(() => Delete?.Invoke(this));
+        }
+
 
         /// <summary>
         /// Заголовок буфера
@@ -33,6 +42,7 @@ namespace WpfAppMultiBuffer.ViewModels
         /// Оповещает о своем изменении
         /// </summary>
         public string Value { get; set; }
+        public event Action<IBufferItem> Delete;
 
         /// <summary>
         /// Объекты равны, если горячие клавиши у них одинаковые

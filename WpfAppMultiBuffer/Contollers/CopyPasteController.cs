@@ -114,11 +114,12 @@ namespace WpfAppMultiBuffer.Controllers
                 int index = Buffer.IndexOf(tmpItem);
                 if (index > -1)
                 {
-                    Buffer[index] = tmpItem;
+                    Buffer[index].Value = tmpItem.Value;
                 }
                 else
                 {
                     Buffer.Add(tmpItem);
+                    tmpItem.Delete += TmpItem_Delete;
                 }
 
                 TextCopy.Clipboard.SetText(contentsClipboard);
@@ -126,6 +127,12 @@ namespace WpfAppMultiBuffer.Controllers
                 Update?.Invoke(tmpItem);
             };
             timer.Start();
+        }
+
+        private void TmpItem_Delete(IBufferItem obj)
+        {
+            TItem item = (TItem)obj;
+            Buffer.Remove(item);
         }
     }
 }

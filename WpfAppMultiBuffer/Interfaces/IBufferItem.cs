@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace WpfAppMultiBuffer.Interfaces
 {
@@ -18,6 +19,11 @@ namespace WpfAppMultiBuffer.Interfaces
         /// Клавиша, которая будет вставлять значений из этой ячейки буфера
         /// </summary>
         public Keys PasteKey { get; set; }
+
+        /// <summary>
+        /// Возникает во время удаления элемента.
+        /// </summary>
+        public event Action<IBufferItem> Delete;
 
         /// <summary>
         /// Значение.

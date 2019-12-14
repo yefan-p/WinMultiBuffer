@@ -49,7 +49,8 @@
                                 FontWeight="SemiBold" 
                                 VerticalContentAlignment="Center" 
                                 HorizontalContentAlignment="Center" 
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="5">
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="5"
+                                Command="{Binding DeleteCommand}">
                             <Button.BorderBrush>
                                 <SolidColorBrush Color="White" Opacity="0.3"/>
                             </Button.BorderBrush>
