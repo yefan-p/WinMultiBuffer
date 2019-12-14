@@ -1,12 +1,13 @@
 ﻿using System.Windows.Forms;
+using WpfAppMultiBuffer.Interfaces;
 
-namespace WpfAppMultiBuffer.Models
+namespace WpfAppMultiBuffer.ViewModels
 {
 
     /// <summary>
     /// Предоставляет информацию о каждом отдельном буфере.
     /// </summary>
-    public class BufferItem
+    public class BufferItem : IBufferItem
     {
 
         /// <summary>

@@ -4,33 +4,40 @@ using System.Windows.Threading;
 using WindowsInput;
 using WindowsInput.Native;
 using WpfAppMultiBuffer.Interfaces;
-using WpfAppMultiBuffer.Models;
 
 namespace WpfAppMultiBuffer.Controllers
 {
-    public class CopyPasteController<TCollection>
-        : ICopyPasteController<TCollection> where TCollection : IList<BufferItem>
+    public class CopyPasteController<TCollection, TItem>
+        : ICopyPasteController<TCollection, TItem>
+        where TCollection : IList<TItem>
+        where TItem : IBufferItem
     {
 
         /// <summary>
         /// Событие возникает при встваке элемента в коллекцию
         /// </summary>
-        public event Action<BufferItem> Update;
+        public event Action<TItem> Update;
 
         /// <summary>
         /// Сообщает о событии вставки или копирования
         /// </summary>
         private readonly IInputController _inputController;
 
+        private readonly IBufferItemFactory<TItem> _bufferItemFactory;
+
         /// <summary>
         /// Коллекция буферов
         /// </summary>
         public TCollection Buffer { get; private set; }
 
-        public CopyPasteController(IInputController inputController, TCollection collection)
+        public CopyPasteController(
+            IInputController inputController,
+            TCollection collection,
+            IBufferItemFactory<TItem> bufferItemFactory)
         {
             Buffer = collection;
             _inputController = inputController;
+            _bufferItemFactory = bufferItemFactory;
 
             _inputController.PasteKeyPress += Paste;
             _inputController.CopyKeyPress += Copy;
@@ -51,11 +58,9 @@ namespace WpfAppMultiBuffer.Controllers
             InputSimulator inputSimulator = new InputSimulator();
             string contentsClipboard = TextCopy.Clipboard.GetText() ?? "";
 
-            BufferItem tmpItem = new BufferItem()
-            {
-                CopyKey = key.CopyKey,
-                PasteKey = key.PasteKey,
-            };
+            TItem tmpItem = (TItem)_bufferItemFactory.GetBuffer();
+            tmpItem.CopyKey = key.CopyKey;
+            tmpItem.PasteKey = key.PasteKey;
 
             int index = Buffer.IndexOf(tmpItem);
             if (index > -1)
@@ -101,12 +106,10 @@ namespace WpfAppMultiBuffer.Controllers
             {
                 timer.Stop();
 
-                BufferItem tmpItem = new BufferItem()
-                {
-                    CopyKey = key.CopyKey,
-                    PasteKey = key.PasteKey,
-                    Value = TextCopy.Clipboard.GetText(),
-                };
+                TItem tmpItem = (TItem)_bufferItemFactory.GetBuffer();
+                tmpItem.CopyKey = key.CopyKey;
+                tmpItem.PasteKey = key.PasteKey;
+                tmpItem.Value = TextCopy.Clipboard.GetText();
 
                 int index = Buffer.IndexOf(tmpItem);
                 if (index > -1)

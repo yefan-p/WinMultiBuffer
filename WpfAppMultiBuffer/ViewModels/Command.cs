@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace WpfAppMultiBuffer.Interfaces
+namespace WpfAppMultiBuffer.ViewModels
 {
     public class Command : ICommand
     {

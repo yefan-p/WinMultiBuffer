@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using WpfAppMultiBuffer.Models;
 
 namespace WpfAppMultiBuffer.Interfaces
 {
-    public interface ICopyPasteController<TCollection> where TCollection : IList<BufferItem>
+    public interface ICopyPasteController<TCollection, TItem>
+        where TCollection : IList<TItem>
+        where TItem : IBufferItem
     {
 
         /// <summary>
         /// Событие возникает при встваке элемента в коллекцию
         /// </summary>
-        event Action<BufferItem> Update;
+        event Action<TItem> Update;
 
         /// <summary>
         /// Коллекция буферов

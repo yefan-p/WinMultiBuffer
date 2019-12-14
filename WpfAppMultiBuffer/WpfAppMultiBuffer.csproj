@@ -73,16 +73,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Interfaces\Command.cs" />
+    <Compile Include="ViewModels\Command.cs" />
+    <Compile Include="Interfaces\IBufferItem.cs" />
+    <Compile Include="Interfaces\IBufferItemFactory.cs" />
     <Compile Include="Interfaces\ICopyPasteController.cs" />
     <Compile Include="Interfaces\IInputController.cs" />
-    <Compile Include="Models\BufferItem.cs" />
+    <Compile Include="ViewModels\BufferItem.cs" />
     <Compile Include="Contollers\CopyPasteController.cs" />
     <Compile Include="Utils\INavigationAware.cs" />
     <Compile Include="Utils\INavigationManager.cs" />
     <Compile Include="Utils\NavigationKeys.cs" />
     <Compile Include="Utils\NavigationManager.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\BufferItemFactory.cs" />
     <Compile Include="ViewModels\BuffersViewModel.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />
     <Compile Include="Views\BuffersView.xaml.cs">
@@ -144,6 +147,9 @@
     <Content Include="keyboardHelp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using WpfAppMultiBuffer.Controllers;
-using WpfAppMultiBuffer.Models;
 using WpfAppMultiBuffer.Utils;
 using WpfAppMultiBuffer.ViewModels;
 using WpfAppMultiBuffer.Views;
@@ -24,8 +23,11 @@ namespace WpfAppMultiBuffer
             InputController inputController = new InputController();
 
             ObservableCollection<BufferItem> collection = new ObservableCollection<BufferItem>();
-            CopyPasteController<ObservableCollection<BufferItem>> copyPasteController
-                = new CopyPasteController<ObservableCollection<BufferItem>>(inputController, collection);
+            CopyPasteController<ObservableCollection<BufferItem>, BufferItem> copyPasteController
+                = new CopyPasteController<ObservableCollection<BufferItem>, BufferItem>(
+                    inputController,
+                    collection,
+                    new BufferItemFactory());
 
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);
