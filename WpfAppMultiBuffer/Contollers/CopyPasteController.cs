@@ -3,18 +3,28 @@ using System.Collections.Generic;
 using System.Windows.Threading;
 using WindowsInput;
 using WindowsInput.Native;
-using WpfAppMultiBuffer.Controllers;
 using WpfAppMultiBuffer.Interfaces;
+using WpfAppMultiBuffer.Models;
 
-namespace WpfAppMultiBuffer.Models
+namespace WpfAppMultiBuffer.Controllers
 {
     public class CopyPasteController<TCollection>
         : ICopyPasteController<TCollection> where TCollection : IList<BufferItem>
     {
+
+        /// <summary>
+        /// Событие возникает при встваке элемента в коллекцию
+        /// </summary>
         public event Action<BufferItem> Update;
 
+        /// <summary>
+        /// Сообщает о событии вставки или копирования
+        /// </summary>
         private readonly IInputController _inputController;
 
+        /// <summary>
+        /// Коллекция буферов
+        /// </summary>
         public TCollection Buffer { get; private set; }
 
         public CopyPasteController(IInputController inputController, TCollection collection)

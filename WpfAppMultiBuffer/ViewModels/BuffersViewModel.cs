@@ -7,6 +7,9 @@ namespace WpfAppMultiBuffer.ViewModels
 {
     public class BuffersViewModel : BaseViewModel
     {
+        /// <summary>
+        /// Хранит коллекцию буферов
+        /// </summary>
         public ObservableCollection<BufferItem> Buffers { get; }
 
         public BuffersViewModel(
@@ -14,12 +17,11 @@ namespace WpfAppMultiBuffer.ViewModels
                         ICopyPasteController<ObservableCollection<BufferItem>> copyPasteController)
                         : base(navigationManager)
         {
-            _copyPasteController = copyPasteController;
+            ICopyPasteController<ObservableCollection<BufferItem>>  _copyPasteController = copyPasteController;
             _copyPasteController.Update += CopyPasteController_Update;
+
             Buffers = copyPasteController.Buffer;
         }
-
-        readonly ICopyPasteController<ObservableCollection<BufferItem>> _copyPasteController;
 
         private void CopyPasteController_Update(BufferItem obj)
         {

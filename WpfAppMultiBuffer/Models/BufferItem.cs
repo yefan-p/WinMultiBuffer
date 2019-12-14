@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace WpfAppMultiBuffer.Models
 {
