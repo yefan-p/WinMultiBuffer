@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using WpfAppMultiBuffer.Controllers;
+using WpfAppMultiBuffer.Models.Controllers;
 using WpfAppMultiBuffer.Utils;
 using WpfAppMultiBuffer.ViewModels;
 using WpfAppMultiBuffer.Views;
