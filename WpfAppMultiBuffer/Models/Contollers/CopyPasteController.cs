@@ -133,6 +133,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
         {
             TItem item = (TItem)obj;
             Buffer.Remove(item);
+            Update?.Invoke(item);
         }
     }
 }
