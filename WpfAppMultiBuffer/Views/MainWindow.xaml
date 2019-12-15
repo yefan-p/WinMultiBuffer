@@ -5,9 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAppMultiBuffer.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="825" MinHeight="330" MinWidth="825">
     <Grid>
         <ContentControl x:Name="FrameContent"
                     x:FieldModifier="public"/>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF2D3EAC" Offset="0"/>
+                <GradientStop Color="#FF30B093" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
     </Grid>
 </Window>
