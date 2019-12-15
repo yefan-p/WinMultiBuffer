@@ -1,7 +1,7 @@
 ﻿using System;
-using WpfAppMultiBuffer.Controllers;
+using WpfAppMultiBuffer.Models.Controllers;
 
-namespace WpfAppMultiBuffer.Interfaces
+namespace WpfAppMultiBuffer.Models.Interfaces
 {
     public interface IInputController
     {

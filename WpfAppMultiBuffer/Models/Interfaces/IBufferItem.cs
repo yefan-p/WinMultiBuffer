@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace WpfAppMultiBuffer.Interfaces
+namespace WpfAppMultiBuffer.Models.Interfaces
 {
     public interface IBufferItem
     {

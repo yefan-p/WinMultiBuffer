@@ -1,4 +1,4 @@
-﻿using WpfAppMultiBuffer.Interfaces;
+﻿using WpfAppMultiBuffer.Models.Interfaces;
 
 namespace WpfAppMultiBuffer.ViewModels
 {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using WpfAppMultiBuffer.Interfaces;
+using WpfAppMultiBuffer.Models.Interfaces;
 using WpfAppMultiBuffer.Utils;
 
 namespace WpfAppMultiBuffer.ViewModels

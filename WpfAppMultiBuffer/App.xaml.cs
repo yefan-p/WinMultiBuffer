@@ -22,12 +22,11 @@ namespace WpfAppMultiBuffer
         {
             InputController inputController = new InputController();
 
-            ObservableCollection<BufferItem> collection = new ObservableCollection<BufferItem>();
-            CopyPasteController<ObservableCollection<BufferItem>, BufferItem> copyPasteController
-                = new CopyPasteController<ObservableCollection<BufferItem>, BufferItem>(
-                    inputController,
-                    collection,
-                    new BufferItemFactory());
+            var collection = new ObservableCollection<BufferItem>();
+            var copyPasteController = new CopyPasteController<ObservableCollection<BufferItem>, BufferItem>(
+                                            inputController,
+                                            collection,
+                                            new BufferItemFactory());
 
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WpfAppMultiBuffer.Interfaces
+namespace WpfAppMultiBuffer.Models.Interfaces
 {
     public interface ICopyPasteController<TCollection, TItem>
         where TCollection : IList<TItem>

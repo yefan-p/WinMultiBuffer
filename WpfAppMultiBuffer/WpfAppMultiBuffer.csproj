@@ -74,12 +74,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\Command.cs" />
-    <Compile Include="Interfaces\IBufferItem.cs" />
-    <Compile Include="Interfaces\IBufferItemFactory.cs" />
-    <Compile Include="Interfaces\ICopyPasteController.cs" />
-    <Compile Include="Interfaces\IInputController.cs" />
+    <Compile Include="Models\Interfaces\IBufferItem.cs" />
+    <Compile Include="Models\Interfaces\IBufferItemFactory.cs" />
+    <Compile Include="Models\Interfaces\ICopyPasteController.cs" />
+    <Compile Include="Models\Interfaces\IInputController.cs" />
     <Compile Include="ViewModels\BufferItem.cs" />
-    <Compile Include="Contollers\CopyPasteController.cs" />
+    <Compile Include="Models\Contollers\CopyPasteController.cs" />
     <Compile Include="Utils\INavigationAware.cs" />
     <Compile Include="Utils\INavigationManager.cs" />
     <Compile Include="Utils\NavigationKeys.cs" />
@@ -91,8 +91,8 @@
     <Compile Include="Views\BuffersView.xaml.cs">
       <DependentUpon>BuffersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Contollers\InputController.cs" />
-    <Compile Include="Contollers\InputControllerEventArgs.cs" />
+    <Compile Include="Models\Contollers\InputController.cs" />
+    <Compile Include="Models\Contollers\InputControllerEventArgs.cs" />
     <Compile Include="Views\HelpView.xaml.cs">
       <DependentUpon>HelpView.xaml</DependentUpon>
     </Compile>
@@ -148,8 +148,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

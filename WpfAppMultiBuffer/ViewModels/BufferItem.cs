@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using WpfAppMultiBuffer.Interfaces;
+using WpfAppMultiBuffer.Models.Interfaces;
 
 namespace WpfAppMultiBuffer.ViewModels
 {
