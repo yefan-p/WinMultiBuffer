@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAppMultiBuffer.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="825" MinHeight="330" MinWidth="825">
+        Title="MainWindow" Height="450" Width="840" MinHeight="450" MinWidth="840">
     <Grid>
         <ContentControl x:Name="FrameContent"
                     x:FieldModifier="public"/>
