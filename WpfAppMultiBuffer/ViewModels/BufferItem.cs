@@ -10,8 +10,15 @@ namespace WpfAppMultiBuffer.ViewModels
     /// </summary>
     public class BufferItem : IBufferItem
     {
-
+        /// <summary>
+        /// Команад удаления буфера
+        /// </summary>
         public Command DeleteCommand { get; }
+
+        /// <summary>
+        /// Возникает при удалении буфера
+        /// </summary>
+        public event Action<IBufferItem> Delete;
 
         public BufferItem()
         {
@@ -42,7 +49,6 @@ namespace WpfAppMultiBuffer.ViewModels
         /// Оповещает о своем изменении
         /// </summary>
         public string Value { get; set; }
-        public event Action<IBufferItem> Delete;
 
         /// <summary>
         /// Объекты равны, если горячие клавиши у них одинаковые

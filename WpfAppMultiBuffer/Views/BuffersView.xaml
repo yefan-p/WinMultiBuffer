@@ -56,12 +56,11 @@
                                  Margin="10" 
                                  Grid.Row="1" 
                                  TextWrapping="Wrap" 
-                                 Text="{Binding Value}" 
+                                 Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  HorizontalContentAlignment="Stretch" 
                                  VerticalContentAlignment="Stretch" 
                                  HorizontalScrollBarVisibility="Visible" 
                                  VerticalScrollBarVisibility="Auto" 
-                                 IsReadOnly="True" 
                                  SelectionBrush="#FFD75800" 
                                  Grid.ColumnSpan="2">
                             <TextBox.Background>
