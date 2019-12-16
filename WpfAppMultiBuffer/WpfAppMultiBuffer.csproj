@@ -73,6 +73,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Interfaces\IInputSimulatorFactory.cs" />
     <Compile Include="ViewModels\Command.cs" />
     <Compile Include="Models\Interfaces\IBufferItem.cs" />
     <Compile Include="Models\Interfaces\IBufferItemFactory.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="ViewModels\BufferItemFactory.cs" />
     <Compile Include="ViewModels\BuffersViewModel.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />
+    <Compile Include="ViewModels\InputSimulatorFactory.cs" />
     <Compile Include="Views\BuffersView.xaml.cs">
       <DependentUpon>BuffersView.xaml</DependentUpon>
     </Compile>

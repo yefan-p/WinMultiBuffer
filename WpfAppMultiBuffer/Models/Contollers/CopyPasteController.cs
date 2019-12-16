@@ -23,7 +23,15 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// </summary>
         private readonly IInputController _inputController;
 
+        /// <summary>
+        /// Предоставляет экземпляр класса BufferItem
+        /// </summary>
         private readonly IBufferItemFactory<TItem> _bufferItemFactory;
+
+        /// <summary>
+        /// Эмулирует нажатия на клавиши, необходимо для копирования и вставки
+        /// </summary>
+        private readonly IInputSimulator _inputSimulator;
 
         /// <summary>
         /// Коллекция буферов
@@ -33,11 +41,13 @@ namespace WpfAppMultiBuffer.Models.Controllers
         public CopyPasteController(
             IInputController inputController,
             TCollection collection,
-            IBufferItemFactory<TItem> bufferItemFactory)
+            IBufferItemFactory<TItem> bufferItemFactory,
+            IInputSimulatorFactory inputSimulatorFactory)
         {
             Buffer = collection;
             _inputController = inputController;
             _bufferItemFactory = bufferItemFactory;
+            _inputSimulator = inputSimulatorFactory.GetInputSimulator();
 
             _inputController.PasteKeyPress += Paste;
             _inputController.CopyKeyPress += Copy;
@@ -55,7 +65,6 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// <param name="key">Нажатая клавиша, указывающая, из какого буфера будет вставлен текст</param>
         public void Paste(object sender, InputControllerEventArgs key)
         {
-            InputSimulator inputSimulator = new InputSimulator();
             string contentsClipboard = TextCopy.Clipboard.GetText() ?? "";
 
             TItem tmpItem = (TItem)_bufferItemFactory.GetBuffer();
@@ -67,9 +76,9 @@ namespace WpfAppMultiBuffer.Models.Controllers
             {
                 TextCopy.Clipboard.SetText(Buffer[index].Value);
 
-                inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
-                inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
-                inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
+                _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
+                _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
+                _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
 
                 DispatcherTimer timer = new DispatcherTimer()
                 {
@@ -91,11 +100,10 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// <param name="key">Нажатая клавиша, указывающая, в какой буфер будет вставлен текст</param>
         public void Copy(object sender, InputControllerEventArgs key)
         {
-            InputSimulator inputSimulator = new InputSimulator();
             string contentsClipboard = TextCopy.Clipboard.GetText() ?? "";
-            inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
-            inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_C);
-            inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
+            _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
+            _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_C);
+            _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
 
             DispatcherTimer timer = new DispatcherTimer()
             {
@@ -129,6 +137,10 @@ namespace WpfAppMultiBuffer.Models.Controllers
             timer.Start();
         }
 
+        /// <summary>
+        /// Удаляет выбранный буфер
+        /// </summary>
+        /// <param name="obj"></param>
         private void TmpItem_Delete(IBufferItem obj)
         {
             TItem item = (TItem)obj;

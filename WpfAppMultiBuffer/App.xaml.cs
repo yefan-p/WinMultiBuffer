@@ -26,7 +26,8 @@ namespace WpfAppMultiBuffer
             var copyPasteController = new CopyPasteController<ObservableCollection<BufferItem>, BufferItem>(
                                             inputController,
                                             collection,
-                                            new BufferItemFactory());
+                                            new BufferItemFactory(),
+                                            new InputSimulatorFactory());
 
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);
