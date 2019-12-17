@@ -82,9 +82,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Controllers\HelpSwitchingController.cs" />
-    <Compile Include="Models\Interfaces\IHelpItem.cs" />
-    <Compile Include="Models\Interfaces\IHelpSwitchingController.cs" />
     <Compile Include="Models\Interfaces\IInputSimulatorFactory.cs" />
     <Compile Include="ViewModels\Command.cs" />
     <Compile Include="Models\Interfaces\IBufferItem.cs" />
@@ -100,7 +97,6 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BufferItemFactory.cs" />
     <Compile Include="ViewModels\BuffersViewModel.cs" />
-    <Compile Include="ViewModels\HelpItem.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />
     <Compile Include="ViewModels\InputSimulatorFactory.cs" />
     <Compile Include="Views\BuffersView.xaml.cs">

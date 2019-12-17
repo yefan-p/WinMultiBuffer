@@ -36,13 +36,11 @@ namespace WpfAppMultiBuffer
         {
             var copyPasteController = container.Resolve<ICopyPasteController<IList<IBufferItem>>>();
 
-            var helpSwitchingController = new HelpSwitchingController<HelpItem>(new HelpItem());
-
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);
 
             mainNavManager.Register<HelpViewModel, HelpView>(
-                new HelpViewModel(mainNavManager, helpSwitchingController), NavigationKeys.HelpView);
+                new HelpViewModel(mainNavManager), NavigationKeys.HelpView);
 
             mainNavManager.Register<BuffersViewModel, BuffersView>(
                 new BuffersViewModel(mainNavManager, copyPasteController), NavigationKeys.BuffersView);

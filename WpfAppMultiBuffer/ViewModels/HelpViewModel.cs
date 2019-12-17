@@ -6,15 +6,61 @@ namespace WpfAppMultiBuffer.ViewModels
     public class HelpViewModel : BaseViewModel
     {
         /// <summary>
-        /// Отображаемый элемент
+        /// Коллекция отображаемых значений
         /// </summary>
-        public HelpItem HelpItem { get; }
+        private string[] _values =
+            {
+                "Press light hot keys for activation",
+                "Press any light keys for copy",
+                "Press any light key for paste",
+            };
 
-        public HelpViewModel(INavigationManager navigationManager,
-                            IHelpSwitchingController<HelpItem> controller)
+        public Command NextMessage { get; }
+        public Command PreviousMessage { get; }
+
+        private int numberOfMessage = 0;
+
+        private string helpMessage;
+        public string HelpMessage
+        {
+            get => helpMessage;
+            set
+            {
+                helpMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public HelpViewModel(INavigationManager navigationManager)
                             : base(navigationManager)
         {
-            HelpItem = controller.HelpItem;
+            HelpMessage = _values[0];
+            NextMessage = new Command(() =>
+            {
+                if (numberOfMessage == _values.Length - 1)
+                {
+                    numberOfMessage = 0;
+                }
+                else
+                {
+                    numberOfMessage++;
+                }
+
+                HelpMessage = _values[numberOfMessage];
+            });
+            PreviousMessage = new Command(() =>
+            {
+                if (numberOfMessage == 0)
+                {
+                    numberOfMessage = _values.Length - 1;
+                }
+                else
+                {
+                    numberOfMessage--;
+                }
+
+                HelpMessage = _values[numberOfMessage];
+            });
         }
     }
 }
