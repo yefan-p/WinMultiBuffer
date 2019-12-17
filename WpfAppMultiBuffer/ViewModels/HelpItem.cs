@@ -6,6 +6,12 @@ namespace WpfAppMultiBuffer.ViewModels
 {
     public class HelpItem : INotifyPropertyChanged
     {
+        public HelpItem()
+        {
+            PreviousCommand = new Command(() => Previous?.Invoke(this));
+            NextCommand = new Command(() => Next?.Invoke(this));
+        }
+
         /// <summary>
         /// Команад переключения на предыдущий текст
         /// </summary>
