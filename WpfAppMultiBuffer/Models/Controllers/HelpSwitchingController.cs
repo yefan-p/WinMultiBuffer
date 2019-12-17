@@ -47,7 +47,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// </summary>
         private void HelpItem_Next(HelpItem obj)
         {
-            if (obj.IndexValue == _values.Length)
+            if (obj.IndexValue == _values.Length - 1)
             {
                 return;
             }
