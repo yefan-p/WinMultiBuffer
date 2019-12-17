@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using WpfAppMultiBuffer.Models.Interfaces;
 using WpfAppMultiBuffer.Utils;
 
@@ -9,14 +10,14 @@ namespace WpfAppMultiBuffer.ViewModels
         /// <summary>
         /// Хранит коллекцию буферов
         /// </summary>
-        public ObservableCollection<IBufferItem> Buffers { get; }
+        public IList<IBufferItem> Buffers { get; }
 
         public BuffersViewModel(
                         INavigationManager navigationManager,
-                        ICopyPasteController<ObservableCollection<IBufferItem>> copyPasteController)
+                        ICopyPasteController<IList<IBufferItem>> copyPasteController)
                         : base(navigationManager)
         {
-            ICopyPasteController<ObservableCollection<IBufferItem>> _copyPasteController = copyPasteController;
+            ICopyPasteController<IList<IBufferItem>> _copyPasteController = copyPasteController;
             _copyPasteController.Update += CopyPasteController_Update;
 
             Buffers = copyPasteController.Buffer;

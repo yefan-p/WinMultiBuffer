@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
@@ -14,20 +16,25 @@ using WpfAppMultiBuffer.Views;
 
 namespace WpfAppMultiBuffer
 {
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
+
+
+        IWindsorContainer container;
+
+        public App()
+        {
+            container = new WindsorContainer();
+            RegisterComponents();
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            InputController inputController = new InputController();
-
-            var copyPasteController = new CopyPasteController<ObservableCollection<IBufferItem>>(
-                                            inputController,
-                                            new ObservableCollection<IBufferItem>(),
-                                            new BufferItemFactory(),
-                                            new InputSimulatorFactory());
+            var copyPasteController = container.Resolve<ICopyPasteController<IList<IBufferItem>>>();
 
             var helpSwitchingController = new HelpSwitchingController<HelpItem>(new HelpItem());
 
@@ -42,6 +49,29 @@ namespace WpfAppMultiBuffer
 
             mainNavManager.Navigate(NavigationKeys.HelpView);
             window.Show();
+        }
+
+        private void RegisterComponents()
+        {
+            container.Register(Component
+                .For<IList<IBufferItem>>()
+                .ImplementedBy<ObservableCollection<IBufferItem>>());
+
+            container.Register(Component
+                .For<IBufferItemFactory>()
+                .ImplementedBy<BufferItemFactory>());
+
+            container.Register(Component
+                .For<IInputSimulatorFactory>()
+                .ImplementedBy<InputSimulatorFactory>());
+
+            container.Register(Component
+                .For<IInputController>()
+                .ImplementedBy<InputController>());
+
+            container.Register(Component
+               .For<ICopyPasteController<IList<IBufferItem>>>()
+               .ImplementedBy<CopyPasteController<IList<IBufferItem>>>());
         }
     }
 }
