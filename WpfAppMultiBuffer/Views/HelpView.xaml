@@ -3,8 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WpfAppMultiBuffer.Views"
-             mc:Ignorable="d" Height="460" Width="825" HorizontalAlignment="Left" VerticalAlignment="Top">
+             xmlns:viewModel="clr-namespace:WpfAppMultiBuffer.ViewModels"
+             d:DataContext="{d:DesignInstance viewModel:HelpViewModel}"
+             mc:Ignorable="d" 
+             Height="460" 
+             Width="825" 
+             HorizontalAlignment="Left" 
+             VerticalAlignment="Top">
     <StackPanel>
         <Border BorderThickness="1" Margin="5,5,5,30">
             <Border.Background>
@@ -13,8 +18,8 @@
             <Border.BorderBrush>
                 <SolidColorBrush Color="White" Opacity="0.3"/>
             </Border.BorderBrush>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14">
-                1) Press hot keys for activation.<LineBreak/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Text="{Binding HelpItem.Value}">
+                1) Press hot keys for activation<LineBreak/>
                 2) Press any from keys for copy.<LineBreak/>
                 3) Press any from keys for paste.<LineBreak/>
                 4) Under every key for copy is key for paste. Every key has it own text clipboard.<LineBreak/>

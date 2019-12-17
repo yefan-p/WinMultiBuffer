@@ -13,6 +13,11 @@ namespace WpfAppMultiBuffer.ViewModels
         }
 
         /// <summary>
+        /// Указывает номер изменяемого значения
+        /// </summary>
+        public int IndexValue { get; set; }
+
+        /// <summary>
         /// Команад переключения на предыдущий текст
         /// </summary>
         public Command PreviousCommand { get; }

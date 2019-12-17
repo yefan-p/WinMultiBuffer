@@ -73,7 +73,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Contollers\HelpSwitchingController.cs" />
+    <Compile Include="Models\Controllers\HelpSwitchingController.cs" />
     <Compile Include="Models\Interfaces\IInputSimulatorFactory.cs" />
     <Compile Include="ViewModels\Command.cs" />
     <Compile Include="Models\Interfaces\IBufferItem.cs" />
@@ -81,7 +81,7 @@
     <Compile Include="Models\Interfaces\ICopyPasteController.cs" />
     <Compile Include="Models\Interfaces\IInputController.cs" />
     <Compile Include="ViewModels\BufferItem.cs" />
-    <Compile Include="Models\Contollers\CopyPasteController.cs" />
+    <Compile Include="Models\Controllers\CopyPasteController.cs" />
     <Compile Include="Utils\INavigationAware.cs" />
     <Compile Include="Utils\INavigationManager.cs" />
     <Compile Include="Utils\NavigationKeys.cs" />
@@ -95,8 +95,8 @@
     <Compile Include="Views\BuffersView.xaml.cs">
       <DependentUpon>BuffersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Contollers\InputController.cs" />
-    <Compile Include="Models\Contollers\InputControllerEventArgs.cs" />
+    <Compile Include="Models\Controllers\InputController.cs" />
+    <Compile Include="Models\Controllers\InputControllerEventArgs.cs" />
     <Compile Include="Views\HelpView.xaml.cs">
       <DependentUpon>HelpView.xaml</DependentUpon>
     </Compile>

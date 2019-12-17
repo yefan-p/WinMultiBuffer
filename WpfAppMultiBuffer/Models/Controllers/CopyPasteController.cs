@@ -12,6 +12,20 @@ namespace WpfAppMultiBuffer.Models.Controllers
         where TCollection : IList<TItem>
         where TItem : IBufferItem
     {
+        public CopyPasteController(
+                    IInputController inputController,
+                    TCollection collection,
+                    IBufferItemFactory<TItem> bufferItemFactory,
+                    IInputSimulatorFactory inputSimulatorFactory)
+        {
+            Buffer = collection;
+            _inputController = inputController;
+            _bufferItemFactory = bufferItemFactory;
+            _inputSimulator = inputSimulatorFactory.GetInputSimulator();
+
+            _inputController.PasteKeyPress += Paste;
+            _inputController.CopyKeyPress += Copy;
+        }
 
         /// <summary>
         /// Событие возникает при встваке или удаления элемента в коллекцию
@@ -37,21 +51,6 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// Коллекция буферов
         /// </summary>
         public TCollection Buffer { get; private set; }
-
-        public CopyPasteController(
-            IInputController inputController,
-            TCollection collection,
-            IBufferItemFactory<TItem> bufferItemFactory,
-            IInputSimulatorFactory inputSimulatorFactory)
-        {
-            Buffer = collection;
-            _inputController = inputController;
-            _bufferItemFactory = bufferItemFactory;
-            _inputSimulator = inputSimulatorFactory.GetInputSimulator();
-
-            _inputController.PasteKeyPress += Paste;
-            _inputController.CopyKeyPress += Copy;
-        }
 
         /// <summary>
         /// Количество миллисекунд, которые должны пройти, прежде чем произойдет обращение к буферу обмена после нажатия клавиши.

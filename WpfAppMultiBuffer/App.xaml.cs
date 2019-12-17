@@ -22,18 +22,19 @@ namespace WpfAppMultiBuffer
         {
             InputController inputController = new InputController();
 
-            var collection = new ObservableCollection<BufferItem>();
             var copyPasteController = new CopyPasteController<ObservableCollection<BufferItem>, BufferItem>(
                                             inputController,
-                                            collection,
+                                            new ObservableCollection<BufferItem>(),
                                             new BufferItemFactory(),
                                             new InputSimulatorFactory());
+
+            var helpSwitchingController = new HelpSwitchingController(new HelpItem());
 
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);
 
             mainNavManager.Register<HelpViewModel, HelpView>(
-                new HelpViewModel(mainNavManager), NavigationKeys.HelpView);
+                new HelpViewModel(mainNavManager, helpSwitchingController), NavigationKeys.HelpView);
 
             mainNavManager.Register<BuffersViewModel, BuffersView>(
                 new BuffersViewModel(mainNavManager, copyPasteController), NavigationKeys.BuffersView);
