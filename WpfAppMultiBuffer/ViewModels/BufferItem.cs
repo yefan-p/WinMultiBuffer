@@ -25,7 +25,6 @@ namespace WpfAppMultiBuffer.ViewModels
             DeleteCommand = new Command(() => Delete?.Invoke(this));
         }
 
-
         /// <summary>
         /// Заголовок буфера
         /// </summary>

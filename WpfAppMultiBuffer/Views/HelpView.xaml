@@ -14,9 +14,7 @@
                 <SolidColorBrush Color="White" Opacity="0.3"/>
             </Border.BorderBrush>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14">
-                <Run Foreground="Orange">
-                    1) Press hot keys for activation.
-                </Run><LineBreak/>
+                1) Press hot keys for activation.<LineBreak/>
                 2) Press any from keys for copy.<LineBreak/>
                 3) Press any from keys for paste.<LineBreak/>
                 4) Under every key for copy is key for paste. Every key has it own text clipboard.<LineBreak/>

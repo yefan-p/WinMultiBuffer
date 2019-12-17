@@ -14,7 +14,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
     {
 
         /// <summary>
-        /// Событие возникает при встваке элемента в коллекцию
+        /// Событие возникает при встваке или удаления элемента в коллекцию
         /// </summary>
         public event Action<TItem> Update;
 
