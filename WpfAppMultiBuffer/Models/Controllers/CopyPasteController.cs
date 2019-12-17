@@ -7,15 +7,14 @@ using WpfAppMultiBuffer.Models.Interfaces;
 
 namespace WpfAppMultiBuffer.Models.Controllers
 {
-    public class CopyPasteController<TCollection, TItem>
-        : ICopyPasteController<TCollection, TItem>
-        where TCollection : IList<TItem>
-        where TItem : IBufferItem
+    public class CopyPasteController<TCollection>
+        : ICopyPasteController<TCollection>
+        where TCollection : IList<IBufferItem>
     {
         public CopyPasteController(
                     IInputController inputController,
                     TCollection collection,
-                    IBufferItemFactory<TItem> bufferItemFactory,
+                    IBufferItemFactory bufferItemFactory,
                     IInputSimulatorFactory inputSimulatorFactory)
         {
             Buffer = collection;
@@ -30,7 +29,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// <summary>
         /// Событие возникает при встваке или удаления элемента в коллекцию
         /// </summary>
-        public event Action<TItem> Update;
+        public event Action<IBufferItem> Update;
 
         /// <summary>
         /// Сообщает о событии вставки или копирования
@@ -40,7 +39,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// <summary>
         /// Предоставляет экземпляр класса BufferItem
         /// </summary>
-        private readonly IBufferItemFactory<TItem> _bufferItemFactory;
+        private readonly IBufferItemFactory _bufferItemFactory;
 
         /// <summary>
         /// Эмулирует нажатия на клавиши, необходимо для копирования и вставки
@@ -66,7 +65,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
         {
             string contentsClipboard = TextCopy.Clipboard.GetText() ?? "";
 
-            TItem tmpItem = (TItem)_bufferItemFactory.GetBuffer();
+            IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
             tmpItem.CopyKey = key.CopyKey;
             tmpItem.PasteKey = key.PasteKey;
 
@@ -113,7 +112,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
             {
                 timer.Stop();
 
-                TItem tmpItem = (TItem)_bufferItemFactory.GetBuffer();
+                IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
                 tmpItem.CopyKey = key.CopyKey;
                 tmpItem.PasteKey = key.PasteKey;
                 tmpItem.Value = TextCopy.Clipboard.GetText();
@@ -142,9 +141,8 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// <param name="obj"></param>
         private void TmpItem_Delete(IBufferItem obj)
         {
-            TItem item = (TItem)obj;
-            Buffer.Remove(item);
-            Update?.Invoke(item);
+            Buffer.Remove(obj);
+            Update?.Invoke(obj);
         }
     }
 }

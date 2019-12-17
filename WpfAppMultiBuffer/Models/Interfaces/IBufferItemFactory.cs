@@ -1,6 +1,6 @@
 ﻿namespace WpfAppMultiBuffer.Models.Interfaces
 {
-    public interface IBufferItemFactory<TItem> where TItem : IBufferItem
+    public interface IBufferItemFactory
     {
         IBufferItem GetBuffer();
     }

@@ -2,7 +2,7 @@
 
 namespace WpfAppMultiBuffer.ViewModels
 {
-    public class BufferItemFactory : IBufferItemFactory<BufferItem>
+    public class BufferItemFactory : IBufferItemFactory
     {
         public IBufferItem GetBuffer()
         {

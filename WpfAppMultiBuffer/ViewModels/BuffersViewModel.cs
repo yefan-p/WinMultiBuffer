@@ -9,20 +9,20 @@ namespace WpfAppMultiBuffer.ViewModels
         /// <summary>
         /// Хранит коллекцию буферов
         /// </summary>
-        public ObservableCollection<BufferItem> Buffers { get; }
+        public ObservableCollection<IBufferItem> Buffers { get; }
 
         public BuffersViewModel(
                         INavigationManager navigationManager,
-                        ICopyPasteController<ObservableCollection<BufferItem>, BufferItem> copyPasteController)
+                        ICopyPasteController<ObservableCollection<IBufferItem>> copyPasteController)
                         : base(navigationManager)
         {
-            ICopyPasteController<ObservableCollection<BufferItem>, BufferItem> _copyPasteController = copyPasteController;
+            ICopyPasteController<ObservableCollection<IBufferItem>> _copyPasteController = copyPasteController;
             _copyPasteController.Update += CopyPasteController_Update;
 
             Buffers = copyPasteController.Buffer;
         }
 
-        private void CopyPasteController_Update(BufferItem obj)
+        private void CopyPasteController_Update(IBufferItem obj)
         {
             if (Buffers.Count == 0)
             {
