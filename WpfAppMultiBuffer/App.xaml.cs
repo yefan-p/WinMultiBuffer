@@ -30,20 +30,26 @@ namespace WpfAppMultiBuffer
         {
             container = new WindsorContainer();
             RegisterComponents();
+            RegisterViewModels();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            var copyPasteController = container.Resolve<ICopyPasteController<IList<IBufferItem>>>();
-
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);
 
+            container.Register(Component
+                .For<INavigationManager>()
+                .Instance(mainNavManager));
+
+            var helpViewModel = container.Resolve<HelpViewModel>();
+            var buffersViewModel = container.Resolve<BuffersViewModel>();
+
             mainNavManager.Register<HelpViewModel, HelpView>(
-                new HelpViewModel(mainNavManager), NavigationKeys.HelpView);
+                helpViewModel, NavigationKeys.HelpView);
 
             mainNavManager.Register<BuffersViewModel, BuffersView>(
-                new BuffersViewModel(mainNavManager, copyPasteController), NavigationKeys.BuffersView);
+                buffersViewModel, NavigationKeys.BuffersView);
 
             mainNavManager.Navigate(NavigationKeys.HelpView);
             window.Show();
@@ -70,6 +76,18 @@ namespace WpfAppMultiBuffer
             container.Register(Component
                .For<ICopyPasteController<IList<IBufferItem>>>()
                .ImplementedBy<CopyPasteController<IList<IBufferItem>>>());
+        }
+
+        private void RegisterViewModels()
+        {
+            container.Register(Component
+                  .For<HelpViewModel>()
+                  .ImplementedBy<HelpViewModel>());
+
+            container.Register(Component
+                  .For<BuffersViewModel>()
+                  .ImplementedBy<BuffersViewModel>());
+
         }
     }
 }
