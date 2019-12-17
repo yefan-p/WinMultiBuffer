@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfAppMultiBuffer.ViewModels;
+﻿using WpfAppMultiBuffer.Models.Interfaces;
 
 namespace WpfAppMultiBuffer.Models.Controllers
 {
-    public class HelpSwitchingController
+    public class HelpSwitchingController<TItem> 
+                    : IHelpSwitchingController<TItem>
+                    where TItem : IHelpItem
     {
-        public HelpSwitchingController(HelpItem helpItem)
+        public HelpSwitchingController(TItem helpItem)
         {
             HelpItem = helpItem;
             HelpItem.Next += HelpItem_Next;
@@ -32,7 +29,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// <summary>
         /// Возникает при запросе предыдущего текста
         /// </summary>
-        private void HelpItem_Previous(HelpItem obj)
+        private void HelpItem_Previous(IHelpItem obj)
         {
             if (obj.IndexValue == 0)
             {
@@ -45,7 +42,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// <summary>
         /// Возникает при запросе следущего текста
         /// </summary>
-        private void HelpItem_Next(HelpItem obj)
+        private void HelpItem_Next(IHelpItem obj)
         {
             if (obj.IndexValue == _values.Length - 1)
             {
@@ -56,8 +53,8 @@ namespace WpfAppMultiBuffer.Models.Controllers
         }
 
         /// <summary>
-        /// Модель представления
+        /// Отображаемое значение
         /// </summary>
-        public HelpItem HelpItem { get; private set; }
+        public TItem HelpItem { get; private set; }
     }
 }

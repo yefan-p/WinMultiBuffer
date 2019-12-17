@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using WpfAppMultiBuffer.Models.Interfaces;
 
 namespace WpfAppMultiBuffer.ViewModels
 {
-    public class HelpItem : INotifyPropertyChanged
+    public class HelpItem : INotifyPropertyChanged, IHelpItem
     {
         public HelpItem()
         {
@@ -25,7 +26,7 @@ namespace WpfAppMultiBuffer.ViewModels
         /// <summary>
         /// Возникает при запросе предыдущего текста
         /// </summary>
-        public event Action<HelpItem> Previous;
+        public event Action<IHelpItem> Previous;
 
         /// <summary>
         /// Команад переключения на следущий текст текста
@@ -35,7 +36,7 @@ namespace WpfAppMultiBuffer.ViewModels
         /// <summary>
         /// Возникает при запросе следущего текста
         /// </summary>
-        public event Action<HelpItem> Next;
+        public event Action<IHelpItem> Next;
 
         /// <summary>
         /// Хранимое значение

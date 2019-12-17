@@ -1,5 +1,5 @@
 ﻿using WpfAppMultiBuffer.Utils;
-using WpfAppMultiBuffer.Models.Controllers;
+using WpfAppMultiBuffer.Models.Interfaces;
 
 namespace WpfAppMultiBuffer.ViewModels
 {
@@ -11,10 +11,10 @@ namespace WpfAppMultiBuffer.ViewModels
         public HelpItem HelpItem { get; }
 
         public HelpViewModel(INavigationManager navigationManager,
-                            HelpSwitchingController controller)
+                            IHelpSwitchingController<HelpItem> controller)
                             : base(navigationManager)
         {
-            HelpItem= controller.HelpItem;
+            HelpItem = controller.HelpItem;
         }
     }
 }

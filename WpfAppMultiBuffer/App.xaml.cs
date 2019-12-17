@@ -28,7 +28,7 @@ namespace WpfAppMultiBuffer
                                             new BufferItemFactory(),
                                             new InputSimulatorFactory());
 
-            var helpSwitchingController = new HelpSwitchingController(new HelpItem());
+            var helpSwitchingController = new HelpSwitchingController<HelpItem>(new HelpItem());
 
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);

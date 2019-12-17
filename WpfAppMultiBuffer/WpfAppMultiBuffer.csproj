@@ -74,6 +74,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Controllers\HelpSwitchingController.cs" />
+    <Compile Include="Models\Interfaces\IHelpItem.cs" />
+    <Compile Include="Models\Interfaces\IHelpSwitchingController.cs" />
     <Compile Include="Models\Interfaces\IInputSimulatorFactory.cs" />
     <Compile Include="ViewModels\Command.cs" />
     <Compile Include="Models\Interfaces\IBufferItem.cs" />
