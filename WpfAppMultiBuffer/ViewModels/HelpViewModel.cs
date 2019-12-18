@@ -1,10 +1,41 @@
 ﻿using WpfAppMultiBuffer.Utils;
-using WpfAppMultiBuffer.Models.Interfaces;
 
 namespace WpfAppMultiBuffer.ViewModels
 {
     public class HelpViewModel : BaseViewModel
     {
+        public HelpViewModel(INavigationManager navigationManager)
+                    : base(navigationManager)
+        {
+            HelpMessage = _values[0];
+            NextMessage = new Command(() =>
+            {
+                if (_numberOfMessage == _values.Length - 1)
+                {
+                    _numberOfMessage = 0;
+                }
+                else
+                {
+                    _numberOfMessage++;
+                }
+
+                HelpMessage = _values[_numberOfMessage];
+            });
+            PreviousMessage = new Command(() =>
+            {
+                if (_numberOfMessage == 0)
+                {
+                    _numberOfMessage = _values.Length - 1;
+                }
+                else
+                {
+                    _numberOfMessage--;
+                }
+
+                HelpMessage = _values[_numberOfMessage];
+            });
+        }
+
         /// <summary>
         /// Коллекция отображаемых значений
         /// </summary>
@@ -15,52 +46,37 @@ namespace WpfAppMultiBuffer.ViewModels
                 "Press any light key for paste",
             };
 
+        /// <summary>
+        /// Переключить на предыдущую подсказку
+        /// </summary>
         public Command NextMessage { get; }
+
+        /// <summary>
+        /// Переключить на следующую подсказку
+        /// </summary>
         public Command PreviousMessage { get; }
 
-        private int numberOfMessage = 0;
+        /// <summary>
+        /// Индекс текущей подсказки в массиве
+        /// </summary>
+        private int _numberOfMessage = 0;
 
-        private string helpMessage;
+        /// <summary>
+        /// Текущая отображаемая подсказка
+        /// </summary>
+        private string _helpMessage;
+
+        /// <summary>
+        /// Текущая отображаемая подсказка
+        /// </summary>
         public string HelpMessage
         {
-            get => helpMessage;
+            get => _helpMessage;
             set
             {
-                helpMessage = value;
+                _helpMessage = value;
                 OnPropertyChanged();
             }
-        }
-
-        public HelpViewModel(INavigationManager navigationManager)
-                            : base(navigationManager)
-        {
-            HelpMessage = _values[0];
-            NextMessage = new Command(() =>
-            {
-                if (numberOfMessage == _values.Length - 1)
-                {
-                    numberOfMessage = 0;
-                }
-                else
-                {
-                    numberOfMessage++;
-                }
-
-                HelpMessage = _values[numberOfMessage];
-            });
-            PreviousMessage = new Command(() =>
-            {
-                if (numberOfMessage == 0)
-                {
-                    numberOfMessage = _values.Length - 1;
-                }
-                else
-                {
-                    numberOfMessage--;
-                }
-
-                HelpMessage = _values[numberOfMessage];
-            });
         }
     }
 }

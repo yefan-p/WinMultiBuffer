@@ -5,17 +5,6 @@ namespace WpfAppMultiBuffer.Models.Controllers
 {
     public class InputControllerEventArgs : EventArgs
     {
-
-        /// <summary>
-        /// Клавиша копирования
-        /// </summary>
-        public readonly Keys CopyKey;
-
-        /// <summary>
-        /// Клавиша вставки
-        /// </summary>
-        public readonly Keys PasteKey;
-
         /// <summary>
         /// Передает сочетания клавиш, буфер которых нужно обработать
         /// </summary>
@@ -26,5 +15,15 @@ namespace WpfAppMultiBuffer.Models.Controllers
             CopyKey = copyKey;
             PasteKey = pasteKey;
         }
+
+        /// <summary>
+        /// Клавиша копирования
+        /// </summary>
+        public readonly Keys CopyKey;
+
+        /// <summary>
+        /// Клавиша вставки
+        /// </summary>
+        public readonly Keys PasteKey;
     }
 }

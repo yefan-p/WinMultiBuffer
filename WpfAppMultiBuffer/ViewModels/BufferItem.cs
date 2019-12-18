@@ -10,6 +10,12 @@ namespace WpfAppMultiBuffer.ViewModels
     /// </summary>
     public class BufferItem : IBufferItem
     {
+
+        public BufferItem()
+        {
+            DeleteCommand = new Command(() => Delete?.Invoke(this));
+        }
+
         /// <summary>
         /// Команад удаления буфера
         /// </summary>
@@ -19,11 +25,6 @@ namespace WpfAppMultiBuffer.ViewModels
         /// Возникает при удалении буфера
         /// </summary>
         public event Action<IBufferItem> Delete;
-
-        public BufferItem()
-        {
-            DeleteCommand = new Command(() => Delete?.Invoke(this));
-        }
 
         /// <summary>
         /// Заголовок буфера
