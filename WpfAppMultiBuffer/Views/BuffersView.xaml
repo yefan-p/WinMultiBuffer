@@ -11,6 +11,16 @@
         <ItemsControl ItemsSource="{Binding Buffers}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
+                    <DataTemplate.Resources>
+                        <Storyboard x:Key="ItemAnimation" AutoReverse="False">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5" />
+                        </Storyboard>
+                    </DataTemplate.Resources>
+                    <DataTemplate.Triggers>
+                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                            <BeginStoryboard Storyboard="{StaticResource ItemAnimation}" />
+                        </EventTrigger>
+                    </DataTemplate.Triggers>
                     <Grid Name="Grid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10*"/>
