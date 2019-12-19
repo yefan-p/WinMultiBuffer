@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:WpfAppMultiBuffer.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="840" MinHeight="455" MinWidth="840">
-    <Grid>
+    <StackPanel>
         <ContentControl x:Name="FrameContent"
                     x:FieldModifier="public"/>
-        <Grid.Background>
+        <StackPanel.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF2D3EAC" Offset="0"/>
                 <GradientStop Color="#FF30B093" Offset="1"/>
             </LinearGradientBrush>
-        </Grid.Background>
-    </Grid>
+        </StackPanel.Background>
+    </StackPanel>
 </Window>

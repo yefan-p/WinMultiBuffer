@@ -9,8 +9,19 @@
              Height="460" 
              Width="825" 
              HorizontalAlignment="Left" 
-             VerticalAlignment="Top">
+             VerticalAlignment="Top" Style="{DynamicResource ContentShow}">
     <UserControl.Resources>
+        <Style x:Key="ContentShow" TargetType="{x:Type UserControl}">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="LightBorderActivation" TargetType="{x:Type Border}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding NumberOfMessage}" Value="0">
