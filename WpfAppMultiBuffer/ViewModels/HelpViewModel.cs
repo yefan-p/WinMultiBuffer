@@ -20,6 +20,7 @@ namespace WpfAppMultiBuffer.ViewModels
                 }
 
                 HelpMessage = _values[_numberOfMessage];
+                OnPropertyChanged("NumberOfMessage");
             });
             PreviousMessage = new Command(() =>
             {
@@ -33,6 +34,7 @@ namespace WpfAppMultiBuffer.ViewModels
                 }
 
                 HelpMessage = _values[_numberOfMessage];
+                OnPropertyChanged("NumberOfMessage");
             });
         }
 
@@ -41,7 +43,7 @@ namespace WpfAppMultiBuffer.ViewModels
         /// </summary>
         private string[] _values =
             {
-                "Press light hot keys for activation",
+                "Press light hot keys for activation copy or paste",
                 "Press any light keys for copy",
                 "Press any light key for paste",
             };
@@ -60,6 +62,16 @@ namespace WpfAppMultiBuffer.ViewModels
         /// Индекс текущей подсказки в массиве
         /// </summary>
         private int _numberOfMessage = 0;
+
+        public int NumberOfMessage
+        {
+            get => _numberOfMessage;
+            private set
+            {
+                _numberOfMessage = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Текущая отображаемая подсказка

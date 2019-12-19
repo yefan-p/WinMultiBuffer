@@ -10,6 +10,74 @@
              Width="825" 
              HorizontalAlignment="Left" 
              VerticalAlignment="Top">
+    <UserControl.Resources>
+        <Style x:Key="LightBorderActivation" TargetType="{x:Type Border}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding NumberOfMessage}" Value="0">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="BorderBrush.Opacity" To="1" Duration="0:0:0.25" />
+                                <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" To="3" Duration="0:0:0.25" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="BorderBrush.Opacity" To="0.3" Duration="0:0:0.25" />
+                                <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" To="1" Duration="0:0:0.25" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="LightBorderCopy" TargetType="{x:Type Border}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding NumberOfMessage}" Value="1">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="BorderBrush.Opacity" To="1" Duration="0:0:0.25" />
+                                <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" To="3" Duration="0:0:0.25" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="BorderBrush.Opacity" To="0.3" Duration="0:0:0.25" />
+                                <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" To="1" Duration="0:0:0.25" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="LightBorderPaste" TargetType="{x:Type Border}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding NumberOfMessage}" Value="2">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="BorderBrush.Opacity" To="1" Duration="0:0:0.25" />
+                                <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" To="3" Duration="0:0:0.25" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="BorderBrush.Opacity" To="0.3" Duration="0:0:0.25" />
+                                <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" To="1" Duration="0:0:0.25" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0, 0, 0, 25">
             <Button Width="60" Margin="5" FontSize="30" Command="{Binding PreviousMessage}">
@@ -155,9 +223,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="F12" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="5" Canvas.Top="55" Width="50">
-                <Border.Triggers>
-                </Border.Triggers>
+            <Border BorderThickness="1" Height="50" Canvas.Left="5" Canvas.Top="55" Width="50" Style="{StaticResource LightBorderActivation}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -166,7 +232,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="~" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="60" Canvas.Top="55" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="60" Canvas.Top="55" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -175,7 +241,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="665" Canvas.Top="55" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="665" Canvas.Top="55" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -184,7 +250,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="=" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="610" Canvas.Top="55" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="610" Canvas.Top="55" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -193,7 +259,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="555" Canvas.Top="55" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="555" Canvas.Top="55" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -202,7 +268,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="500" Canvas.Top="55" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="500" Canvas.Top="55" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -211,7 +277,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="9" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="445" Canvas.Top="55" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="445" Canvas.Top="55" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -220,7 +286,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="8" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="390" Canvas.Top="55" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="390" Canvas.Top="55" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -229,7 +295,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="7" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="335" Canvas.Top="55" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="335" Canvas.Top="55" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -238,7 +304,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="6" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="280" Canvas.Top="55" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="280" Canvas.Top="55" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -247,7 +313,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="5" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="225" Canvas.Top="55" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="225" Canvas.Top="55" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -256,7 +322,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="4" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="170" Canvas.Top="55" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="170" Canvas.Top="55" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -265,7 +331,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="3" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="115" Canvas.Top="55" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="115" Canvas.Top="55" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -292,7 +358,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="Tab" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="90" Canvas.Top="110" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="90" Canvas.Top="110" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -301,7 +367,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="Q" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="145" Canvas.Top="110" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="145" Canvas.Top="110" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -310,7 +376,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="W" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="200" Canvas.Top="110" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="200" Canvas.Top="110" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -319,7 +385,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="E" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="255" Canvas.Top="110" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="255" Canvas.Top="110" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -328,7 +394,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="R" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="310" Canvas.Top="110" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="310" Canvas.Top="110" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -337,7 +403,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="T" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="365" Canvas.Top="110" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="365" Canvas.Top="110" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -346,7 +412,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="Y" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="420" Canvas.Top="110" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="420" Canvas.Top="110" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -355,7 +421,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="U" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="475" Canvas.Top="110" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="475" Canvas.Top="110" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -364,7 +430,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="I" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="530" Canvas.Top="110" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="530" Canvas.Top="110" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -373,7 +439,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="O" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="585" Canvas.Top="110" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="585" Canvas.Top="110" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -382,7 +448,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="P" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="640" Canvas.Top="110" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="640" Canvas.Top="110" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -391,7 +457,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="[" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="695" Canvas.Top="110" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="695" Canvas.Top="110" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -418,7 +484,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="Caps Lock" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="110" Canvas.Top="165" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="110" Canvas.Top="165" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -427,7 +493,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="A" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="165" Canvas.Top="165" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="165" Canvas.Top="165" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -436,7 +502,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="S" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="220" Canvas.Top="165" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="220" Canvas.Top="165" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -445,7 +511,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="D" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="275" Canvas.Top="165" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="275" Canvas.Top="165" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -454,7 +520,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="F" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="330" Canvas.Top="165" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="330" Canvas.Top="165" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -463,7 +529,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="G" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="385" Canvas.Top="165" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="385" Canvas.Top="165" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -472,7 +538,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="H" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="440" Canvas.Top="165" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="440" Canvas.Top="165" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -481,7 +547,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="J" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="495" Canvas.Top="165" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="495" Canvas.Top="165" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -490,7 +556,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="K" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="550" Canvas.Top="165" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="550" Canvas.Top="165" Width="50" Style="{DynamicResource LightBorderCopy}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -552,7 +618,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="Shift" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="140" Canvas.Top="220" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="140" Canvas.Top="220" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -561,7 +627,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="Z" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="195" Canvas.Top="220" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="195" Canvas.Top="220" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -570,7 +636,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="X" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="250" Canvas.Top="220" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="250" Canvas.Top="220" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -579,7 +645,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="C" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="305" Canvas.Top="220" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="305" Canvas.Top="220" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -588,7 +654,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="V" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="360" Canvas.Top="220" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="360" Canvas.Top="220" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -597,7 +663,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="B" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="415" Canvas.Top="220" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="415" Canvas.Top="220" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -606,7 +672,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="N" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="470" Canvas.Top="220" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="470" Canvas.Top="220" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -615,7 +681,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="M" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="525" Canvas.Top="220" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="525" Canvas.Top="220" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -624,7 +690,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="," HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="580" Canvas.Top="220" Width="50">
+            <Border BorderThickness="1" Height="50" Canvas.Left="580" Canvas.Top="220" Width="50" Style="{DynamicResource LightBorderPaste}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
@@ -642,7 +708,7 @@
                 </Border.BorderBrush>
                 <TextBlock Text="/" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
-            <Border BorderThickness="1" Height="50" Canvas.Left="5" Canvas.Top="275" Width="80">
+            <Border BorderThickness="1" Height="50" Canvas.Left="5" Canvas.Top="275" Width="80" Style="{StaticResource LightBorderActivation}">
                 <Border.Background>
                     <SolidColorBrush Color="White" Opacity="0.3"/>
                 </Border.Background>
