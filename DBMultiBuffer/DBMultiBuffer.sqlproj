@@ -59,5 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MultiBuffer.mdf" />
+    <None Include="MultiBuffer_log.ldf" />
   </ItemGroup>
 </Project>
