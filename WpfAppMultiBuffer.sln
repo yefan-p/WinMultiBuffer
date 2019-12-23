@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppMultiBuffer", "WpfApp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{291801FC-05BD-470E-96AC-56101E657EC3}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DBMultiBuffer", "MultiBuffer\DBMultiBuffer.sqlproj", "{F3D30181-4163-4CD9-9823-63D227686333}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{291801FC-05BD-470E-96AC-56101E657EC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{291801FC-05BD-470E-96AC-56101E657EC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{291801FC-05BD-470E-96AC-56101E657EC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3D30181-4163-4CD9-9823-63D227686333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3D30181-4163-4CD9-9823-63D227686333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3D30181-4163-4CD9-9823-63D227686333}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F3D30181-4163-4CD9-9823-63D227686333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3D30181-4163-4CD9-9823-63D227686333}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3D30181-4163-4CD9-9823-63D227686333}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
