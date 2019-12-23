@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppMultiBuffer", "WpfApp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{291801FC-05BD-470E-96AC-56101E657EC3}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DBMultiBuffer", "MultiBuffer\DBMultiBuffer.sqlproj", "{F3D30181-4163-4CD9-9823-63D227686333}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DBMultiBuffer", "DBMultiBuffer\DBMultiBuffer.sqlproj", "{F3D30181-4163-4CD9-9823-63D227686333}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
