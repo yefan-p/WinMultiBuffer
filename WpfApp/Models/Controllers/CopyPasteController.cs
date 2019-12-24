@@ -70,7 +70,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// <param name="key">Нажатая клавиша, указывающая, из какого буфера будет вставлен текст</param>
         public void Paste(object sender, InputControllerEventArgs key)
         {
-            IClipboardController clipboard = _clipboardControllerFactory.GetClipboardController();
+            IClipboardController clipboard = _clipboardControllerFactory.GetClipboard();
             string contentsClipboard = clipboard.GetText() ?? "";
 
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
@@ -107,7 +107,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// <param name="key">Нажатая клавиша, указывающая, в какой буфер будет вставлен текст</param>
         public void Copy(object sender, InputControllerEventArgs key)
         {
-            IClipboardController clipboard = _clipboardControllerFactory.GetClipboardController();
+            IClipboardController clipboard = _clipboardControllerFactory.GetClipboard();
             string contentsClipboard = clipboard.GetText() ?? "";
 
             IInputSimulator simulator = _inputSimulatorFactory.GetInputSimulator();

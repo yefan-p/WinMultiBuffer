@@ -1,7 +1,7 @@
 ﻿using WindowsInput;
 using WpfAppMultiBuffer.Models.Interfaces;
 
-namespace WpfAppMultiBuffer.ViewModels
+namespace WpfAppMultiBuffer.ViewModels.Services
 {
     public class InputSimulatorFactory : IInputSimulatorFactory
     {

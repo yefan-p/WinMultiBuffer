@@ -12,6 +12,7 @@ using WpfAppMultiBuffer.Models.Controllers;
 using WpfAppMultiBuffer.Models.Interfaces;
 using WpfAppMultiBuffer.Utils;
 using WpfAppMultiBuffer.ViewModels;
+using WpfAppMultiBuffer.ViewModels.Services;
 using WpfAppMultiBuffer.Views;
 
 namespace WpfAppMultiBuffer
@@ -57,6 +58,10 @@ namespace WpfAppMultiBuffer
 
         private void RegisterComponents()
         {
+            container.Register(Component
+                .For<ICommandFactory>()
+                .ImplementedBy<CommandFactory>());
+
             container.Register(Component
                 .For<IClipboardController>()
                 .ImplementedBy<ClipboardController>());

@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using WpfAppMultiBuffer.Models.Interfaces;
 
-namespace WpfAppMultiBuffer.ViewModels
+namespace WpfAppMultiBuffer.ViewModels.Services
 {
 
     /// <summary>

@@ -1,14 +1,18 @@
-﻿using WpfAppMultiBuffer.Utils;
+﻿using System.Windows.Input;
+using WpfAppMultiBuffer.Utils;
+using WpfAppMultiBuffer.Models.Interfaces;
 
 namespace WpfAppMultiBuffer.ViewModels
 {
     public class HelpViewModel : BaseViewModel
     {
-        public HelpViewModel(INavigationManager navigationManager)
+        public HelpViewModel(
+                    INavigationManager navigationManager,
+                    ICommandFactory commandFactory)
                     : base(navigationManager)
         {
             HelpMessage = _values[0];
-            NextMessage = new Command(() =>
+            NextMessage = commandFactory.GetCommand(() =>
             {
                 if (_numberOfMessage == _values.Length - 1)
                 {
@@ -22,7 +26,7 @@ namespace WpfAppMultiBuffer.ViewModels
                 HelpMessage = _values[_numberOfMessage];
                 OnPropertyChanged("NumberOfMessage");
             });
-            PreviousMessage = new Command(() =>
+            PreviousMessage = commandFactory.GetCommand(() =>
             {
                 if (_numberOfMessage == 0)
                 {
@@ -51,18 +55,21 @@ namespace WpfAppMultiBuffer.ViewModels
         /// <summary>
         /// Переключить на предыдущую подсказку
         /// </summary>
-        public Command NextMessage { get; }
+        public ICommand NextMessage { get; }
 
         /// <summary>
         /// Переключить на следующую подсказку
         /// </summary>
-        public Command PreviousMessage { get; }
+        public ICommand PreviousMessage { get; }
 
         /// <summary>
         /// Индекс текущей подсказки в массиве
         /// </summary>
         private int _numberOfMessage = 0;
 
+        /// <summary>
+        /// Индекс текущей подсказки в массиве
+        /// </summary>
         public int NumberOfMessage
         {
             get => _numberOfMessage;

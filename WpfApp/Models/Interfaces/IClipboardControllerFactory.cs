@@ -2,6 +2,6 @@
 {
     public interface IClipboardControllerFactory
     {
-        IClipboardController GetClipboardController();
+        IClipboardController GetClipboard();
     }
 }
