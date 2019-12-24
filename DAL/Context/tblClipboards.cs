@@ -1,4 +1,4 @@
-namespace DAL
+namespace DAL.Context
 {
     using System;
     using System.Collections.Generic;
@@ -6,8 +6,10 @@ namespace DAL
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class tblClipboard
+    public partial class tblClipboards
     {
+        public int id { get; set; }
+
         public int idUser { get; set; }
 
         public int intCopyKeyCode { get; set; }
@@ -19,8 +21,6 @@ namespace DAL
 
         public string nvcValue { get; set; }
 
-        public int id { get; set; }
-
-        public virtual tblUser tblUser { get; set; }
+        public virtual tblUsers tblUsers { get; set; }
     }
 }

@@ -15,12 +15,14 @@ namespace WpfAppMultiBuffer.Models.Controllers
                     IInputController inputController,
                     TCollection collection,
                     IBufferItemFactory bufferItemFactory,
-                    IInputSimulatorFactory inputSimulatorFactory)
+                    IInputSimulatorFactory inputSimulatorFactory,
+                    IClipboardControllerFactory clipboardControllerFactory)
         {
             Buffer = collection;
             _inputController = inputController;
             _bufferItemFactory = bufferItemFactory;
-            _inputSimulator = inputSimulatorFactory.GetInputSimulator();
+            _inputSimulatorFactory = inputSimulatorFactory;
+            _clipboardControllerFactory = clipboardControllerFactory;
 
             _inputController.PasteKeyPress += Paste;
             _inputController.CopyKeyPress += Copy;
@@ -30,6 +32,11 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// Событие возникает при встваке или удаления элемента в коллекцию
         /// </summary>
         public event Action<IBufferItem> Update;
+
+        /// <summary>
+        /// Предоставляет доступ к буферу обмена
+        /// </summary>
+        private readonly IClipboardControllerFactory _clipboardControllerFactory;
 
         /// <summary>
         /// Сообщает о событии вставки или копирования
@@ -42,9 +49,9 @@ namespace WpfAppMultiBuffer.Models.Controllers
         private readonly IBufferItemFactory _bufferItemFactory;
 
         /// <summary>
-        /// Эмулирует нажатия на клавиши, необходимо для копирования и вставки
+        /// Предоставляет доступ к эмулятору нажатия клавиш, необходимо для копирования и вставки
         /// </summary>
-        private readonly IInputSimulator _inputSimulator;
+        private readonly IInputSimulatorFactory _inputSimulatorFactory;
 
         /// <summary>
         /// Коллекция буферов
@@ -74,9 +81,10 @@ namespace WpfAppMultiBuffer.Models.Controllers
             {
                 TextCopy.Clipboard.SetText(Buffer[index].Value);
 
-                _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
-                _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
-                _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
+                IInputSimulator simulator = _inputSimulatorFactory.GetInputSimulator();
+                simulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
+                simulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
+                simulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
 
                 DispatcherTimer timer = new DispatcherTimer()
                 {
@@ -99,9 +107,11 @@ namespace WpfAppMultiBuffer.Models.Controllers
         public void Copy(object sender, InputControllerEventArgs key)
         {
             string contentsClipboard = TextCopy.Clipboard.GetText() ?? "";
-            _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
-            _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_C);
-            _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
+
+            IInputSimulator simulator = _inputSimulatorFactory.GetInputSimulator();
+            simulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
+            simulator.Keyboard.KeyPress(VirtualKeyCode.VK_C);
+            simulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
 
             DispatcherTimer timer = new DispatcherTimer()
             {

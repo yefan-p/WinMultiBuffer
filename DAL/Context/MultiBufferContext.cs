@@ -1,25 +1,25 @@
-namespace DAL
+namespace DAL.Context
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class MultiBufferEntities : DbContext
+    public partial class MultiBufferContext : DbContext
     {
-        public MultiBufferEntities()
+        public MultiBufferContext()
             : base("name=MultiBufferContext")
         {
         }
 
-        public virtual DbSet<tblClipboard> tblClipboards { get; set; }
-        public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<tblClipboards> tblClipboards { get; set; }
+        public virtual DbSet<tblUsers> tblUsers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<tblUser>()
+            modelBuilder.Entity<tblUsers>()
                 .HasMany(e => e.tblClipboards)
-                .WithRequired(e => e.tblUser)
+                .WithRequired(e => e.tblUsers)
                 .HasForeignKey(e => e.idUser)
                 .WillCascadeOnDelete(false);
         }

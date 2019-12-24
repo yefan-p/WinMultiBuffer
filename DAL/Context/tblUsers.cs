@@ -1,4 +1,4 @@
-namespace DAL
+namespace DAL.Context
 {
     using System;
     using System.Collections.Generic;
@@ -6,20 +6,21 @@ namespace DAL
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class tblUser
+    public partial class tblUsers
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblUser()
+        public tblUsers()
         {
-            tblClipboards = new HashSet<tblClipboard>();
+            tblClipboards = new HashSet<tblClipboards>();
         }
-
-        [StringLength(50)]
-        public string nvcName { get; set; }
 
         public int id { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        public string nvcName { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblClipboard> tblClipboards { get; set; }
+        public virtual ICollection<tblClipboards> tblClipboards { get; set; }
     }
 }
