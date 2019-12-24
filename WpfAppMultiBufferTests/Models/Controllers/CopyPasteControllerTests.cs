@@ -12,12 +12,6 @@ namespace WpfAppMultiBuffer.Models.Controllers.Tests
     public class CopyPasteControllerTests
     {
         [TestMethod()]
-        public void CopyPasteControllerTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
         public void PasteTest()
         {
             Assert.Fail();
