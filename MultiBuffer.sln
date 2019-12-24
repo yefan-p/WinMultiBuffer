@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppMultiBuffer", "WpfApp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{291801FC-05BD-470E-96AC-56101E657EC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiMultiBuffer", "WebApiMultiBuffer\WebApiMultiBuffer.csproj", "{2AABFB03-4E21-4EB8-A518-91D9CA30803F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{291801FC-05BD-470E-96AC-56101E657EC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{291801FC-05BD-470E-96AC-56101E657EC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{291801FC-05BD-470E-96AC-56101E657EC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AABFB03-4E21-4EB8-A518-91D9CA30803F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AABFB03-4E21-4EB8-A518-91D9CA30803F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AABFB03-4E21-4EB8-A518-91D9CA30803F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AABFB03-4E21-4EB8-A518-91D9CA30803F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
