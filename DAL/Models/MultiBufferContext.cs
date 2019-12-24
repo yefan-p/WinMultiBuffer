@@ -8,7 +8,7 @@ namespace DAL.Models
     public partial class MultiBufferContext : DbContext
     {
         public MultiBufferContext()
-            : base("name=MultiBufferEntities")
+            : base("name=MultiBufferContext")
         {
         }
 

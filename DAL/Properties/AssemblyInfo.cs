@@ -8,9 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("DAL")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ЗАО "Техносерв Консалтинг"")]
 [assembly: AssemblyProduct("DAL")]
-[assembly: AssemblyCopyright("Copyright © ЗАО "Техносерв Консалтинг" 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

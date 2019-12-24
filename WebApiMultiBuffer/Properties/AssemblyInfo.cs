@@ -8,9 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("WebApiMultiBuffer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ЗАО "Техносерв Консалтинг"")]
 [assembly: AssemblyProduct("WebApiMultiBuffer")]
-[assembly: AssemblyCopyright("Copyright © ЗАО "Техносерв Консалтинг" 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
