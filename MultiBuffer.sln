@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp", "WpfAppMultiBuffer\WpfApp.csproj", "{8826FC59-6AAF-47C9-8165-43E363262190}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp", "WpfApp\WpfApp.csproj", "{8826FC59-6AAF-47C9-8165-43E363262190}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{291801FC-05BD-470E-96AC-56101E657EC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApiMultiBuffer\WebApi.csproj", "{2AABFB03-4E21-4EB8-A518-91D9CA30803F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{2AABFB03-4E21-4EB8-A518-91D9CA30803F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppTests", "WpfAppMultiBufferTests\WpfAppTests.csproj", "{46036FCE-BD21-459F-937C-6682020F9EE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppTests", "WpfAppTests\WpfAppTests.csproj", "{46036FCE-BD21-459F-937C-6682020F9EE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

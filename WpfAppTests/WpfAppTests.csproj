@@ -63,7 +63,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WpfAppMultiBuffer\WpfApp.csproj">
+    <ProjectReference Include="..\WpfApp\WpfApp.csproj">
       <Project>{8826FC59-6AAF-47C9-8165-43E363262190}</Project>
       <Name>WpfApp</Name>
     </ProjectReference>
