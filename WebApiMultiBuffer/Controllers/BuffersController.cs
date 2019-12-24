@@ -5,18 +5,25 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using DAL.Models;
+using DAL.Repos;
 
 namespace WebApiMultiBuffer.Controllers
 {
     [RoutePrefix("api/Buffers")]
     public class BuffersController : ApiController
     {
-
-        // GET: api/Buffers
-        [HttpGet, Route("")]
-        public IEnumerable<BuffersModel> Get()
+        public BuffersController()
         {
-            
+            _buffersRepo = new BuffersRepo();
+        }
+
+        private BuffersRepo _buffersRepo;
+
+        // GET: api/Buffers/5
+        [HttpGet, Route("{idUser}")]
+        public IEnumerable<BuffersModel> Get(int idUser)
+        {
+            return _buffersRepo.Read(idUser);
         }
     }
 }
