@@ -70,7 +70,8 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// <param name="key">Нажатая клавиша, указывающая, из какого буфера будет вставлен текст</param>
         public void Paste(object sender, InputControllerEventArgs key)
         {
-            string contentsClipboard = TextCopy.Clipboard.GetText() ?? "";
+            IClipboardController clipboard = _clipboardControllerFactory.GetClipboardController();
+            string contentsClipboard = clipboard.GetText() ?? "";
 
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
             tmpItem.CopyKey = key.CopyKey;
@@ -79,7 +80,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
             int index = Buffer.IndexOf(tmpItem);
             if (index > -1)
             {
-                TextCopy.Clipboard.SetText(Buffer[index].Value);
+                clipboard.SetText(Buffer[index].Value);
 
                 IInputSimulator simulator = _inputSimulatorFactory.GetInputSimulator();
                 simulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
@@ -94,7 +95,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
                 timer.Tick += (timerInner, eventArgs) =>
                 {
                     timer.Stop();
-                    TextCopy.Clipboard.SetText(contentsClipboard);
+                    clipboard.SetText(contentsClipboard);
                 };
                 timer.Start();
             }
@@ -106,7 +107,8 @@ namespace WpfAppMultiBuffer.Models.Controllers
         /// <param name="key">Нажатая клавиша, указывающая, в какой буфер будет вставлен текст</param>
         public void Copy(object sender, InputControllerEventArgs key)
         {
-            string contentsClipboard = TextCopy.Clipboard.GetText() ?? "";
+            IClipboardController clipboard = _clipboardControllerFactory.GetClipboardController();
+            string contentsClipboard = clipboard.GetText() ?? "";
 
             IInputSimulator simulator = _inputSimulatorFactory.GetInputSimulator();
             simulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
@@ -125,7 +127,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
                 IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
                 tmpItem.CopyKey = key.CopyKey;
                 tmpItem.PasteKey = key.PasteKey;
-                tmpItem.Value = TextCopy.Clipboard.GetText();
+                tmpItem.Value = clipboard.GetText();
 
                 int index = Buffer.IndexOf(tmpItem);
                 if (index > -1)
@@ -138,7 +140,7 @@ namespace WpfAppMultiBuffer.Models.Controllers
                     tmpItem.Delete += TmpItem_Delete;
                 }
 
-                TextCopy.Clipboard.SetText(contentsClipboard);
+                clipboard.SetText(contentsClipboard);
 
                 Update?.Invoke(tmpItem);
             };
