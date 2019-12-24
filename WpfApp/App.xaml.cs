@@ -58,6 +58,10 @@ namespace WpfAppMultiBuffer
         private void RegisterComponents()
         {
             container.Register(Component
+                .For<IClipboardController>()
+                .ImplementedBy<ClipboardController>());
+
+            container.Register(Component
                 .For<IList<IBufferItem>>()
                 .ImplementedBy<ObservableCollection<IBufferItem>>());
 
