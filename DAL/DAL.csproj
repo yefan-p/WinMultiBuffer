@@ -53,10 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\MultiBufferContext.cs" />
-    <Compile Include="Models\tblClipboards.cs" />
-    <Compile Include="Models\tblUsers.cs" />
+    <Compile Include="Context\MultiBufferContext.cs" />
+    <Compile Include="Context\tblClipboards.cs" />
+    <Compile Include="Context\tblUsers.cs" />
+    <Compile Include="Models\BuffersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repos\BuffersRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -64,9 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="SQLScripts\CreateDB.sql" />
-    <Content Include="SQLScripts\FiilTables.sql" />
+    <Content Include="SQLScripts\FillTables.sql" />
     <Content Include="SQLScripts\CreateTables.sql" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -1,4 +1,4 @@
-namespace DAL.Models
+namespace DAL.Context
 {
     using System;
     using System.Collections.Generic;
