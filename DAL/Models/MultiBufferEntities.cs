@@ -1,4 +1,4 @@
-namespace DAL
+namespace DAL.Models
 {
     using System;
     using System.Data.Entity;
@@ -8,18 +8,18 @@ namespace DAL
     public partial class MultiBufferEntities : DbContext
     {
         public MultiBufferEntities()
-            : base("name=MultiBufferContext")
+            : base("name=MultiBufferEntities")
         {
         }
 
-        public virtual DbSet<tblClipboard> tblClipboards { get; set; }
-        public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<tblClipboards> tblClipboards { get; set; }
+        public virtual DbSet<tblUsers> tblUsers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<tblUser>()
+            modelBuilder.Entity<tblUsers>()
                 .HasMany(e => e.tblClipboards)
-                .WithRequired(e => e.tblUser)
+                .WithRequired(e => e.tblUsers)
                 .HasForeignKey(e => e.idUser)
                 .WillCascadeOnDelete(false);
         }
