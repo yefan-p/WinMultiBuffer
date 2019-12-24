@@ -82,9 +82,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Controllers\ClipboardController.cs" />
+    <Compile Include="ViewModels\ClipboardController.cs" />
+    <Compile Include="Models\Interfaces\IClipboardControllerFactory.cs" />
     <Compile Include="Models\Interfaces\IInputSimulatorFactory.cs" />
     <Compile Include="Models\Interfaces\IClipboardController.cs" />
+    <Compile Include="ViewModels\ClipboardControllerFactory.cs" />
     <Compile Include="ViewModels\Command.cs" />
     <Compile Include="Models\Interfaces\IBufferItem.cs" />
     <Compile Include="Models\Interfaces\IBufferItemFactory.cs" />
