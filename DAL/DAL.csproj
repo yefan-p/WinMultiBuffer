@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="SQLScripts\CreateDB.sql" />
+    <Content Include="SQLScripts\FiilTables.sql" />
     <Content Include="SQLScripts\CreateTables.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
