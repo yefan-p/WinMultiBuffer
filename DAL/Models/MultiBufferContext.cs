@@ -5,9 +5,9 @@ namespace DAL.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class MultiBufferEntities : DbContext
+    public partial class MultiBufferContext : DbContext
     {
-        public MultiBufferEntities()
+        public MultiBufferContext()
             : base("name=MultiBufferEntities")
         {
         }
