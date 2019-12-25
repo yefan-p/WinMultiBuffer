@@ -8,9 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("WpfAppMultiBufferTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ЗАО "Техносерв Консалтинг"")]
 [assembly: AssemblyProduct("WpfAppMultiBufferTests")]
-[assembly: AssemblyCopyright("Copyright © ЗАО "Техносерв Консалтинг" 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
