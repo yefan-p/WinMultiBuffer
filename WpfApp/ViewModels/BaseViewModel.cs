@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using WpfAppMultiBuffer.Utils;
+using MultiBuffer.WpfApp.Utils;
 
-namespace WpfAppMultiBuffer.ViewModels
+namespace MultiBuffer.WpfApp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Windows.Threading;
 using WindowsInput;
 using WindowsInput.Native;
-using WpfAppMultiBuffer.Models.Interfaces;
+using MultiBuffer.WpfApp.Models.Interfaces;
 
-namespace WpfAppMultiBuffer.Models.Controllers
+namespace MultiBuffer.WpfApp.Models.Controllers
 {
     public class CopyPasteController<TCollection>
         : ICopyPasteController<TCollection>

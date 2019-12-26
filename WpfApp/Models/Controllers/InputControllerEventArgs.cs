@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace WpfAppMultiBuffer.Models.Controllers
+namespace MultiBuffer.WpfApp.Models.Controllers
 {
     public class InputControllerEventArgs : EventArgs
     {

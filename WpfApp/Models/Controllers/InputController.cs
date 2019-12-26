@@ -5,9 +5,9 @@ using NHotkey.Wpf;
 using System.Windows.Input;
 using Gma.System.MouseKeyHook;
 using System.Windows.Forms;
-using WpfAppMultiBuffer.Models.Interfaces;
+using MultiBuffer.WpfApp.Models.Interfaces;
 
-namespace WpfAppMultiBuffer.Models.Controllers
+namespace MultiBuffer.WpfApp.Models.Controllers
 {
 
     /// <summary>

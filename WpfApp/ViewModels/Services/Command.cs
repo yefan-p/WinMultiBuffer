@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace WpfAppMultiBuffer.ViewModels
+namespace MultiBuffer.WpfApp.ViewModels.Services
 {
     public class Command : ICommand
     {

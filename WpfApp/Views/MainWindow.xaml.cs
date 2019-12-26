@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WpfAppMultiBuffer.Views
+namespace MultiBuffer.WpfApp.Views
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml

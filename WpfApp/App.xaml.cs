@@ -8,14 +8,14 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using WpfAppMultiBuffer.Models.Controllers;
-using WpfAppMultiBuffer.Models.Interfaces;
-using WpfAppMultiBuffer.Utils;
-using WpfAppMultiBuffer.ViewModels;
-using WpfAppMultiBuffer.ViewModels.Services;
-using WpfAppMultiBuffer.Views;
+using MultiBuffer.WpfApp.Models.Controllers;
+using MultiBuffer.WpfApp.Models.Interfaces;
+using MultiBuffer.WpfApp.Utils;
+using MultiBuffer.WpfApp.ViewModels;
+using MultiBuffer.WpfApp.ViewModels.Services;
+using MultiBuffer.WpfApp.Views;
 
-namespace WpfAppMultiBuffer
+namespace MultiBuffer.WpfApp
 {
 
     /// <summary>

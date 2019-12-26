@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
-using WpfAppMultiBuffer.Models.Interfaces;
+using MultiBuffer.WpfApp.Models.Interfaces;
 
-namespace WpfAppMultiBuffer.ViewModels.Services
+namespace MultiBuffer.WpfApp.ViewModels.Services
 {
     public class CommandFactory : ICommandFactory
     {

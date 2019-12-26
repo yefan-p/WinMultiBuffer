@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace WpfAppMultiBuffer.Utils
+namespace MultiBuffer.WpfApp.Utils
 {
     public class NavigationManager : INavigationManager
     {

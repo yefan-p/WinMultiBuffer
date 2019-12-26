@@ -1,4 +1,4 @@
-﻿namespace WpfAppMultiBuffer.Utils
+﻿namespace MultiBuffer.WpfApp.Utils
 {
     public interface INavigationAware
     {

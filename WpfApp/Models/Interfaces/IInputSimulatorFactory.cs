@@ -1,6 +1,6 @@
 ﻿using WindowsInput;
 
-namespace WpfAppMultiBuffer.Models.Interfaces
+namespace MultiBuffer.WpfApp.Models.Interfaces
 {
     public interface IInputSimulatorFactory
     {

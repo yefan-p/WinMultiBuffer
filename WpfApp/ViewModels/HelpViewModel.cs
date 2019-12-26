@@ -1,8 +1,8 @@
 ﻿using System.Windows.Input;
-using WpfAppMultiBuffer.Utils;
-using WpfAppMultiBuffer.Models.Interfaces;
+using MultiBuffer.WpfApp.Utils;
+using MultiBuffer.WpfApp.Models.Interfaces;
 
-namespace WpfAppMultiBuffer.ViewModels
+namespace MultiBuffer.WpfApp.ViewModels
 {
     public class HelpViewModel : BaseViewModel
     {

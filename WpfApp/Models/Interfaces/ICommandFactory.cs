@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace WpfAppMultiBuffer.Models.Interfaces
+namespace MultiBuffer.WpfApp.Models.Interfaces
 {
     public interface ICommandFactory
     {

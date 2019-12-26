@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfAppMultiBuffer.Views
+namespace MultiBuffer.WpfApp.Views
 {
     /// <summary>
     /// Логика взаимодействия для BuffersView.xaml

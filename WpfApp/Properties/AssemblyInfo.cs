@@ -7,10 +7,10 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WpfAppMultiBuffer")]
+[assembly: AssemblyTitle("MultiBuffer_WpfApp")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("WpfAppMultiBuffer")]
+[assembly: AssemblyProduct("MultiBuffer_WpfApp")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using WpfAppMultiBuffer.Models.Interfaces;
-using WpfAppMultiBuffer.Utils;
+using MultiBuffer.WpfApp.Models.Interfaces;
+using MultiBuffer.WpfApp.Utils;
 
-namespace WpfAppMultiBuffer.ViewModels
+namespace MultiBuffer.WpfApp.ViewModels
 {
     public class BuffersViewModel : BaseViewModel
     {
