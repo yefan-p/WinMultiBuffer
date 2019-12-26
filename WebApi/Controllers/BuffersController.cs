@@ -7,7 +7,7 @@ using System.Web.Http;
 using DAL.Models;
 using DAL.Repos;
 
-namespace WebApiMultiBuffer.Controllers
+namespace MultiBuffer.WebApi.Controllers
 {
     [RoutePrefix("api/Buffers")]
     public class BuffersController : ApiController

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace WebApiMultiBuffer
+namespace MultiBuffer.WebApi
 {
     public static class WebApiConfig
     {
