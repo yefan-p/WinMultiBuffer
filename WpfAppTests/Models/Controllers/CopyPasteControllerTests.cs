@@ -13,20 +13,22 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
     public class CopyPasteControllerTests
     {
         [TestMethod()]
-        public void PasteTest()
+        public void PasteTestBufferExist()
         {
-            /* indexOfResult <= -1; indexOfResult > -1
-             * expectedValueCase1 - значение, которое должен получить буфер, если значение indexOfResult > -1
-             * expectedValueCase2 - значение, которое должно вернусться из буфера, если значение indexOfResult <= -1
+            /* Буфер не существет - indexOfResult <= -1; 
+             * Буфер существует - indexOfResult > -1
+             * expectedValue - значение, которое должно вставиться из буфера, если буфер существует
+             * defaultBufferValue - значение, которое устанавливается в буфере по умолчанию
              */
-            var inputController = new CopyPasteControllerMock.InputController();
             var indexOfResult = 0;
-            var expectedValueCase1 = "Case 1 was happend";
-            var expectedValueCase2 = "Case 2 was happend";
-            var clipboardFactory = new ClipboardControllerFactory(expectedValueCase2);
+            var expectedValue = "Buffer exist case";
+            var defaultBufferValue = "String for buffer";
+            var clipboardFactory = new ClipboardControllerFactory(defaultBufferValue);
+            var inputController = new CopyPasteControllerMock.InputController();
+
             var controller = new CopyPasteController<CopyPasteCollection>(
                 inputController,
-                new CopyPasteCollection(indexOfResult, expectedValueCase1),
+                new CopyPasteCollection(indexOfResult, expectedValue),
                 new BufferItemFactory(),
                 new InputSimulatorFactory(),
                 clipboardFactory
@@ -35,10 +37,37 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
             controller.Update += (e) =>
             {
                 string actual = clipboardFactory.ClipboardController.GetText();
-                Assert.AreEqual(expectedValueCase1, actual);
+                Assert.AreEqual(expectedValue, actual);
             };
 
             inputController.OnPasteKeyPress();
+        }
+
+        [TestMethod()]
+        public void PasteTestBufferNotExist()
+        {
+            /* Буфер не существет - indexOfResult <= -1; 
+             * Буфер существует - indexOfResult > -1
+             * expectedValue - значение, которое должно вставиться из буфера, если буфер существует
+             * defaultBufferValue - значение, которое устанавливается в буфере по умолчанию
+             */
+            var indexOfResult = -1;
+            var expectedValue = "Buffer exist case";
+            var defaultBufferValue = "String for buffer";
+            var clipboardFactory = new ClipboardControllerFactory(defaultBufferValue);
+            var inputController = new CopyPasteControllerMock.InputController();
+
+            var controller = new CopyPasteController<CopyPasteCollection>(
+                inputController,
+                new CopyPasteCollection(indexOfResult, expectedValue),
+                new BufferItemFactory(),
+                new InputSimulatorFactory(),
+                clipboardFactory
+                );
+            inputController.OnPasteKeyPress();
+
+            string actual = clipboardFactory.ClipboardController.GetText();
+            Assert.AreEqual(defaultBufferValue, actual);
         }
 
         [TestMethod()]
