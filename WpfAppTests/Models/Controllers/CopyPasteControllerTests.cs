@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WpfAppMultiBufferTests.Mock;
+using MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock;
 
-namespace WpfAppMultiBuffer.Models.Controllers.Tests
+namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
 {
     [TestClass()]
     public class CopyPasteControllerTests
@@ -15,12 +15,12 @@ namespace WpfAppMultiBuffer.Models.Controllers.Tests
         [TestMethod()]
         public void PasteTest()
         {
-            var controller = new CopyPasteController<CopyPasteCollectionMock>(
-                new InputControllerMock(), 
-                new CopyPasteCollectionMock(),
-                new BufferItemFactoryMock(),
-                new InputSimulatorFactoryMock(),
-                new ClipboardControllerFactoryMock()
+            var controller = new CopyPasteController<CopyPasteCollection>(
+                new CopyPasteControllerTestsMock.InputController(), 
+                new CopyPasteCollection(),
+                new BufferItemFactory(),
+                new InputSimulatorFactory(),
+                new ClipboardControllerFactory()
                 );
             Assert.Fail();
         }

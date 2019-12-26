@@ -2,9 +2,9 @@
 using WindowsInput;
 using WpfAppMultiBuffer.Models.Interfaces;
 
-namespace WpfAppMultiBufferTests.Mock
+namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
 {
-    public class InputSimulatorFactoryMock : IInputSimulatorFactory
+    public class InputSimulatorFactory : IInputSimulatorFactory
     {
         public IInputSimulator GetInputSimulator()
         {

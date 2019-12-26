@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using WpfAppMultiBuffer.Models.Interfaces;
 using WpfAppMultiBuffer.ViewModels.Services;
 
-namespace WpfAppMultiBufferTests.Mock
+namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
 {
-    class CopyPasteCollectionMock : IList<IBufferItem>
+    class CopyPasteCollection : IList<IBufferItem>
     {
         public IBufferItem this[int index] 
         { 

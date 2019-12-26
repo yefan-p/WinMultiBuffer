@@ -60,13 +60,13 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Mock\BufferItemMock.cs" />
-    <Compile Include="Mock\BufferItemFactoryMock.cs" />
-    <Compile Include="Mock\ClipboardControllerFactoryMock.cs" />
-    <Compile Include="Mock\CommandMock.cs" />
-    <Compile Include="Mock\CopyPasteCollectionMock.cs" />
-    <Compile Include="Mock\InputControllerMock.cs" />
-    <Compile Include="Mock\InputSimulatorFactoryMock.cs" />
+    <Compile Include="Models\Controllers\CopyPasteControllerMock\BufferItem.cs" />
+    <Compile Include="Models\Controllers\CopyPasteControllerMock\BufferItemFactory.cs" />
+    <Compile Include="Models\Controllers\CopyPasteControllerMock\ClipboardControllerFactory.cs" />
+    <Compile Include="Models\Controllers\CopyPasteControllerMock\Command.cs" />
+    <Compile Include="Models\Controllers\CopyPasteControllerMock\CopyPasteCollection.cs" />
+    <Compile Include="Models\Controllers\CopyPasteControllerMock\InputController.cs" />
+    <Compile Include="Models\Controllers\CopyPasteControllerMock\InputSimulatorFactory.cs" />
     <Compile Include="Models\Controllers\CopyPasteControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

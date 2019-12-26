@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using WpfAppMultiBuffer.Models.Interfaces;
 
-namespace WpfAppMultiBufferTests.Mock
+namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
 {
-    public class ClipboardControllerFactoryMock : IClipboardControllerFactory
+    public class ClipboardControllerFactory : IClipboardControllerFactory
     {
         public IClipboardController GetClipboard()
         {

@@ -1,8 +1,8 @@
 ﻿using WpfAppMultiBuffer.Models.Interfaces;
 
-namespace WpfAppMultiBufferTests.Mock
+namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
 {
-    public class BufferItemFactoryMock : IBufferItemFactory
+    public class BufferItemFactory : IBufferItemFactory
     {
         public IBufferItem GetBuffer()
         {

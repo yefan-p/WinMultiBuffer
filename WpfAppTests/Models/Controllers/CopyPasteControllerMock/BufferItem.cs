@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using WpfAppMultiBuffer.Models.Interfaces;
 
-namespace WpfAppMultiBufferTests.Mock
+namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
 {
 
     /// <summary>

@@ -3,9 +3,9 @@ using WpfAppMultiBuffer.Models.Controllers;
 using WpfAppMultiBuffer.Models.Interfaces;
 using System.Windows.Forms;
 
-namespace WpfAppMultiBufferTests.Mock
+namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
 {
-    public class InputControllerMock : IInputController
+    public class InputController : IInputController
     {
         public event EventHandler<InputControllerEventArgs> PasteKeyPress;
         public event EventHandler<InputControllerEventArgs> CopyKeyPress;
