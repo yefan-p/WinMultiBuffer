@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock;
+using System.Diagnostics;
 
 namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
 {
@@ -34,12 +35,20 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
                 clipboardFactory
                 );
 
-            controller.Update += (e) =>
+            var flag = false;
+            clipboardFactory.ClipboardController.TextWasSet += (actual) =>
             {
-                string actual = clipboardFactory.ClipboardController.GetText();
-                Assert.AreEqual(expectedValue, actual);
+                if (!flag)
+                {
+                    Assert.AreEqual(expectedValue, actual);
+                    flag = true;
+                }
+                else
+                {   // Сюда мы не хочет заходить. А надо.
+                    Assert.AreEqual(defaultBufferValue, actual);
+                    flag = false;
+                }
             };
-
             inputController.OnPasteKeyPress();
         }
 
@@ -52,7 +61,7 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
              * expectedValue - значение, которое устанавливается в буфере по умолчанию
              */
             var indexOfResult = -1;
-            var stringForBuffer = "Buffer exist case";
+            var stringForBuffer = "Buffer not exist case";
             var expectedValue = "String for buffer";
             var clipboardFactory = new ClipboardControllerFactory(expectedValue);
             var inputController = new CopyPasteControllerMock.InputController();

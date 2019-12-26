@@ -1,4 +1,5 @@
 ﻿using MultiBuffer.WpfApp.Models.Interfaces;
+using System;
 
 namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock
 {
@@ -13,6 +14,8 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock
             _textBuffer = defaultText;
         }
 
+        public event Action<string> TextWasSet;
+
         /// <summary>
         /// Хранит значение буфера обмена
         /// </summary>
@@ -26,6 +29,7 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock
         public void SetText(string value)
         {
             _textBuffer = value;
+            TextWasSet?.Invoke(value);
         }
     }
 }
