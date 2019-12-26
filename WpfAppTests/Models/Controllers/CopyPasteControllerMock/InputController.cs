@@ -1,6 +1,6 @@
 ﻿using System;
-using WpfAppMultiBuffer.Models.Controllers;
-using WpfAppMultiBuffer.Models.Interfaces;
+using MultiBuffer.WpfApp.Models.Controllers;
+using MultiBuffer.WpfApp.Models.Interfaces;
 using System.Windows.Forms;
 
 namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock

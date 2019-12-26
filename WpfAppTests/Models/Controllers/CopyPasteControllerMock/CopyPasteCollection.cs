@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WpfAppMultiBuffer.Models.Interfaces;
-using WpfAppMultiBuffer.ViewModels.Services;
+using MultiBuffer.WpfApp.Models.Interfaces;
+using MultiBuffer.WpfApp.ViewModels.Services;
 
 namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
 {

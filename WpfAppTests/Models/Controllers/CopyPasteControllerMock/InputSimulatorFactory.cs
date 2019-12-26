@@ -1,6 +1,6 @@
 ﻿using System;
 using WindowsInput;
-using WpfAppMultiBuffer.Models.Interfaces;
+using MultiBuffer.WpfApp.Models.Interfaces;
 
 namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
 {

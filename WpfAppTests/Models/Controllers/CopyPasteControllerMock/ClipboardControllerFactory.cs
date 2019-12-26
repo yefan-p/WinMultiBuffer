@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WpfAppMultiBuffer.Models.Interfaces;
+using MultiBuffer.WpfApp.Models.Interfaces;
 
 namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
 {
