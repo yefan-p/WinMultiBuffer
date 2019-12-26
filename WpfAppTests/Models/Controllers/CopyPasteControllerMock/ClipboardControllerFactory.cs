@@ -1,17 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MultiBuffer.WpfApp.Models.Interfaces;
+﻿using MultiBuffer.WpfApp.Models.Interfaces;
 
-namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
+namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock
 {
     public class ClipboardControllerFactory : IClipboardControllerFactory
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="textClipboard">Текст по умолчанию для буфера обмена</param>
+        public ClipboardControllerFactory(string textClipboard)
+        {
+            ClipboardController = new ClipboardController(textClipboard);
+        }
+
+        public ClipboardController ClipboardController { get; private set; }
+
         public IClipboardController GetClipboard()
         {
-            throw new NotImplementedException();
+            return ClipboardController;
         }
     }
 }

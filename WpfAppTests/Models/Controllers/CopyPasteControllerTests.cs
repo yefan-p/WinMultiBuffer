@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock;
+using MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock;
 
 namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
 {
@@ -15,14 +15,30 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
         [TestMethod()]
         public void PasteTest()
         {
+            /* indexOfResult <= -1; indexOfResult > -1
+             * expectedValueCase1 - значение, которое должен получить буфер, если значение indexOfResult > -1
+             * expectedValueCase2 - значение, которое должно вернусться из буфера, если значение indexOfResult <= -1
+             */
+            var inputController = new CopyPasteControllerMock.InputController();
+            var indexOfResult = 0;
+            var expectedValueCase1 = "Case 1 was happend";
+            var expectedValueCase2 = "Case 2 was happend";
+            var clipboardFactory = new ClipboardControllerFactory(expectedValueCase2);
             var controller = new CopyPasteController<CopyPasteCollection>(
-                new CopyPasteControllerTestsMock.InputController(), 
-                new CopyPasteCollection(),
+                inputController,
+                new CopyPasteCollection(indexOfResult, expectedValueCase1),
                 new BufferItemFactory(),
                 new InputSimulatorFactory(),
-                new ClipboardControllerFactory()
+                clipboardFactory
                 );
-            Assert.Fail();
+
+            controller.Update += (e) =>
+            {
+                string actual = clipboardFactory.ClipboardController.GetText();
+                Assert.AreEqual(expectedValueCase1, actual);
+            };
+
+            inputController.OnPasteKeyPress();
         }
 
         [TestMethod()]

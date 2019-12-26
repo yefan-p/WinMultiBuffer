@@ -7,19 +7,38 @@ using System.Threading.Tasks;
 using MultiBuffer.WpfApp.Models.Interfaces;
 using MultiBuffer.WpfApp.ViewModels.Services;
 
-namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
+namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock
 {
     class CopyPasteCollection : IList<IBufferItem>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="indexOfResult">Значение, которое будет возвращать метод IndexOf</param>
+        public CopyPasteCollection(int indexOfResult, string bufferItemValue)
+        {
+            _indexOfResult = indexOfResult;
+            _bufferItemValue = bufferItemValue;
+        }
+
+        /// <summary>
+        /// Значение, которое будет возвращать метод IndexOf
+        /// </summary>
+        private int _indexOfResult;
+
+        /// <summary>
+        /// Значение буфера, которое будет возвращать коллекция
+        /// </summary>
+        private string _bufferItemValue;
+
         public IBufferItem this[int index] 
         { 
             get
             {
-                BufferItem item = new BufferItem
-                {
-                    Value = "12345Test",
-                };
-                return item;
+                return new WpfApp.ViewModels.Services.BufferItem
+                            {
+                                Value = _bufferItemValue,
+                            };
             }
             set
             {
@@ -58,8 +77,7 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMoc
 
         public int IndexOf(IBufferItem item)
         {
-            Random rand = new Random(DateTime.Now.Millisecond);
-            return rand.Next(-1, 21);
+            return _indexOfResult;
         }
 
         public void Insert(int index, IBufferItem item)

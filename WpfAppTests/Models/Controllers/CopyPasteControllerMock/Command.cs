@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
+namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock
 {
     public class Command : ICommand
     {

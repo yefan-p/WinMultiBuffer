@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MultiBuffer_WpfApp.Properties {
+namespace MultiBuffer.WpfApp.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

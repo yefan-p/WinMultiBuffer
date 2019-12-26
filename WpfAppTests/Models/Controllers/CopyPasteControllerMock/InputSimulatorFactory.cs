@@ -1,14 +1,13 @@
-﻿using System;
-using WindowsInput;
+﻿using WindowsInput;
 using MultiBuffer.WpfApp.Models.Interfaces;
 
-namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
+namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock
 {
     public class InputSimulatorFactory : IInputSimulatorFactory
     {
         public IInputSimulator GetInputSimulator()
         {
-            throw new NotImplementedException();
+            return new InputSimulator();
         }
     }
 }

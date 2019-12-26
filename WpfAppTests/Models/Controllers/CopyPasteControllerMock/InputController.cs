@@ -3,7 +3,7 @@ using MultiBuffer.WpfApp.Models.Controllers;
 using MultiBuffer.WpfApp.Models.Interfaces;
 using System.Windows.Forms;
 
-namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerTestsMock
+namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock
 {
     public class InputController : IInputController
     {

@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WpfAppMultiBufferTests")]
+[assembly: AssemblyTitle("MultiBuffer_WpfAppTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("WpfAppMultiBufferTests")]
+[assembly: AssemblyProduct("MultiBuffer_WpfAppTests")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
