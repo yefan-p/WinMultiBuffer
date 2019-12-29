@@ -58,48 +58,28 @@ namespace MultiBuffer.WpfApp
 
         private void RegisterComponents()
         {
-            container.Register(Component
-                .For<ICommandFactory>()
-                .ImplementedBy<CommandFactory>());
+            container.RegisterService<ICommandFactory, CommandFactory>();
 
-            container.Register(Component
-                .For<IClipboardController>()
-                .ImplementedBy<ClipboardController>());
+            container.RegisterService<IClipboardController, ClipboardController>();
 
-            container.Register(Component
-                .For<IClipboardControllerFactory>()
-                .ImplementedBy<ClipboardControllerFactory>());
+            container.RegisterService<IClipboardControllerFactory, ClipboardControllerFactory>();
 
-            container.Register(Component
-                .For<IList<IBufferItem>>()
-                .ImplementedBy<ObservableCollection<IBufferItem>>());
+            container.RegisterService<IList<IBufferItem>, ObservableCollection<IBufferItem>>();
 
-            container.Register(Component
-                .For<IBufferItemFactory>()
-                .ImplementedBy<BufferItemFactory>());
+            container.RegisterService<IBufferItemFactory, BufferItemFactory>();
 
-            container.Register(Component
-                .For<IInputSimulatorFactory>()
-                .ImplementedBy<InputSimulatorFactory>());
+            container.RegisterService<IInputSimulatorFactory, InputSimulatorFactory>();
 
-            container.Register(Component
-                .For<IInputController>()
-                .ImplementedBy<InputController>());
+            container.RegisterService<IInputController, InputController>();
 
-            container.Register(Component
-               .For<ICopyPasteController<IList<IBufferItem>>>()
-               .ImplementedBy<CopyPasteController<IList<IBufferItem>>>());
+            container.RegisterService<ICopyPasteController<IList<IBufferItem>>, CopyPasteController<IList<IBufferItem>>>();
         }
 
         private void RegisterViewModels()
         {
-            container.Register(Component
-                  .For<HelpViewModel>()
-                  .ImplementedBy<HelpViewModel>());
+            container.RegisterService<HelpViewModel, HelpViewModel>();
 
-            container.Register(Component
-                  .For<BuffersViewModel>()
-                  .ImplementedBy<BuffersViewModel>());
+            container.RegisterService<BuffersViewModel, BuffersViewModel>();
 
         }
     }
