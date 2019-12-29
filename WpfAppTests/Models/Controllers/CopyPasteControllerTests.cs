@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock;
 using System.Diagnostics;
+using System.Threading;
 
 namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
 {
@@ -24,32 +25,28 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
             var indexOfResult = 0;
             var expectedValue = "Buffer exist case";
             var defaultBufferValue = "String for buffer";
-            var clipboardFactory = new ClipboardControllerFactory(defaultBufferValue);
-            var inputController = new CopyPasteControllerMock.InputController();
+            var clipboardController = new ClipboardController(expectedValue);
+
+            var answer = new List<string>();
+            var trueAnswer = new List<string>(new [] { defaultBufferValue, expectedValue });
 
             var controller = new CopyPasteController<CopyPasteCollection>(
-                inputController,
-                new CopyPasteCollection(indexOfResult, expectedValue),
+                new CopyPasteControllerMock.InputController(),
+                new CopyPasteCollection(indexOfResult, defaultBufferValue),
                 new BufferItemFactory(),
-                new InputSimulatorFactory(),
-                clipboardFactory
-                );
+                clipboardController,
+                new InputSimulator());
 
-            var flag = false;
-            clipboardFactory.ClipboardController.TextWasSet += (actual) =>
+            clipboardController.IsSetText += (buffeerText) =>
             {
-                if (!flag)
-                {
-                    Assert.AreEqual(expectedValue, actual);
-                    flag = true;
-                }
-                else
-                {   // Сюда мы не хочет заходить. А надо.
-                    Assert.AreEqual(defaultBufferValue, actual);
-                    flag = false;
-                }
+                answer.Add(buffeerText);
             };
-            inputController.OnPasteKeyPress();
+
+            controller.Paste(
+                null,
+                new InputControllerEventArgs(System.Windows.Forms.Keys.None, System.Windows.Forms.Keys.None));
+
+            CollectionAssert.AreEqual(answer, trueAnswer);
         }
 
         [TestMethod()]
@@ -63,20 +60,16 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
             var indexOfResult = -1;
             var stringForBuffer = "Buffer not exist case";
             var expectedValue = "String for buffer";
-            var clipboardFactory = new ClipboardControllerFactory(expectedValue);
             var inputController = new CopyPasteControllerMock.InputController();
 
             var controller = new CopyPasteController<CopyPasteCollection>(
                 inputController,
                 new CopyPasteCollection(indexOfResult, stringForBuffer),
                 new BufferItemFactory(),
-                new InputSimulatorFactory(),
-                clipboardFactory
-                );
-            inputController.OnPasteKeyPress();
+                new ClipboardController(expectedValue),
+                new InputSimulator());
 
-            string actual = clipboardFactory.ClipboardController.GetText();
-            Assert.AreEqual(expectedValue, actual);
+            inputController.OnPasteKeyPress();
         }
 
         [TestMethod()]

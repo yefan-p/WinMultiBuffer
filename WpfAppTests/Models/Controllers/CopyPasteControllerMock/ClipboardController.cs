@@ -11,25 +11,25 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock
         /// <param name="defaultText"></param>
         public ClipboardController(string defaultText)
         {
-            _textBuffer = defaultText;
+            BufferText = defaultText;
         }
 
-        public event Action<string> TextWasSet;
+        public event Action<string> IsSetText;
 
         /// <summary>
-        /// Хранит значение буфера обмена
+        /// Текст в условном буфере
         /// </summary>
-        private string _textBuffer;
+        public string BufferText { get; set; }
 
         public string GetText()
         {
-            return _textBuffer;
+            return BufferText;
         }
 
         public void SetText(string value)
         {
-            _textBuffer = value;
-            TextWasSet?.Invoke(value);
+            BufferText = value;
+            IsSetText?.Invoke(BufferText);
         }
     }
 }
