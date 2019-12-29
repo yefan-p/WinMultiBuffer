@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:viewModel="clr-namespace:MultiBuffer.WpfApp.ViewModels"
-             d:DataContext="{d:DesignInstance viewModel:HelpViewModels}"
+             d:DataContext="{d:DesignInstance viewModel:HelpViewModel}"
              mc:Ignorable="d" 
              Height="460" 
              Width="825" 
