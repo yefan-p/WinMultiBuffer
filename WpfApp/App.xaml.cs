@@ -14,6 +14,7 @@ using MultiBuffer.WpfApp.Utils;
 using MultiBuffer.WpfApp.ViewModels;
 using MultiBuffer.WpfApp.ViewModels.Services;
 using MultiBuffer.WpfApp.Views;
+using WindowsInput;
 
 namespace MultiBuffer.WpfApp
 {
@@ -68,11 +69,11 @@ namespace MultiBuffer.WpfApp
 
             container.RegisterService<IBufferItemFactory, BufferItemFactory>();
 
-            container.RegisterService<IInputSimulatorFactory, InputSimulatorFactory>();
-
             container.RegisterService<IInputController, InputController>();
 
             container.RegisterService<ICopyPasteController<IList<IBufferItem>>, CopyPasteController<IList<IBufferItem>>>();
+
+            container.RegisterService<IInputSimulator, InputSimulator>();
         }
 
         private void RegisterViewModels()

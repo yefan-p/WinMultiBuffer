@@ -101,7 +101,6 @@
     <Compile Include="Utils\WindzorExtension.cs" />
     <Compile Include="ViewModels\Services\ClipboardController.cs" />
     <Compile Include="Models\Interfaces\IClipboardControllerFactory.cs" />
-    <Compile Include="Models\Interfaces\IInputSimulatorFactory.cs" />
     <Compile Include="Models\Interfaces\IClipboardController.cs" />
     <Compile Include="ViewModels\Services\ClipboardControllerFactory.cs" />
     <Compile Include="ViewModels\Services\Command.cs" />
@@ -120,7 +119,6 @@
     <Compile Include="ViewModels\BuffersViewModel.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />
     <Compile Include="ViewModels\Services\CommandFactory.cs" />
-    <Compile Include="ViewModels\Services\InputSimulatorFactory.cs" />
     <Compile Include="Views\BuffersView.xaml.cs">
       <DependentUpon>BuffersView.xaml</DependentUpon>
     </Compile>
