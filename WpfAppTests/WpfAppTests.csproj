@@ -63,12 +63,10 @@
     <Compile Include="Models\Controllers\CopyPasteControllerMock\BufferItem.cs" />
     <Compile Include="Models\Controllers\CopyPasteControllerMock\BufferItemFactory.cs" />
     <Compile Include="Models\Controllers\CopyPasteControllerMock\ClipboardController.cs" />
-    <Compile Include="Models\Controllers\CopyPasteControllerMock\ClipboardControllerFactory.cs" />
     <Compile Include="Models\Controllers\CopyPasteControllerMock\Command.cs" />
     <Compile Include="Models\Controllers\CopyPasteControllerMock\CopyPasteCollection.cs" />
     <Compile Include="Models\Controllers\CopyPasteControllerMock\InputController.cs" />
     <Compile Include="Models\Controllers\CopyPasteControllerMock\InputSimulator.cs" />
-    <Compile Include="Models\Controllers\CopyPasteControllerMock\InputSimulatorFactory.cs" />
     <Compile Include="Models\Controllers\CopyPasteControllerMock\KeyboardSimulator.cs" />
     <Compile Include="Models\Controllers\CopyPasteControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
