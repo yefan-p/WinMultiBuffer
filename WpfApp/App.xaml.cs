@@ -63,8 +63,6 @@ namespace MultiBuffer.WpfApp
 
             container.RegisterService<IClipboardController, ClipboardController>();
 
-            container.RegisterService<IClipboardControllerFactory, ClipboardControllerFactory>();
-
             container.RegisterService<IList<IBufferItem>, ObservableCollection<IBufferItem>>();
 
             container.RegisterService<IBufferItemFactory, BufferItemFactory>();
@@ -74,6 +72,8 @@ namespace MultiBuffer.WpfApp
             container.RegisterService<ICopyPasteController<IList<IBufferItem>>, CopyPasteController<IList<IBufferItem>>>();
 
             container.RegisterService<IInputSimulator, InputSimulator>();
+
+            container.RegisterService<IClipboardController, ClipboardController>();
         }
 
         private void RegisterViewModels()

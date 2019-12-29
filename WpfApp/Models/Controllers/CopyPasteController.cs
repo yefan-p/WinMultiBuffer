@@ -15,13 +15,13 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                     IInputController inputController,
                     TCollection collection,
                     IBufferItemFactory bufferItemFactory,
-                    IClipboardControllerFactory clipboardControllerFactory,
+                    IClipboardController clipboardController,
                     IInputSimulator simulator)
         {
             Buffer = collection;
             _inputController = inputController;
             _bufferItemFactory = bufferItemFactory;
-            _clipboardControllerFactory = clipboardControllerFactory;
+            _clipboardController = clipboardController;
             _simulator = simulator;
 
             _inputController.PasteKeyPress += Paste;
@@ -32,11 +32,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Событие возникает при встваке или удаления элемента в коллекцию
         /// </summary>
         public event Action<IBufferItem> Update;
-
-        /// <summary>
-        /// Предоставляет доступ к буферу обмена
-        /// </summary>
-        private readonly IClipboardControllerFactory _clipboardControllerFactory;
 
         /// <summary>
         /// Сообщает о событии вставки или копирования
@@ -55,6 +50,8 @@ namespace MultiBuffer.WpfApp.Models.Controllers
 
         private readonly IInputSimulator _simulator;
 
+        private readonly IClipboardController _clipboardController;
+
         /// <summary>
         /// Количество миллисекунд, которые должны пройти, прежде чем произойдет обращение к буферу обмена после нажатия клавиши.
         /// Задержка необходима для того, чтобы выделенный текст успел дойти до буфера обмена при копировании или успел вставиться при вставке.
@@ -67,8 +64,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// <param name="key">Нажатая клавиша, указывающая, из какого буфера будет вставлен текст</param>
         public void Paste(object sender, InputControllerEventArgs key)
         {
-            IClipboardController clipboard = _clipboardControllerFactory.GetClipboard();
-            string contentsClipboard = clipboard.GetText() ?? "";
+            string contentsClipboard = _clipboardController.GetText() ?? "";
 
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
             tmpItem.CopyKey = key.CopyKey;
@@ -77,7 +73,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             int index = Buffer.IndexOf(tmpItem);
             if (index > -1)
             {
-                clipboard.SetText(Buffer[index].Value);
+                _clipboardController.SetText(Buffer[index].Value);
                 _simulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
                 _simulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
                 _simulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
@@ -90,7 +86,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 timer.Tick += (timerInner, eventArgs) =>
                 {
                     timer.Stop();
-                    clipboard.SetText(contentsClipboard);
+                    _clipboardController.SetText(contentsClipboard);
                 };
                 timer.Start();
             }
@@ -102,8 +98,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// <param name="key">Нажатая клавиша, указывающая, в какой буфер будет вставлен текст</param>
         public void Copy(object sender, InputControllerEventArgs key)
         {
-            IClipboardController clipboard = _clipboardControllerFactory.GetClipboard();
-            string contentsClipboard = clipboard.GetText() ?? "";
+            string contentsClipboard = _clipboardController.GetText() ?? "";
 
             _simulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
             _simulator.Keyboard.KeyPress(VirtualKeyCode.VK_C);
@@ -121,7 +116,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
                 tmpItem.CopyKey = key.CopyKey;
                 tmpItem.PasteKey = key.PasteKey;
-                tmpItem.Value = clipboard.GetText();
+                tmpItem.Value = _clipboardController.GetText();
 
                 int index = Buffer.IndexOf(tmpItem);
                 if (index > -1)
@@ -134,7 +129,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                     tmpItem.Delete += TmpItem_Delete;
                 }
 
-                clipboard.SetText(contentsClipboard);
+                _clipboardController.SetText(contentsClipboard);
 
                 Update?.Invoke(tmpItem);
             };

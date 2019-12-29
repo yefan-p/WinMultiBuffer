@@ -100,9 +100,7 @@
     <Compile Include="Models\Interfaces\ICommandFactory.cs" />
     <Compile Include="Utils\WindzorExtension.cs" />
     <Compile Include="ViewModels\Services\ClipboardController.cs" />
-    <Compile Include="Models\Interfaces\IClipboardControllerFactory.cs" />
     <Compile Include="Models\Interfaces\IClipboardController.cs" />
-    <Compile Include="ViewModels\Services\ClipboardControllerFactory.cs" />
     <Compile Include="ViewModels\Services\Command.cs" />
     <Compile Include="Models\Interfaces\IBufferItem.cs" />
     <Compile Include="Models\Interfaces\IBufferItemFactory.cs" />
