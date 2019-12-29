@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Threading;
 using WindowsInput;
 using WindowsInput.Native;
 using MultiBuffer.WpfApp.Models.Interfaces;
+using System.Threading.Tasks;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {
@@ -72,17 +73,9 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
                 _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
 
-                DispatcherTimer timer = new DispatcherTimer()
-                {
-                    Interval = TimeSpan.FromMilliseconds(Interval),
-                };
+                Task.Delay(Interval);
+                _clipboardController.SetText(contentsClipboard);
 
-                timer.Tick += (timerInner, eventArgs) =>
-                {
-                    timer.Stop();
-                    _clipboardController.SetText(contentsClipboard);
-                };
-                timer.Start();
             }
         }
 
@@ -103,31 +96,27 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 Interval = TimeSpan.FromMilliseconds(Interval),
             };
 
-            timer.Tick += (timerInner, eventArgs) =>
+            Task.Delay(Interval);
+            IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
+            tmpItem.CopyKey = key.CopyKey;
+            tmpItem.PasteKey = key.PasteKey;
+            tmpItem.Value = _clipboardController.GetText();
+
+            int index = Buffer.IndexOf(tmpItem);
+            if (index > -1)
             {
-                timer.Stop();
+                Buffer[index].Value = tmpItem.Value;
+            }
+            else
+            {
+                Buffer.Add(tmpItem);
+                tmpItem.Delete += TmpItem_Delete;
+            }
 
-                IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
-                tmpItem.CopyKey = key.CopyKey;
-                tmpItem.PasteKey = key.PasteKey;
-                tmpItem.Value = _clipboardController.GetText();
+            _clipboardController.SetText(contentsClipboard);
 
-                int index = Buffer.IndexOf(tmpItem);
-                if (index > -1)
-                {
-                    Buffer[index].Value = tmpItem.Value;
-                }
-                else
-                {
-                    Buffer.Add(tmpItem);
-                    tmpItem.Delete += TmpItem_Delete;
-                }
+            Update?.Invoke(tmpItem);
 
-                _clipboardController.SetText(contentsClipboard);
-
-                Update?.Invoke(tmpItem);
-            };
-            timer.Start();
         }
 
         /// <summary>
