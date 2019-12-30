@@ -33,22 +33,34 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             });
         }
 
+        /// <summary>
+        /// Нажата клавиша копирования
+        /// </summary>
         void KeysCopyPressed()
         {
-            Debug.WriteLine("HookKeysCopy");
+            _isCopyActive = true;
         }
 
+        /// <summary>
+        /// Нажата клавиша вставки
+        /// </summary>
         void KeysPastePressed()
         {
-            Debug.WriteLine("HookKeysPaste");
+            Clipboard.Clear();
+            _isCopyActive = false;
         }
 
+        /// <summary>
+        /// Изменилось значение буфера обмена Windows
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
         {
             SharpClipboard clipboardMonitor = (SharpClipboard)sender;
-            if (e.ContentType == SharpClipboard.ContentTypes.Text)
+            if (e.ContentType == SharpClipboard.ContentTypes.Text && _isCopyActive)
             {
-                Debug.WriteLine("SharpClipboard");
+                Debug.WriteLine(clipboardMonitor.ClipboardText);
             }
         }
 
@@ -66,6 +78,11 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Флаг, который указывает, были ли нажаты клавиши активации буфера
         /// </summary>
         bool _isActive = false;
+
+        /// <summary>
+        /// Флаг, который указывает, были ли нажаты клавишы копирования
+        /// </summary>
+        private bool _isCopyActive = false;
 
         /// <summary>
         /// Горячие клавиши для копирования
@@ -90,7 +107,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void KeyboardEvents_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        private void KeyboardEvents_KeyDown(object sender, KeyEventArgs e)
         {
             if (_isActive)
             {
