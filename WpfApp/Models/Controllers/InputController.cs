@@ -1,26 +1,20 @@
 ﻿using System;
 using System.Linq;
-using NHotkey;
-using NHotkey.Wpf;
-using System.Windows.Input;
 using Gma.System.MouseKeyHook;
 using System.Windows.Forms;
 using MultiBuffer.WpfApp.Models.Interfaces;
 using System.Diagnostics;
 using System.Collections.Generic;
-using System.Threading;
+using WK.Libraries.SharpClipboardNS;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {
-
-    /// <summary>
-    /// Возвращает код нажатой клавиши, если до этого был нажат hotkey
-    /// </summary>
     public class InputController : IInputController
     {
         public InputController()
         {
-            HotkeyManager.Current.AddOrReplace("ActivateMultiBufferWPF", Key.OemTilde, ModifierKeys.Control, ActivateBuffer);
+            var clipboardMonitor = new SharpClipboard();
+            clipboardMonitor.ClipboardChanged += ClipboardMonitor_ClipboardChanged;
 
             IKeyboardEvents keyboardEvents;
             keyboardEvents = Hook.GlobalEvents();
@@ -28,28 +22,34 @@ namespace MultiBuffer.WpfApp.Models.Controllers
 
             Hook.GlobalEvents().OnCombination(new Dictionary<Combination, Action>
             {
-                {Combination.FromString("Control+C"), 
-                 () => 
-                 { 
-                     Debug.Print(Clipboard.GetText());
-                     Thread.Sleep(200);
-                     Debug.Print("str");
-                     Debug.Print(Clipboard.GetText());
-                     Thread.Sleep(200);
-                     Debug.Print("str");
-                     Debug.Print(Clipboard.GetText());
-                     Debug.Print("str");
-                 }}
+                {
+                    Combination.FromString("Control+C"), 
+                    KeysCopyPressed
+                },
+                {
+                    Combination.FromString("Control+V"),
+                    KeysPastePressed
+                }
             });
+        }
 
-            Hook.GlobalEvents().OnCombination(new Dictionary<Combination, Action>
+        void KeysCopyPressed()
+        {
+            Debug.WriteLine("HookKeysCopy");
+        }
+
+        void KeysPastePressed()
+        {
+            Debug.WriteLine("HookKeysPaste");
+        }
+
+        private void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
+        {
+            SharpClipboard clipboardMonitor = (SharpClipboard)sender;
+            if (e.ContentType == SharpClipboard.ContentTypes.Text)
             {
-                {Combination.FromString("Control+V"),
-                 () =>
-                 {
-                     Clipboard.SetText("TestString");
-                 }}
-            });
+                Debug.WriteLine("SharpClipboard");
+            }
         }
 
         /// <summary>
@@ -86,16 +86,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                                 };
 
         /// <summary>
-        /// Указываем, что hotkey нажат
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void ActivateBuffer(object sender, HotkeyEventArgs e)
-        {
-            _isActive = true;
-        }
-
-        /// <summary>
         /// hotkey нажат, ожидаем нажатие следующей клавиши
         /// </summary>
         /// <param name="sender"></param>
@@ -117,14 +107,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                     PasteKeyPress?.Invoke(this, new InputControllerEventArgs(GetKey(e.KeyCode), e.KeyCode));
                 }
             }
-        }
-
-        /// <summary>
-        /// Удаляет регистрацию горячих клавиш
-        /// </summary>
-        public void Dispose()
-        {
-            HotkeyManager.Current.Remove("ActivateMultiBufferWPF");
         }
 
         /// <summary>
