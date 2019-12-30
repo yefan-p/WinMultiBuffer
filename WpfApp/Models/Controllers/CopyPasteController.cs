@@ -59,8 +59,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// <param name="key">Нажатая клавиша, указывающая, из какого буфера будет вставлен текст</param>
         public void Paste(object sender, InputControllerEventArgs key)
         {
-            string contentsClipboard = _clipboardController.GetText() ?? "";
-
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
             tmpItem.CopyKey = key.CopyKey;
             tmpItem.PasteKey = key.PasteKey;
@@ -72,10 +70,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
                 _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
                 _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
-
-                Task.Delay(Interval);
-                _clipboardController.SetText(contentsClipboard);
-
             }
         }
 
@@ -85,22 +79,13 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// <param name="key">Нажатая клавиша, указывающая, в какой буфер будет вставлен текст</param>
         public void Copy(object sender, InputControllerEventArgs key)
         {
-            string contentsClipboard = _clipboardController.GetText() ?? "";
-
             _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
             _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_C);
             _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
 
-            DispatcherTimer timer = new DispatcherTimer()
-            {
-                Interval = TimeSpan.FromMilliseconds(Interval),
-            };
-
-            Task.Delay(Interval);
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
             tmpItem.CopyKey = key.CopyKey;
             tmpItem.PasteKey = key.PasteKey;
-            tmpItem.Value = _clipboardController.GetText();
 
             int index = Buffer.IndexOf(tmpItem);
             if (index > -1)
@@ -113,10 +98,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 tmpItem.Delete += TmpItem_Delete;
             }
 
-            _clipboardController.SetText(contentsClipboard);
-
             Update?.Invoke(tmpItem);
-
         }
 
         /// <summary>

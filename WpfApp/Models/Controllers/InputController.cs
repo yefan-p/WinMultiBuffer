@@ -6,6 +6,9 @@ using System.Windows.Input;
 using Gma.System.MouseKeyHook;
 using System.Windows.Forms;
 using MultiBuffer.WpfApp.Models.Interfaces;
+using System.Diagnostics;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {
@@ -22,6 +25,31 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             IKeyboardEvents keyboardEvents;
             keyboardEvents = Hook.GlobalEvents();
             keyboardEvents.KeyDown += KeyboardEvents_KeyDown;
+
+            Hook.GlobalEvents().OnCombination(new Dictionary<Combination, Action>
+            {
+                {Combination.FromString("Control+C"), 
+                 () => 
+                 { 
+                     Debug.Print(Clipboard.GetText());
+                     Thread.Sleep(200);
+                     Debug.Print("str");
+                     Debug.Print(Clipboard.GetText());
+                     Thread.Sleep(200);
+                     Debug.Print("str");
+                     Debug.Print(Clipboard.GetText());
+                     Debug.Print("str");
+                 }}
+            });
+
+            Hook.GlobalEvents().OnCombination(new Dictionary<Combination, Action>
+            {
+                {Combination.FromString("Control+V"),
+                 () =>
+                 {
+                     Clipboard.SetText("TestString");
+                 }}
+            });
         }
 
         /// <summary>
