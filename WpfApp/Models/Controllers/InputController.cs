@@ -16,10 +16,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             var clipboardMonitor = new SharpClipboard();
             clipboardMonitor.ClipboardChanged += ClipboardMonitor_ClipboardChanged;
 
-            IKeyboardEvents keyboardEvents;
-            keyboardEvents = Hook.GlobalEvents();
-            keyboardEvents.KeyDown += KeyboardEvents_KeyDown;
-
             Hook.GlobalEvents().OnCombination(new Dictionary<Combination, Action>
             {
                 {
@@ -39,6 +35,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         void KeysCopyPressed()
         {
             _isCopyActive = true;
+            _isPasteActive = false;
         }
 
         /// <summary>
@@ -48,6 +45,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         {
             Clipboard.Clear();
             _isCopyActive = false;
+            _isPasteActive = true;
         }
 
         /// <summary>
@@ -60,8 +58,19 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             SharpClipboard clipboardMonitor = (SharpClipboard)sender;
             if (e.ContentType == SharpClipboard.ContentTypes.Text && _isCopyActive)
             {
-                Debug.WriteLine(clipboardMonitor.ClipboardText);
+                IKeyboardEvents keyboardEvents;
+                keyboardEvents = Hook.GlobalEvents();
+                keyboardEvents.KeyDown += KeyboardEvents_KeyDown_Copy;
             }
+        }
+
+        private void KeyboardEvents_KeyDown_Copy(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+            e.Handled = true;
+            IKeyboardEvents keyboardEvents = (IKeyboardEvents)sender;
+            keyboardEvents.KeyDown -= KeyboardEvents_KeyDown_Copy;
+            Debug.WriteLine("I'm here!");
         }
 
         /// <summary>
@@ -83,6 +92,11 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Флаг, который указывает, были ли нажаты клавишы копирования
         /// </summary>
         private bool _isCopyActive = false;
+
+        /// <summary>
+        /// Флаг, который указывает, были ли нажаты клавиши вставки
+        /// </summary>
+        private bool _isPasteActive = false;
 
         /// <summary>
         /// Горячие клавиши для копирования
