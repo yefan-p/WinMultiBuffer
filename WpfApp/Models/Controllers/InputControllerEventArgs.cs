@@ -6,24 +6,24 @@ namespace MultiBuffer.WpfApp.Models.Controllers
     public class InputControllerEventArgs : EventArgs
     {
         /// <summary>
-        /// Передает сочетания клавиш, буфер которых нужно обработать
+        /// Передает нажатаю клавишу и значение, если это копирование
         /// </summary>
-        /// <param name="copyKey">Клавиша копирования</param>
-        /// <param name="pasteKey">Клавиша вставки</param>
-        public InputControllerEventArgs(Keys copyKey, Keys pasteKey)
+        /// <param name="key">Нажатя клавшиа</param>
+        /// <param name="pasteKey">Значение буфера</param>
+        public InputControllerEventArgs(Keys key, string value)
         {
-            CopyKey = copyKey;
-            PasteKey = pasteKey;
+            Key = key;
+            Value = value;
         }
 
         /// <summary>
-        /// Клавиша копирования
+        /// Нажатая клавиша
         /// </summary>
-        public readonly Keys CopyKey;
+        public readonly Keys Key;
 
         /// <summary>
-        /// Клавиша вставки
+        /// Значение буфера обмена
         /// </summary>
-        public readonly Keys PasteKey;
+        public readonly string Value;
     }
 }

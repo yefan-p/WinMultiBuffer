@@ -35,14 +35,9 @@ namespace MultiBuffer.WpfApp.ViewModels.Services
         }
 
         /// <summary>
-        /// Клавиша, которая будет копировать в эту ячейку буфера
+        /// Клавиша, которая будет привязна к буферу
         /// </summary>
-        public Keys CopyKey { get; set; }
-
-        /// <summary>
-        /// Клавиша, которая будет вставлять значений из этой ячейки буфера
-        /// </summary>
-        public Keys PasteKey { get; set; }
+        public Keys Key { get; set; }
 
         /// <summary>
         /// Значение.
@@ -51,7 +46,7 @@ namespace MultiBuffer.WpfApp.ViewModels.Services
         public string Value { get; set; }
 
         /// <summary>
-        /// Объекты равны, если горячие клавиши у них одинаковые
+        /// Объекты равны, если привязанная клавиша равна
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -73,7 +68,7 @@ namespace MultiBuffer.WpfApp.ViewModels.Services
             }
 
             BufferItem temp = (BufferItem)obj;
-            if (temp.CopyKey == CopyKey && temp.PasteKey == PasteKey)
+            if (temp.Key == Key)
             {
                 return true;
             }
@@ -96,7 +91,7 @@ namespace MultiBuffer.WpfApp.ViewModels.Services
         /// <returns>Строка, в которой указаны клавиша копирования и вставки</returns>
         public override string ToString()
         {
-            return $"{CopyKey} / {PasteKey}";
+            return $"{Key} / {Value}";
         }
     }
 }

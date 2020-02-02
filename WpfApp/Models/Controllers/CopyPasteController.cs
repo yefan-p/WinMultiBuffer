@@ -60,8 +60,8 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         public void Paste(object sender, InputControllerEventArgs key)
         {
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
-            tmpItem.CopyKey = key.CopyKey;
-            tmpItem.PasteKey = key.PasteKey;
+            //tmpItem.CopyKey = key.CopyKey;
+            //tmpItem.PasteKey = key.PasteKey;
 
             int index = Buffer.IndexOf(tmpItem);
             if (index > -1)
@@ -79,13 +79,9 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// <param name="key">Нажатая клавиша, указывающая, в какой буфер будет вставлен текст</param>
         public void Copy(object sender, InputControllerEventArgs key)
         {
-            _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
-            _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_C);
-            _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
-
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
-            tmpItem.CopyKey = key.CopyKey;
-            tmpItem.PasteKey = key.PasteKey;
+            tmpItem.Key = key.Key;
+            tmpItem.Value = key.Value;
 
             int index = Buffer.IndexOf(tmpItem);
             if (index > -1)

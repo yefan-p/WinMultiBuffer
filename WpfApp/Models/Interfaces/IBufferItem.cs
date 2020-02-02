@@ -11,14 +11,9 @@ namespace MultiBuffer.WpfApp.Models.Interfaces
         string Name { get; }
 
         /// <summary>
-        /// Клавиша, которая будет копировать в эту ячейку буфера
+        /// Клавиша, которая будет привязна к буферу
         /// </summary>
-        Keys CopyKey { get; set; }
-
-        /// <summary>
-        /// Клавиша, которая будет вставлять значений из этой ячейки буфера
-        /// </summary>
-        Keys PasteKey { get; set; }
+        Keys Key { get; set; }
 
         /// <summary>
         /// Возникает во время удаления элемента.

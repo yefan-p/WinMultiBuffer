@@ -60,17 +60,21 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             {
                 IKeyboardEvents keyboardEvents;
                 keyboardEvents = Hook.GlobalEvents();
-                keyboardEvents.KeyDown += KeyboardEvents_KeyDown_Copy;
+                keyboardEvents.KeyDown += (obj, arg) => 
+                {
+                    if (_isCopyActive)
+                    {
+                        _isCopyActive = false;
+                        arg.SuppressKeyPress = true;
+                        arg.Handled = true;
+                        CopyKeyPress?.Invoke(this, new InputControllerEventArgs(arg.KeyCode, (string)e.Content));
+                    }
+                };
             }
-        }
+            else if(e.ContentType == SharpClipboard.ContentTypes.Text && _isPasteActive)
+            {
 
-        private void KeyboardEvents_KeyDown_Copy(object sender, KeyEventArgs e)
-        {
-            e.SuppressKeyPress = true;
-            e.Handled = true;
-            IKeyboardEvents keyboardEvents = (IKeyboardEvents)sender;
-            keyboardEvents.KeyDown -= KeyboardEvents_KeyDown_Copy;
-            Debug.WriteLine("I'm here!");
+            }
         }
 
         /// <summary>
@@ -102,19 +106,19 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Горячие клавиши для копирования
         /// </summary>
         public static readonly Keys[] KeysCopy =
-                                {
-                                    Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.D0, Keys.OemMinus, Keys.Oemplus,
-                                    Keys.A, Keys.S, Keys.D, Keys.F, Keys.G, Keys.H, Keys.J, Keys.K, Keys.L
-                                };
+        {
+            Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.D0, Keys.OemMinus, Keys.Oemplus,
+            Keys.A, Keys.S, Keys.D, Keys.F, Keys.G, Keys.H, Keys.J, Keys.K, Keys.L
+        };
 
         /// <summary>
         /// Горячие клавиши для вставки
         /// </summary>
         public static readonly Keys[] KeysPaste =
-                                {
-                                    Keys.Q, Keys.W, Keys.E, Keys.R, Keys.T, Keys.Y, Keys.U, Keys.I, Keys.O, Keys.P, Keys.OemOpenBrackets, Keys.Oem6,
-                                    Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N, Keys.M, Keys.Oemcomma, Keys.OemPeriod
-                                };
+        {
+            Keys.Q, Keys.W, Keys.E, Keys.R, Keys.T, Keys.Y, Keys.U, Keys.I, Keys.O, Keys.P, Keys.OemOpenBrackets, Keys.Oem6,
+            Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N, Keys.M, Keys.Oemcomma, Keys.OemPeriod
+        };
 
         /// <summary>
         /// hotkey нажат, ожидаем нажатие следующей клавиши
@@ -131,11 +135,11 @@ namespace MultiBuffer.WpfApp.Models.Controllers
 
                 if (KeysCopy.Contains(e.KeyCode))
                 {
-                    CopyKeyPress?.Invoke(this, new InputControllerEventArgs(e.KeyCode, GetKey(e.KeyCode)));
+                    //CopyKeyPress?.Invoke(this, new InputControllerEventArgs(e.KeyCode, GetKey(e.KeyCode)));
                 }
                 else if(KeysPaste.Contains(e.KeyCode))
                 {
-                    PasteKeyPress?.Invoke(this, new InputControllerEventArgs(GetKey(e.KeyCode), e.KeyCode));
+                    //PasteKeyPress?.Invoke(this, new InputControllerEventArgs(GetKey(e.KeyCode), e.KeyCode));
                 }
             }
         }
