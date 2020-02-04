@@ -91,7 +91,7 @@ namespace MultiBuffer.WpfApp.ViewModels.Services
         /// <returns>Строка, в которой указаны клавиша копирования и вставки</returns>
         public override string ToString()
         {
-            return $"{Key} / {Value}";
+            return $"{Key}";
         }
     }
 }

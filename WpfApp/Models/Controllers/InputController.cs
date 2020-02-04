@@ -6,13 +6,16 @@ using MultiBuffer.WpfApp.Models.Interfaces;
 using System.Diagnostics;
 using System.Collections.Generic;
 using WK.Libraries.SharpClipboardNS;
+using WindowsInput;
+using WindowsInput.Native;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {
     public class InputController : IInputController
     {
-        public InputController()
+        public InputController(IInputSimulator simulator)
         {
+            _inputSimulator = simulator;
             var clipboardMonitor = new SharpClipboard();
             clipboardMonitor.ClipboardChanged += ClipboardMonitor_ClipboardChanged;
 
@@ -28,6 +31,11 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 }
             });
         }
+
+        /// <summary>
+        /// Эмулирует нажатие клавиш
+        /// </summary>
+        private readonly IInputSimulator _inputSimulator;
 
         /// <summary>
         /// Нажата клавиша копирования
@@ -46,6 +54,19 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             Clipboard.Clear();
             _isCopyActive = false;
             _isPasteActive = true;
+
+            IKeyboardEvents keyboardEvents;
+            keyboardEvents = Hook.GlobalEvents();
+            keyboardEvents.KeyDown += (obj, arg) =>
+            {
+                if(_isPasteActive)
+                {
+                    _isPasteActive = false;
+                    arg.SuppressKeyPress = true;
+                    arg.Handled = true;
+                    PasteKeyPress?.Invoke(this, new InputControllerEventArgs(arg.KeyCode, string.Empty));
+                }
+            };
         }
 
         /// <summary>
@@ -71,9 +92,12 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                     }
                 };
             }
-            else if(e.ContentType == SharpClipboard.ContentTypes.Text && _isPasteActive)
+            else if(e.ContentType == SharpClipboard.ContentTypes.Text && !_isPasteActive && !_isCopyActive)
             {
-
+                _isPasteActive = false;
+                _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
+                _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
+                _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
             }
         }
 

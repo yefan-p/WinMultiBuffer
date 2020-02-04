@@ -60,16 +60,15 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         public void Paste(object sender, InputControllerEventArgs key)
         {
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
-            //tmpItem.CopyKey = key.CopyKey;
-            //tmpItem.PasteKey = key.PasteKey;
+            tmpItem.Key = key.Key;
 
             int index = Buffer.IndexOf(tmpItem);
             if (index > -1)
             {
                 _clipboardController.SetText(Buffer[index].Value);
-                _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
+                /*_inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
                 _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
-                _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
+                _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);*/
             }
         }
 
