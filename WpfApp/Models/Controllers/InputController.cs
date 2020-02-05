@@ -19,7 +19,15 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             var clipboardMonitor = new SharpClipboard();
             clipboardMonitor.ClipboardChanged += ClipboardMonitor_ClipboardChanged;
 
-            Hook.GlobalEvents().OnCombination(new Dictionary<Combination, Action>
+            Hook.GlobalEvents().KeyDown += InputController_KeyDown;
+            /*Hook.GlobalEvents().OnSequence(new Dictionary<Sequence, Action>
+            {
+                {
+                    Sequence.FromString("Control+C,C"),
+                    SequenceCopyPressed
+                }
+            });*/
+            /*Hook.GlobalEvents().OnCombination(new Dictionary<Combination, Action>
             {
                 {
                     Combination.FromString("Control+C"), 
@@ -29,7 +37,22 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                     Combination.FromString("Control+V"),
                     KeysPastePressed
                 }
-            });
+            });*/
+        }
+
+        List<Keys> _keysList = new List<Keys>();
+
+        private void InputController_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (_keysList.Count == 2 && _keysList[0] == Keys.LControlKey && _keysList[1] == Keys.C)
+            {
+                Debug.WriteLine(e.KeyCode);
+                _keysList.Clear();
+            }
+            else if ((_keysList.Count == 0 && e.KeyCode == Keys.LControlKey) || (_keysList.Count == 1 && e.KeyCode == Keys.C))
+                _keysList.Add(e.KeyCode);
+            else
+                _keysList.Clear();
         }
 
         /// <summary>
@@ -42,8 +65,15 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void KeysCopyPressed()
         {
-            _isCopyActive = true;
-            _isPasteActive = false;
+            Debug.WriteLine("OnCombination keys was pressed");
+        }
+
+        /// <summary>
+        /// Нажата клавиша копирования
+        /// </summary>
+        void SequenceCopyPressed()
+        {
+            Debug.WriteLine("Sequence keys was pressed");
         }
 
         /// <summary>
@@ -51,7 +81,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void KeysPastePressed()
         {
-            Clipboard.Clear();
+            //Clipboard.Clear();
             _isCopyActive = false;
             _isPasteActive = true;
 
@@ -85,20 +115,23 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 {
                     if (_isCopyActive)
                     {
-                        _isCopyActive = false;
                         arg.SuppressKeyPress = true;
                         arg.Handled = true;
+                        _isCopyActive = false;
                         CopyKeyPress?.Invoke(this, new InputControllerEventArgs(arg.KeyCode, (string)e.Content));
+                        arg.SuppressKeyPress = false;
+                        arg.Handled = false;
                     }
                 };
             }
-            else if(e.ContentType == SharpClipboard.ContentTypes.Text && !_isPasteActive && !_isCopyActive)
+            /*else if(e.ContentType == SharpClipboard.ContentTypes.Text && !_isPasteActive && !_isCopyActive)
             {
+                Debug.WriteLine(e.Content);
                 _isPasteActive = false;
                 _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
                 _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
                 _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
-            }
+            }*/
         }
 
         /// <summary>
