@@ -22,21 +22,23 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             Hook.GlobalEvents().KeyDown += InputController_KeyDown;
         }
 
-        List<Keys> _keysList = new List<Keys>();
+        List<Keys> _keysCopyList = new List<Keys>();
 
         private void InputController_KeyDown(object sender, KeyEventArgs e)
         {
-            if (_keysList.Count == 2 && _keysList[0] == Keys.LControlKey && _keysList[1] == Keys.C)
+            if (_keysCopyList.Count == 2 && _keysCopyList[0] == Keys.LControlKey && _keysCopyList[1] == Keys.C)
             {
                 e.SuppressKeyPress = true;
                 e.Handled = true;
-                Debug.WriteLine(e.KeyCode);
-                _keysList.Clear();
+                Debug.WriteLine("Three key press " + e.KeyCode);
+                _keysCopyList.Clear();
             }
-            else if ((_keysList.Count == 0 && e.KeyCode == Keys.LControlKey) || (_keysList.Count == 1 && e.KeyCode == Keys.C))
-                _keysList.Add(e.KeyCode);
+            else if ((_keysCopyList.Count == 0 && e.KeyCode == Keys.LControlKey) || (_keysCopyList.Count == 1 && e.KeyCode == Keys.C))
+            {
+                Debug.WriteLine("First or second keys press" + e.KeyCode);
+            }
             else
-                _keysList.Clear();
+                _keysCopyList.Clear();
         }
 
         /// <summary>
@@ -90,7 +92,13 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// <param name="e"></param>
         private void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
         {
-            SharpClipboard clipboardMonitor = (SharpClipboard)sender;
+            Debug.WriteLine("Clipboard was changed!!!");
+
+            while (_keysCopyList.Count >= 2 && _keysCopyList[0] == Keys.LControlKey && _keysCopyList[1] == Keys.C)
+            {
+                Debug.WriteLine("123");
+            }
+            /*SharpClipboard clipboardMonitor = (SharpClipboard)sender;
             if (e.ContentType == SharpClipboard.ContentTypes.Text && _isCopyActive)
             {
                 IKeyboardEvents keyboardEvents;
@@ -107,7 +115,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                         arg.Handled = false;
                     }
                 };
-            }
+            }*/
             /*else if(e.ContentType == SharpClipboard.ContentTypes.Text && !_isPasteActive && !_isCopyActive)
             {
                 Debug.WriteLine(e.Content);
