@@ -20,24 +20,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             clipboardMonitor.ClipboardChanged += ClipboardMonitor_ClipboardChanged;
 
             Hook.GlobalEvents().KeyDown += InputController_KeyDown;
-            /*Hook.GlobalEvents().OnSequence(new Dictionary<Sequence, Action>
-            {
-                {
-                    Sequence.FromString("Control+C,C"),
-                    SequenceCopyPressed
-                }
-            });*/
-            /*Hook.GlobalEvents().OnCombination(new Dictionary<Combination, Action>
-            {
-                {
-                    Combination.FromString("Control+C"), 
-                    KeysCopyPressed
-                },
-                {
-                    Combination.FromString("Control+V"),
-                    KeysPastePressed
-                }
-            });*/
         }
 
         List<Keys> _keysList = new List<Keys>();
@@ -46,6 +28,8 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         {
             if (_keysList.Count == 2 && _keysList[0] == Keys.LControlKey && _keysList[1] == Keys.C)
             {
+                e.SuppressKeyPress = true;
+                e.Handled = true;
                 Debug.WriteLine(e.KeyCode);
                 _keysList.Clear();
             }
