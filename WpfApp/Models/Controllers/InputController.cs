@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using WK.Libraries.SharpClipboardNS;
 using WindowsInput;
 using WindowsInput.Native;
+using System.Threading.Tasks;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {
@@ -30,15 +31,19 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             {
                 e.SuppressKeyPress = true;
                 e.Handled = true;
+                _keysCopyList.Add(e.KeyCode);
                 Debug.WriteLine("Three key press " + e.KeyCode);
-                _keysCopyList.Clear();
             }
             else if ((_keysCopyList.Count == 0 && e.KeyCode == Keys.LControlKey) || (_keysCopyList.Count == 1 && e.KeyCode == Keys.C))
             {
-                Debug.WriteLine("First or second keys press" + e.KeyCode);
+                _keysCopyList.Add(e.KeyCode);
+                Debug.WriteLine("First or second keys press " + e.KeyCode);
             }
             else
+            {
                 _keysCopyList.Clear();
+                Debug.WriteLine("Keys copy list was changed!");
+            }
         }
 
         /// <summary>
@@ -90,13 +95,21 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
+        private async void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
         {
             Debug.WriteLine("Clipboard was changed!!!");
 
             while (_keysCopyList.Count >= 2 && _keysCopyList[0] == Keys.LControlKey && _keysCopyList[1] == Keys.C)
             {
-                Debug.WriteLine("123");
+                await Task.Run(() =>
+                    {
+                        if (_keysCopyList.Count == 3)
+                        {
+                            Debug.WriteLine("Clipboard have " + e.Content + " and was pressed key " + _keysCopyList[2]);
+                            _keysCopyList.Clear();
+                        }
+                    }
+                );
             }
             /*SharpClipboard clipboardMonitor = (SharpClipboard)sender;
             if (e.ContentType == SharpClipboard.ContentTypes.Text && _isCopyActive)
