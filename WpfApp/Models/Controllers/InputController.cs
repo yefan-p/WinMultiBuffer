@@ -23,21 +23,43 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             Hook.GlobalEvents().KeyDown += InputController_KeyDown;
         }
 
+        /// <summary>
+        /// Хранит последовательность нажатых клавиш для копирования
+        /// </summary>
         List<Keys> _keysCopyList = new List<Keys>();
 
+        /// <summary>
+        /// Хранит последовательность нажатых клавиш для вставки
+        /// </summary>
+        List<Keys> _keysPasteList = new List<Keys>();
+
+        /// <summary>
+        /// Перехватывает нажатие всех клавиш в системе
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">Нажатая клавиша</param>
         private void InputController_KeyDown(object sender, KeyEventArgs e)
         {
-            if (_keysCopyList.Count == 2 && _keysCopyList[0] == Keys.LControlKey && _keysCopyList[1] == Keys.C)
+            if(e.KeyCode == Keys.Escape)
+            {
+                _keysCopyList.Clear();
+            }
+            else if (_keysCopyList.Count == 2 && _keysCopyList[0] == Keys.LControlKey && _keysCopyList[1] == Keys.C)
             {
                 e.SuppressKeyPress = true;
                 e.Handled = true;
                 _keysCopyList.Add(e.KeyCode);
                 Debug.WriteLine("Three key press " + e.KeyCode);
             }
-            else if ((_keysCopyList.Count == 0 && e.KeyCode == Keys.LControlKey) || (_keysCopyList.Count == 1 && e.KeyCode == Keys.C))
+            else if ((_keysCopyList.Count == 0 || _keysPasteList.Count == 0) && e.KeyCode == Keys.LControlKey)
             {
                 _keysCopyList.Add(e.KeyCode);
-                Debug.WriteLine("First or second keys press " + e.KeyCode);
+                _keysPasteList.Add(e.KeyCode);
+                Debug.WriteLine("LeftCtrl first press");
+            }
+            else if(_keysCopyList.Count == 1 && _keysCopyList[0] == Keys.LControlKey && e.KeyCode == Keys.C)
+            {
+                _keysCopyList.Add(e.KeyCode);
             }
             else
             {
@@ -50,45 +72,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Эмулирует нажатие клавиш
         /// </summary>
         private readonly IInputSimulator _inputSimulator;
-
-        /// <summary>
-        /// Нажата клавиша копирования
-        /// </summary>
-        void KeysCopyPressed()
-        {
-            Debug.WriteLine("OnCombination keys was pressed");
-        }
-
-        /// <summary>
-        /// Нажата клавиша копирования
-        /// </summary>
-        void SequenceCopyPressed()
-        {
-            Debug.WriteLine("Sequence keys was pressed");
-        }
-
-        /// <summary>
-        /// Нажата клавиша вставки
-        /// </summary>
-        void KeysPastePressed()
-        {
-            //Clipboard.Clear();
-            _isCopyActive = false;
-            _isPasteActive = true;
-
-            IKeyboardEvents keyboardEvents;
-            keyboardEvents = Hook.GlobalEvents();
-            keyboardEvents.KeyDown += (obj, arg) =>
-            {
-                if(_isPasteActive)
-                {
-                    _isPasteActive = false;
-                    arg.SuppressKeyPress = true;
-                    arg.Handled = true;
-                    PasteKeyPress?.Invoke(this, new InputControllerEventArgs(arg.KeyCode, string.Empty));
-                }
-            };
-        }
 
         /// <summary>
         /// Изменилось значение буфера обмена Windows
@@ -113,32 +96,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                     }
                 );
             }
-            /*SharpClipboard clipboardMonitor = (SharpClipboard)sender;
-            if (e.ContentType == SharpClipboard.ContentTypes.Text && _isCopyActive)
-            {
-                IKeyboardEvents keyboardEvents;
-                keyboardEvents = Hook.GlobalEvents();
-                keyboardEvents.KeyDown += (obj, arg) => 
-                {
-                    if (_isCopyActive)
-                    {
-                        arg.SuppressKeyPress = true;
-                        arg.Handled = true;
-                        _isCopyActive = false;
-                        CopyKeyPress?.Invoke(this, new InputControllerEventArgs(arg.KeyCode, (string)e.Content));
-                        arg.SuppressKeyPress = false;
-                        arg.Handled = false;
-                    }
-                };
-            }*/
-            /*else if(e.ContentType == SharpClipboard.ContentTypes.Text && !_isPasteActive && !_isCopyActive)
-            {
-                Debug.WriteLine(e.Content);
-                _isPasteActive = false;
-                _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
-                _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
-                _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
-            }*/
         }
 
         /// <summary>
@@ -150,21 +107,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Указывает, что была нажата клавиша копирования
         /// </summary>
         public event EventHandler<InputControllerEventArgs> CopyKeyPress;
-
-        /// <summary>
-        /// Флаг, который указывает, были ли нажаты клавиши активации буфера
-        /// </summary>
-        bool _isActive = false;
-
-        /// <summary>
-        /// Флаг, который указывает, были ли нажаты клавишы копирования
-        /// </summary>
-        private bool _isCopyActive = false;
-
-        /// <summary>
-        /// Флаг, который указывает, были ли нажаты клавиши вставки
-        /// </summary>
-        private bool _isPasteActive = false;
 
         /// <summary>
         /// Горячие клавиши для копирования
@@ -183,30 +125,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             Keys.Q, Keys.W, Keys.E, Keys.R, Keys.T, Keys.Y, Keys.U, Keys.I, Keys.O, Keys.P, Keys.OemOpenBrackets, Keys.Oem6,
             Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N, Keys.M, Keys.Oemcomma, Keys.OemPeriod
         };
-
-        /// <summary>
-        /// hotkey нажат, ожидаем нажатие следующей клавиши
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void KeyboardEvents_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (_isActive)
-            {
-                e.SuppressKeyPress = true;
-                e.Handled = true;
-                _isActive = false;
-
-                if (KeysCopy.Contains(e.KeyCode))
-                {
-                    //CopyKeyPress?.Invoke(this, new InputControllerEventArgs(e.KeyCode, GetKey(e.KeyCode)));
-                }
-                else if(KeysPaste.Contains(e.KeyCode))
-                {
-                    //PasteKeyPress?.Invoke(this, new InputControllerEventArgs(GetKey(e.KeyCode), e.KeyCode));
-                }
-            }
-        }
 
         /// <summary>
         /// Возвращает клавишу копирования если передана клавиша вставки, и возвращает клавишу вставки, если передана клавиша копирования
