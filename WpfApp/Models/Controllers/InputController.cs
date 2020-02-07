@@ -106,6 +106,8 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                         if (_keysCopyList.Count == 3)
                         {
                             Debug.WriteLine("Clipboard have " + e.Content + " and was pressed key " + _keysCopyList[2]);
+                            if (e.ContentType == SharpClipboard.ContentTypes.Text)
+                                CopyKeyPress?.Invoke(this, new InputControllerEventArgs(_keysCopyList[2], (string)e.Content));
                             _keysCopyList.Clear();
                         }
                     }

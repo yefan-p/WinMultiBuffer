@@ -89,8 +89,11 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             }
             else
             {
-                Buffer.Add(tmpItem);
-                tmpItem.Delete += TmpItem_Delete;
+                App.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    Buffer.Add(tmpItem);
+                    tmpItem.Delete += TmpItem_Delete;
+                }));
             }
 
             Update?.Invoke(tmpItem);
