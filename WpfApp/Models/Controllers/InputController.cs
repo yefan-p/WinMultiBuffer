@@ -46,6 +46,10 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 _keysCopyList.Clear();
                 _keysPasteList.Clear();
             }
+            else if (_keysPasteList.Count == 3 && _keysPasteList[0] == Keys.LControlKey && _keysPasteList[1] == Keys.V)
+            {
+                _keysPasteList.Clear();
+            }
             //LeftCtrl
             else if ((_keysCopyList.Count == 0 || _keysPasteList.Count == 0) && e.KeyCode == Keys.LControlKey)
             {
@@ -84,7 +88,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 e.Handled = true;
                 _keysPasteList.Add(e.KeyCode);
                 Debug.WriteLine("LeftCtrl + V + AnyKey " + e.KeyCode);
-                _keysPasteList.Clear();
+                PasteKeyPress?.Invoke(this, new InputControllerEventArgs(_keysPasteList[2], string.Empty));
             }
             else
             {
@@ -108,6 +112,15 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         {
             Debug.WriteLine("Clipboard was changed!!!");
 
+            if (_keysPasteList.Count == 3 && _keysPasteList[0] == Keys.LControlKey && _keysPasteList[1] == Keys.V)
+            {
+                _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
+                _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
+                _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
+                Debug.WriteLine("Pasted!");
+                return;
+            }
+
             while (_keysCopyList.Count >= 2 && _keysCopyList[0] == Keys.LControlKey && _keysCopyList[1] == Keys.C)
             {
                 await Task.Run(() =>
@@ -117,6 +130,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                             if (e.ContentType == SharpClipboard.ContentTypes.Text)
                                 CopyKeyPress?.Invoke(this, new InputControllerEventArgs(_keysCopyList[2], (string)e.Content));
                             _keysCopyList.Clear();
+                            return;
                         }
                     }
                 );
