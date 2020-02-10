@@ -132,48 +132,5 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Указывает, что была нажата клавиша копирования
         /// </summary>
         public event EventHandler<InputControllerEventArgs> CopyKeyPress;
-
-        /// <summary>
-        /// Горячие клавиши для копирования
-        /// </summary>
-        public static readonly Keys[] KeysCopy =
-        {
-            Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.D0, Keys.OemMinus, Keys.Oemplus,
-            Keys.A, Keys.S, Keys.D, Keys.F, Keys.G, Keys.H, Keys.J, Keys.K, Keys.L
-        };
-
-        /// <summary>
-        /// Горячие клавиши для вставки
-        /// </summary>
-        public static readonly Keys[] KeysPaste =
-        {
-            Keys.Q, Keys.W, Keys.E, Keys.R, Keys.T, Keys.Y, Keys.U, Keys.I, Keys.O, Keys.P, Keys.OemOpenBrackets, Keys.Oem6,
-            Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N, Keys.M, Keys.Oemcomma, Keys.OemPeriod
-        };
-
-        /// <summary>
-        /// Возвращает клавишу копирования если передана клавиша вставки, и возвращает клавишу вставки, если передана клавиша копирования
-        /// </summary>
-        /// <param name="key">Клавиша, для которой нужно получить соответствующую</param>
-        /// <returns>Клавиша, соответствующая переданной</returns>
-        public static Keys GetKey(Keys key)
-        {
-            if (KeysPaste.Length != KeysCopy.Length)
-                throw new Exception("Keys copy and Keys paste must be same count");
-
-            for (int i = 0; i < KeysPaste.Length; i++)
-            {
-                if (KeysPaste[i] == key)
-                {
-                    return KeysCopy[i];
-                }
-                else if(KeysCopy[i] == key)
-                {
-                    return KeysPaste[i];
-                }
-            }
-
-            throw new Exception("Key not found");
-        }
     }
 }
