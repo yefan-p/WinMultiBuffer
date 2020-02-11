@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MultiBuffer.WpfApp.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="840" MinHeight="455" MinWidth="840">
-    <StackPanel>
+        Title="MainWindow" Height="450" Width="840" MinHeight="455" MinWidth="840" ShowInTaskbar="False">
+    <StackPanel Orientation="Horizontal">
         <ContentControl x:Name="FrameContent"
                     x:FieldModifier="public"/>
         <StackPanel.Background>

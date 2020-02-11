@@ -2,7 +2,6 @@
 using Gma.System.MouseKeyHook;
 using System.Windows.Forms;
 using MultiBuffer.WpfApp.Models.Interfaces;
-using System.Diagnostics;
 using System.Collections.Generic;
 using WK.Libraries.SharpClipboardNS;
 using WindowsInput;
