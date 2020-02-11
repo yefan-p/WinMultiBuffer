@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Threading;
-using WindowsInput;
-using WindowsInput.Native;
 using MultiBuffer.WpfApp.Models.Interfaces;
-using System.Threading.Tasks;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {
@@ -16,13 +12,11 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                     IInputController inputController,
                     TCollection collection,
                     IBufferItemFactory bufferItemFactory,
-                    IClipboardController clipboardController,
-                    IInputSimulator simulator)
+                    IClipboardController clipboardController)
         {
             Buffer = collection;
             _bufferItemFactory = bufferItemFactory;
             _clipboardController = clipboardController;
-            _inputSimulator = simulator;
 
             inputController.PasteKeyPress += Paste;
             inputController.CopyKeyPress += Copy;
@@ -43,15 +37,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         public TCollection Buffer { get; private set; }
 
-        private readonly IInputSimulator _inputSimulator;
-
         private readonly IClipboardController _clipboardController;
-
-        /// <summary>
-        /// Количество миллисекунд, которые должны пройти, прежде чем произойдет обращение к буферу обмена после нажатия клавиши.
-        /// Задержка необходима для того, чтобы выделенный текст успел дойти до буфера обмена при копировании или успел вставиться при вставке.
-        /// </summary>
-        const int Interval = 250;
 
         /// <summary>
         /// Вставляет текст из указанного буфера
@@ -66,9 +52,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             if (index > -1)
             {
                 _clipboardController.SetText(Buffer[index].Value);
-                /*_inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
-                _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
-                _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);*/
             }
         }
 
