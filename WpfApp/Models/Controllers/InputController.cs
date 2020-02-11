@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Gma.System.MouseKeyHook;
 using System.Windows.Forms;
 using MultiBuffer.WpfApp.Models.Interfaces;
