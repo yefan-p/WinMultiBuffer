@@ -54,14 +54,12 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             {
                 _keysCopyList.Add(e.KeyCode);
                 _keysPasteList.Add(e.KeyCode);
-                Debug.WriteLine("LeftCtrl");
             }
             //LeftCtrl + C
             else if (_keysCopyList.Count == 1 && _keysCopyList[0] == Keys.LControlKey && e.KeyCode == Keys.C)
             {
                 _keysPasteList.Clear();
                 _keysCopyList.Add(e.KeyCode);
-                Debug.WriteLine("LeftCtrl + C");
             }
             //LeftCtrl + V
             else if(_keysPasteList.Count == 1 && _keysPasteList[0] == Keys.LControlKey && e.KeyCode == Keys.V)
@@ -70,7 +68,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 e.Handled = true;
                 _keysCopyList.Clear();
                 _keysPasteList.Add(e.KeyCode);
-                Debug.WriteLine("LeftCtrl + V");
             }
             //LeftCtrl + C + AnyKey
             else if (_keysCopyList.Count == 2 && _keysCopyList[0] == Keys.LControlKey && _keysCopyList[1] == Keys.C)
@@ -78,7 +75,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 e.SuppressKeyPress = true;
                 e.Handled = true;
                 _keysCopyList.Add(e.KeyCode);
-                Debug.WriteLine("LeftCtrl + C + AnyKey " + e.KeyCode);
             }
             //LeftCtrl + V + AnyKey
             else if (_keysPasteList.Count == 2 && _keysPasteList[0] == Keys.LControlKey && _keysPasteList[1] == Keys.V)
@@ -86,14 +82,12 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 e.SuppressKeyPress = true;
                 e.Handled = true;
                 _keysPasteList.Add(e.KeyCode);
-                Debug.WriteLine("LeftCtrl + V + AnyKey " + e.KeyCode);
                 PasteKeyPress?.Invoke(this, new InputControllerEventArgs(_keysPasteList[2], string.Empty));
             }
             else
             {
                 _keysCopyList.Clear();
                 _keysPasteList.Clear();
-                Debug.WriteLine("Keys lists was cleared!");
             }
         }
 
@@ -109,14 +103,11 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// <param name="e"></param>
         private async void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
         {
-            Debug.WriteLine("Clipboard was changed!!!");
-
             if (_keysPasteList.Count == 3 && _keysPasteList[0] == Keys.LControlKey && _keysPasteList[1] == Keys.V)
             {
                 _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
                 _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
                 _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
-                Debug.WriteLine("Pasted!");
                 return;
             }
 
