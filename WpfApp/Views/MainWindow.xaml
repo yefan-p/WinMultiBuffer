@@ -8,7 +8,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="840" MinHeight="455" MinWidth="840" ShowInTaskbar="False">
     <StackPanel Orientation="Horizontal">
-        <tb:TaskbarIcon x:Name="NotifyIcon"/>
+        <tb:TaskbarIcon x:Name="NotifyIcon" ToolTipText="MultiBuffer is runnig!">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Show all buffers and values"/>
+                    <MenuItem Header="Clear all buffers"/>
+                    <MenuItem Header="Help"/>
+                    <MenuItem Header="Exit"/>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
         <ContentControl x:Name="FrameContent"
                     x:FieldModifier="public"/>
         <StackPanel.Background>
