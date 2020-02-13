@@ -11,8 +11,7 @@
         <tb:TaskbarIcon x:Name="NotifyIcon" ToolTipText="MultiBuffer is runnig!">
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Show all buffers and values"/>
-                    <MenuItem Header="Clear all buffers"/>
+                    <MenuItem Header="Buffers"/>
                     <MenuItem Header="Help"/>
                     <MenuItem Header="Exit"/>
                 </ContextMenu>
