@@ -25,7 +25,6 @@ namespace MultiBuffer.WpfApp
     public partial class App : Application
     {
 
-
         IWindsorContainer container;
 
         public App()
