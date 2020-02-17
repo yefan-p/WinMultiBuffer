@@ -6,15 +6,10 @@ namespace MultiBuffer.WpfApp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public BaseViewModel(INavigationManager navigationManager)
-        {
-            NavigationManager = navigationManager;
-        }
-
         /// <summary>
         /// Переключение между различными представлениями
         /// </summary>
-        protected INavigationManager NavigationManager { get; private set; }
+        public INavigationManager NavigationManager { get; private set; }
 
         /// <summary>
         /// Свойство обновлено

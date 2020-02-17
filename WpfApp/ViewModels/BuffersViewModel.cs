@@ -7,10 +7,7 @@ namespace MultiBuffer.WpfApp.ViewModels
     public class BuffersViewModel : BaseViewModel
     {
 
-        public BuffersViewModel(
-                INavigationManager navigationManager,
-                ICopyPasteController<IList<IBufferItem>> copyPasteController)
-                : base(navigationManager)
+        public BuffersViewModel(ICopyPasteController<IList<IBufferItem>> copyPasteController)
         {
             ICopyPasteController<IList<IBufferItem>> _copyPasteController = copyPasteController;
             _copyPasteController.Update += CopyPasteController_Update;
@@ -23,6 +20,10 @@ namespace MultiBuffer.WpfApp.ViewModels
         /// </summary>
         public IList<IBufferItem> Buffers { get; }
 
+        /// <summary>
+        /// Обрабатывает обновление коллекции
+        /// </summary>
+        /// <param name="obj">Буфер, который стал причиной обновления</param>
         private void CopyPasteController_Update(IBufferItem obj)
         {
             if (Buffers.Count == 0)

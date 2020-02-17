@@ -1,20 +1,18 @@
-﻿using System;
+﻿using MultiBuffer.WpfApp.Models.Interfaces;
+using MultiBuffer.WpfApp.Utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using MultiBuffer.WpfApp.Models.Interfaces;
-using MultiBuffer.WpfApp.Utils;
 
 namespace MultiBuffer.WpfApp.ViewModels
 {
-    public class TrayViewModel : BaseViewModel
+    public class WindowViewModel : BaseViewModel
     {
-        public TrayViewModel(INavigationManager navigationManager, 
-                             ICommandFactory commandFactory)
-                             : base(navigationManager)
+        public WindowViewModel(ICommandFactory commandFactory)
         {
             ShowBuffers = commandFactory.GetCommand(ShowBuffersHandler);
             ShowHelp = commandFactory.GetCommand(ShowHelpHandler);
@@ -35,7 +33,6 @@ namespace MultiBuffer.WpfApp.ViewModels
         /// Закрывает приложение
         /// </summary>
         public ICommand CloseApp { get; }
-
 
         private void ShowBuffersHandler()
         {

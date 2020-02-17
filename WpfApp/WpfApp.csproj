@@ -117,7 +117,7 @@
     <Compile Include="ViewModels\BuffersViewModel.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />
     <Compile Include="ViewModels\Services\CommandFactory.cs" />
-    <Compile Include="ViewModels\TrayViewModel.cs" />
+    <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Views\BuffersView.xaml.cs">
       <DependentUpon>BuffersView.xaml</DependentUpon>
     </Compile>

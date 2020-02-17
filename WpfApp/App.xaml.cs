@@ -78,8 +78,6 @@ namespace MultiBuffer.WpfApp
             container.RegisterService<HelpViewModel, HelpViewModel>();
 
             container.RegisterService<BuffersViewModel, BuffersViewModel>();
-
-            container.RegisterService<TrayViewModel, TrayViewModel>();
         }
     }
 }

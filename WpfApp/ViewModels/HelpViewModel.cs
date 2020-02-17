@@ -1,11 +1,8 @@
-﻿using MultiBuffer.WpfApp.Utils;
-
-namespace MultiBuffer.WpfApp.ViewModels
+﻿namespace MultiBuffer.WpfApp.ViewModels
 {
     public class HelpViewModel : BaseViewModel
     {
-        public HelpViewModel(INavigationManager navigationManager)
-                    : base(navigationManager)
+        public HelpViewModel()
         {
             
         }
