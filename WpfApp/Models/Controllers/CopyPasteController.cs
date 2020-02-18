@@ -56,7 +56,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         }
 
         /// <summary>
-        /// Копирует текст в указанный буфер
+        /// Копирует текст и сохраняет его в указанный буфер
         /// </summary>
         /// <param name="key">Нажатая клавиша, указывающая, в какой буфер будет вставлен текст</param>
         public void Copy(object sender, InputControllerEventArgs key)
