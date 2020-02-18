@@ -110,20 +110,20 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 return;
             }
 
-            while (_keysCopyList.Count >= 2 && _keysCopyList[0] == Keys.LControlKey && _keysCopyList[1] == Keys.C)
+            await Task.Run(() =>
             {
-                await Task.Run(() =>
+                while (_keysCopyList.Count >= 2 && _keysCopyList[0] == Keys.LControlKey && _keysCopyList[1] == Keys.C)
+                {
+
+                    if (_keysCopyList.Count == 3)
                     {
-                        if (_keysCopyList.Count == 3)
-                        {
-                            if (e.ContentType == SharpClipboard.ContentTypes.Text)
-                                CopyKeyPress?.Invoke(this, new InputControllerEventArgs(_keysCopyList[2], (string)e.Content));
-                            _keysCopyList.Clear();
-                            return;
-                        }
+                        if (e.ContentType == SharpClipboard.ContentTypes.Text)
+                            CopyKeyPress?.Invoke(this, new InputControllerEventArgs(_keysCopyList[2], (string)e.Content));
+                        _keysCopyList.Clear();
+                        return;
                     }
-                );
-            }
+                }
+            });
         }
 
         /// <summary>
