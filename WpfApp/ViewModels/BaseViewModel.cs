@@ -9,7 +9,7 @@ namespace MultiBuffer.WpfApp.ViewModels
         /// <summary>
         /// Переключение между различными представлениями
         /// </summary>
-        public INavigationManager NavigationManager { get; private set; }
+        public INavigationManager NavigationManager { get; set; }
 
         /// <summary>
         /// Свойство обновлено
