@@ -25,19 +25,14 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock
         }
 
         /// <summary>
-        /// Клавиша, которая будет копировать в эту ячейку буфера
-        /// </summary>
-        public Keys CopyKey { get; set; }
-
-        /// <summary>
-        /// Клавиша, которая будет вставлять значений из этой ячейки буфера
-        /// </summary>
-        public Keys PasteKey { get; set; }
-
-        /// <summary>
         /// Значение.
         /// Оповещает о своем изменении
         /// </summary>
         public string Value { get; set; }
+
+        /// <summary>
+        /// Клавиша, которая будет привязна к буферу
+        /// </summary>
+        public Keys Key { get; set; }
     }
 }

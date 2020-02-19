@@ -15,7 +15,7 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock
         /// </summary>
         public void OnPasteKeyPress()
         {
-            PasteKeyPress?.Invoke(this, new InputControllerEventArgs(Keys.None, Keys.None));
+            PasteKeyPress?.Invoke(this, new InputControllerEventArgs(Keys.None, ""));
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.CopyPasteControllerMock
         /// </summary>
         public void OnCopyKeyPress()
         {
-            CopyKeyPress?.Invoke(this, new InputControllerEventArgs(Keys.None, Keys.None));
+            CopyKeyPress?.Invoke(this, new InputControllerEventArgs(Keys.None, ""));
         }
     }
 }

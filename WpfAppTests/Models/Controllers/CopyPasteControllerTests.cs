@@ -34,8 +34,7 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
                 new CopyPasteControllerMock.InputController(),
                 new CopyPasteCollection(indexOfResult, defaultBufferValue),
                 new BufferItemFactory(),
-                clipboardController,
-                new InputSimulator());
+                clipboardController);
 
             clipboardController.IsSetText += (buffeerText) =>
             {
@@ -44,7 +43,7 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
 
             controller.Paste(
                 null,
-                new InputControllerEventArgs(System.Windows.Forms.Keys.None, System.Windows.Forms.Keys.None));
+                new InputControllerEventArgs(System.Windows.Forms.Keys.None, ""));
 
             CollectionAssert.AreEqual(answer, trueAnswer);
         }
@@ -66,8 +65,7 @@ namespace MultiBuffer.WpfAppTests.Models.Controllers.Tests
                 inputController,
                 new CopyPasteCollection(indexOfResult, stringForBuffer),
                 new BufferItemFactory(),
-                new ClipboardController(expectedValue),
-                new InputSimulator());
+                new ClipboardController(expectedValue));
 
             inputController.OnPasteKeyPress();
         }
