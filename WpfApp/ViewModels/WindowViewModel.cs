@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
 
 namespace MultiBuffer.WpfApp.ViewModels
 {
@@ -14,10 +15,13 @@ namespace MultiBuffer.WpfApp.ViewModels
     {
         public WindowViewModel(ICommandFactory commandFactory)
         {
+            IsShow = true;
             ShowBuffers = commandFactory.GetCommand(ShowBuffersHandler);
             ShowHelp = commandFactory.GetCommand(ShowHelpHandler);
             CloseApp = commandFactory.GetCommand(CloseAppHandler);
         }
+
+        public bool IsShow { get; private set; }
 
         /// <summary>
         /// Показывает окно и view Buffers
@@ -37,11 +41,15 @@ namespace MultiBuffer.WpfApp.ViewModels
         private void ShowBuffersHandler()
         {
             Debug.WriteLine("Buffers view");
+            IsShow = true;
+            OnPropertyChanged("IsShow");
         }
 
         private void ShowHelpHandler()
         {
             Debug.WriteLine("Help view");
+            IsShow = false;
+            OnPropertyChanged("IsShow");
         }
 
         private void CloseAppHandler()

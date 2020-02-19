@@ -5,7 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="840" MinHeight="455" MinWidth="840" ShowInTaskbar="False">
+        Title="MainWindow" Height="450" Width="840" MinHeight="455" MinWidth="840">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+    </Window.Resources>
+    <Window.Visibility>
+        <Binding Path="IsShow" Converter="{StaticResource booleanToVisibilityConverter}" />
+    </Window.Visibility>
     <StackPanel Orientation="Horizontal">
         <StackPanel.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
