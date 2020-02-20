@@ -2,7 +2,6 @@
 using MultiBuffer.WpfApp.Utils;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,15 +14,33 @@ namespace MultiBuffer.WpfApp.ViewModels
     {
         public WindowViewModel(ICommandFactory commandFactory)
         {
-            IsShow = true;
             ShowBuffers = commandFactory.GetCommand(ShowBuffersHandler);
             ShowHelp = commandFactory.GetCommand(ShowHelpHandler);
             CloseApp = commandFactory.GetCommand(CloseAppHandler);
         }
 
-        public bool IsShow { get; private set; }
+        /// <summary>
+        /// Текущее состояние окна свернто/развернуто
+        /// </summary>
+        private WindowState _currentWindowState;
 
         /// <summary>
+        /// Текущее состояние окна свернто/развернуто
+        /// </summary>
+        public WindowState CurrentWindowState
+        {
+            get { return _currentWindowState; }
+            set
+            {
+                _currentWindowState = value;
+                if(_currentWindowState == WindowState.Minimized)
+                {
+                    App.Current.MainWindow.Hide();
+                }
+                OnPropertyChanged();
+            }
+        }
+
         /// Показывает окно и view Buffers
         /// </summary>
         public ICommand ShowBuffers { get; }
@@ -38,23 +55,32 @@ namespace MultiBuffer.WpfApp.ViewModels
         /// </summary>
         public ICommand CloseApp { get; }
 
+        /// <summary>
+        /// Обработчик команды ShowBuffers
+        /// </summary>
         private void ShowBuffersHandler()
         {
-            Debug.WriteLine("Buffers view");
-            IsShow = true;
-            OnPropertyChanged("IsShow");
+            NavigationManager.Navigate(NavigationKeys.BuffersView);
+            App.Current.MainWindow.Show();
+            CurrentWindowState = WindowState.Normal;
         }
 
+        /// <summary>
+        /// Обработчик команды ShowHelp
+        /// </summary>
         private void ShowHelpHandler()
         {
-            Debug.WriteLine("Help view");
-            IsShow = false;
-            OnPropertyChanged("IsShow");
+            NavigationManager.Navigate(NavigationKeys.HelpView);
+            App.Current.MainWindow.Show();
+            CurrentWindowState = WindowState.Normal;
         }
 
+        /// <summary>
+        /// Обработчик команды CloseApp
+        /// </summary>
         private void CloseAppHandler()
         {
-            Debug.WriteLine("App closed!");
+            App.Current.Shutdown();
         }
     }
 }
