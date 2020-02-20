@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:local="clr-namespace:MultiBuffer.WpfApp.Views"
+        xmlns:viewModel="clr-namespace:MultiBuffer.WpfApp.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="840" MinHeight="455" MinWidth="840" WindowState="{Binding CurrentWindowState}">
     <StackPanel Orientation="Horizontal">
@@ -21,6 +23,10 @@
                     <MenuItem Header="Exit" Command="{Binding CloseApp}"/>
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
+            <tb:TaskbarIcon.TrayPopup >
+                <!-- the popup, here a custom user control, will also get the DataContext of the NotifyIcon -->
+                <local:BuffersView DataContext="{Binding viewModel:BuffersViewModel}"/>
+            </tb:TaskbarIcon.TrayPopup>
         </tb:TaskbarIcon>
         <ContentControl x:Name="FrameContent" x:FieldModifier="public"/>
     </StackPanel>
