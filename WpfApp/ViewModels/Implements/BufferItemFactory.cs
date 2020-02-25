@@ -1,6 +1,6 @@
 ﻿using MultiBuffer.WpfApp.Models.Interfaces;
 
-namespace MultiBuffer.WpfApp.ViewModels.Services
+namespace MultiBuffer.WpfApp.ViewModels.Implements
 {
     public class BufferItemFactory : IBufferItemFactory
     {

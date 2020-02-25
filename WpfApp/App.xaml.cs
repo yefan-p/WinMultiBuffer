@@ -12,7 +12,7 @@ using MultiBuffer.WpfApp.Models.Controllers;
 using MultiBuffer.WpfApp.Models.Interfaces;
 using MultiBuffer.WpfApp.Utils;
 using MultiBuffer.WpfApp.ViewModels;
-using MultiBuffer.WpfApp.ViewModels.Services;
+using MultiBuffer.WpfApp.ViewModels.Implements;
 using MultiBuffer.WpfApp.Views;
 using WindowsInput;
 

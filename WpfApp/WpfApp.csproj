@@ -99,24 +99,24 @@
     </ApplicationDefinition>
     <Compile Include="Models\Interfaces\ICommandFactory.cs" />
     <Compile Include="Utils\WindzorExtension.cs" />
-    <Compile Include="ViewModels\Services\ClipboardController.cs" />
+    <Compile Include="ViewModels\Implements\ClipboardController.cs" />
     <Compile Include="Models\Interfaces\IClipboardController.cs" />
-    <Compile Include="ViewModels\Services\Command.cs" />
+    <Compile Include="ViewModels\Implements\Command.cs" />
     <Compile Include="Models\Interfaces\IBufferItem.cs" />
     <Compile Include="Models\Interfaces\IBufferItemFactory.cs" />
     <Compile Include="Models\Interfaces\ICopyPasteController.cs" />
     <Compile Include="Models\Interfaces\IInputController.cs" />
-    <Compile Include="ViewModels\Services\BufferItem.cs" />
+    <Compile Include="ViewModels\Implements\BufferItem.cs" />
     <Compile Include="Models\Controllers\CopyPasteController.cs" />
     <Compile Include="Utils\INavigationAware.cs" />
     <Compile Include="Utils\INavigationManager.cs" />
     <Compile Include="Utils\NavigationKeys.cs" />
     <Compile Include="Utils\NavigationManager.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\Services\BufferItemFactory.cs" />
+    <Compile Include="ViewModels\Implements\BufferItemFactory.cs" />
     <Compile Include="ViewModels\BuffersViewModel.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />
-    <Compile Include="ViewModels\Services\CommandFactory.cs" />
+    <Compile Include="ViewModels\Implements\CommandFactory.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Views\BuffersView.xaml.cs">
       <DependentUpon>BuffersView.xaml</DependentUpon>

@@ -1,7 +1,7 @@
 ﻿using MultiBuffer.WpfApp.Models.Interfaces;
 using TextCopy;
 
-namespace MultiBuffer.WpfApp.ViewModels.Services
+namespace MultiBuffer.WpfApp.ViewModels.Implements
 {
     public class ClipboardController : IClipboardController
     {
