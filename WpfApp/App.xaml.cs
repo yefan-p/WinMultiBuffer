@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using MultiBuffer.WpfApp.Models.Controllers;
 using MultiBuffer.WpfApp.Models.Interfaces;
+using MultiBuffer.WpfApp.Models.Handlers;
 using MultiBuffer.WpfApp.Utils;
 using MultiBuffer.WpfApp.ViewModels;
 using MultiBuffer.WpfApp.ViewModels.Implements;

@@ -1,5 +1,5 @@
 ﻿using System;
-using MultiBuffer.WpfApp.Models.Controllers;
+using MultiBuffer.WpfApp.Models.Handlers;
 
 namespace MultiBuffer.WpfApp.Models.Interfaces
 {

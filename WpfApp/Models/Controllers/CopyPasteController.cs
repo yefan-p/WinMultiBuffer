@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MultiBuffer.WpfApp.Models.Interfaces;
+using MultiBuffer.WpfApp.Models.Handlers;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {

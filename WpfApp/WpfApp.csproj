@@ -121,8 +121,8 @@
     <Compile Include="Views\BuffersView.xaml.cs">
       <DependentUpon>BuffersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Controllers\InputController.cs" />
-    <Compile Include="Models\Controllers\InputControllerEventArgs.cs" />
+    <Compile Include="Models\Handlers\InputController.cs" />
+    <Compile Include="Models\Handlers\InputControllerEventArgs.cs" />
     <Compile Include="Views\HelpView.xaml.cs">
       <DependentUpon>HelpView.xaml</DependentUpon>
     </Compile>
@@ -185,8 +185,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Handlers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,7 +8,7 @@ using WindowsInput;
 using WindowsInput.Native;
 using System.Threading.Tasks;
 
-namespace MultiBuffer.WpfApp.Models.Controllers
+namespace MultiBuffer.WpfApp.Models.Handlers
 {
     public class InputController : IInputController
     {
