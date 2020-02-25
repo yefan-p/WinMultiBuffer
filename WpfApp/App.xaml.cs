@@ -46,7 +46,7 @@ namespace MultiBuffer.WpfApp
 
             var helpViewModel = container.Resolve<HelpViewModel>();
             var buffersViewModel = container.Resolve<BuffersViewModel>();
-            var windowViewModel = container.Resolve<WindowViewModel>();
+            var windowViewModel = container.Resolve<MainWindowViewModel>();
 
             window.DataContext = windowViewModel;
 
@@ -83,7 +83,7 @@ namespace MultiBuffer.WpfApp
 
             container.RegisterService<BuffersViewModel, BuffersViewModel>();
 
-            container.RegisterService<WindowViewModel, WindowViewModel>();
+            container.RegisterService<MainWindowViewModel, MainWindowViewModel>();
         }
     }
 }

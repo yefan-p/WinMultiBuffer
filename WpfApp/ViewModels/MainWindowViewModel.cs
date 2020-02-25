@@ -10,9 +10,9 @@ using System.Windows;
 
 namespace MultiBuffer.WpfApp.ViewModels
 {
-    public class WindowViewModel : BaseViewModel
+    public class MainWindowViewModel : BaseViewModel
     {
-        public WindowViewModel(ICommandFactory commandFactory)
+        public MainWindowViewModel(ICommandFactory commandFactory)
         {
             ShowBuffers = commandFactory.GetCommand(ShowBuffersHandler);
             ShowHelp = commandFactory.GetCommand(ShowHelpHandler);
