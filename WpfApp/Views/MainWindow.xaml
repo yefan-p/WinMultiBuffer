@@ -15,7 +15,7 @@
                 <GradientStop Color="#FF30B093" Offset="1"/>
             </LinearGradientBrush>
         </StackPanel.Background>
-        <tb:TaskbarIcon x:Name="NotifyIcon" ToolTipText="MultiBuffer is runnig!">
+        <tb:TaskbarIcon x:Name="NotifyIcon" ToolTipText="MultiBuffer is runnig!" LeftClickCommand="{Binding ShowBuffers}" DoubleClickCommand="{Binding ShowBuffers}">
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Buffers" Command="{Binding ShowBuffers}"/>
@@ -23,10 +23,6 @@
                     <MenuItem Header="Exit" Command="{Binding CloseApp}"/>
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
-            <tb:TaskbarIcon.TrayPopup >
-                <!-- the popup, here a custom user control, will also get the DataContext of the NotifyIcon -->
-                <local:BuffersView DataContext="{Binding viewModel:BuffersViewModel}"/>
-            </tb:TaskbarIcon.TrayPopup>
         </tb:TaskbarIcon>
         <ContentControl x:Name="FrameContent" x:FieldModifier="public"/>
     </StackPanel>
