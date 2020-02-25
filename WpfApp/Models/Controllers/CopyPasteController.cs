@@ -10,7 +10,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         where TCollection : IList<IBufferItem>
     {
         public CopyPasteController(
-                    IInputController inputController,
+                    IInputHandler inputController,
                     TCollection collection,
                     IBufferItemFactory bufferItemFactory,
                     IClipboardController clipboardController)
@@ -44,7 +44,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Вставляет текст из указанного буфера
         /// </summary>
         /// <param name="key">Нажатая клавиша, указывающая, из какого буфера будет вставлен текст</param>
-        public void Paste(object sender, InputControllerEventArgs key)
+        public void Paste(object sender, InputHandlerEventArgs key)
         {
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
             tmpItem.Key = key.Key;
@@ -60,7 +60,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Копирует текст и сохраняет его в указанный буфер
         /// </summary>
         /// <param name="key">Нажатая клавиша, указывающая, в какой буфер будет вставлен текст</param>
-        public void Copy(object sender, InputControllerEventArgs key)
+        public void Copy(object sender, InputHandlerEventArgs key)
         {
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
             tmpItem.Key = key.Key;

@@ -3,14 +3,14 @@ using System.Windows.Forms;
 
 namespace MultiBuffer.WpfApp.Models.Handlers
 {
-    public class InputControllerEventArgs : EventArgs
+    public class InputHandlerEventArgs : EventArgs
     {
         /// <summary>
         /// Передает нажатаю клавишу и значение, если это копирование
         /// </summary>
         /// <param name="key">Нажатя клавшиа</param>
         /// <param name="pasteKey">Значение буфера</param>
-        public InputControllerEventArgs(Keys key, string value)
+        public InputHandlerEventArgs(Keys key, string value)
         {
             Key = key;
             Value = value;

@@ -3,16 +3,16 @@ using MultiBuffer.WpfApp.Models.Handlers;
 
 namespace MultiBuffer.WpfApp.Models.Interfaces
 {
-    public interface IInputController
+    public interface IInputHandler
     {
         /// <summary>
         /// Указывает, что была нажата клавиша вставки
         /// </summary>
-        event EventHandler<InputControllerEventArgs> PasteKeyPress;
+        event EventHandler<InputHandlerEventArgs> PasteKeyPress;
 
         /// <summary>
         /// Указывает, что была нажата клавиша копирования
         /// </summary>
-        event EventHandler<InputControllerEventArgs> CopyKeyPress;
+        event EventHandler<InputHandlerEventArgs> CopyKeyPress;
     }
 }

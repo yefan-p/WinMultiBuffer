@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace MultiBuffer.WpfApp.Models.Handlers
 {
-    public class InputController : IInputController
+    public class InputHandler : IInputHandler
     {
-        public InputController(IInputSimulator simulator)
+        public InputHandler(IInputSimulator simulator)
         {
             _inputSimulator = simulator;
             var clipboardMonitor = new SharpClipboard();
@@ -81,7 +81,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
                 e.SuppressKeyPress = true;
                 e.Handled = true;
                 _keysPasteList.Add(e.KeyCode);
-                PasteKeyPress?.Invoke(this, new InputControllerEventArgs(_keysPasteList[2], string.Empty));
+                PasteKeyPress?.Invoke(this, new InputHandlerEventArgs(_keysPasteList[2], string.Empty));
             }
             else
             {
@@ -118,7 +118,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
                     if (_keysCopyList.Count == 3)
                     {
                         if (e.ContentType == SharpClipboard.ContentTypes.Text)
-                            CopyKeyPress?.Invoke(this, new InputControllerEventArgs(_keysCopyList[2], (string)e.Content));
+                            CopyKeyPress?.Invoke(this, new InputHandlerEventArgs(_keysCopyList[2], (string)e.Content));
                         _keysCopyList.Clear();
                         return;
                     }
@@ -129,11 +129,11 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <summary>
         /// Указывает, что была нажата клавиша вставки
         /// </summary>
-        public event EventHandler<InputControllerEventArgs> PasteKeyPress;
+        public event EventHandler<InputHandlerEventArgs> PasteKeyPress;
 
         /// <summary>
         /// Указывает, что была нажата клавиша копирования
         /// </summary>
-        public event EventHandler<InputControllerEventArgs> CopyKeyPress;
+        public event EventHandler<InputHandlerEventArgs> CopyKeyPress;
     }
 }

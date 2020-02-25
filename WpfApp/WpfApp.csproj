@@ -105,7 +105,7 @@
     <Compile Include="Models\Interfaces\IBufferItem.cs" />
     <Compile Include="Models\Interfaces\IBufferItemFactory.cs" />
     <Compile Include="Models\Interfaces\ICopyPasteController.cs" />
-    <Compile Include="Models\Interfaces\IInputController.cs" />
+    <Compile Include="Models\Interfaces\IInputHandler.cs" />
     <Compile Include="ViewModels\Implements\BufferItem.cs" />
     <Compile Include="Models\Controllers\CopyPasteController.cs" />
     <Compile Include="Utils\INavigationAware.cs" />
@@ -121,8 +121,8 @@
     <Compile Include="Views\BuffersView.xaml.cs">
       <DependentUpon>BuffersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Handlers\InputController.cs" />
-    <Compile Include="Models\Handlers\InputControllerEventArgs.cs" />
+    <Compile Include="Models\Handlers\InputHandler.cs" />
+    <Compile Include="Models\Handlers\InputHandlerEventArgs.cs" />
     <Compile Include="Views\HelpView.xaml.cs">
       <DependentUpon>HelpView.xaml</DependentUpon>
     </Compile>
