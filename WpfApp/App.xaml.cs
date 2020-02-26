@@ -62,11 +62,11 @@ namespace MultiBuffer.WpfApp
 
         private void RegisterComponents()
         {
+            container.RegisterSingleton<IList<IBufferItem>, ObservableCollection<IBufferItem>>();
+
             container.RegisterService<ICommandFactory, CommandFactory>();
 
             container.RegisterService<IClipboardController, ClipboardController>();
-
-            container.RegisterService<IList<IBufferItem>, ObservableCollection<IBufferItem>>();
 
             container.RegisterService<IBufferItemFactory, BufferItemFactory>();
 

@@ -29,14 +29,14 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         public event Action<IBufferItem> Update;
 
         /// <summary>
-        /// Предоставляет экземпляр класса BufferItem
-        /// </summary>
-        private readonly IBufferItemFactory _bufferItemFactory;
-
-        /// <summary>
         /// Коллекция буферов
         /// </summary>
         public TCollection Buffer { get; private set; }
+
+        /// <summary>
+        /// Предоставляет экземпляр класса BufferItem
+        /// </summary>
+        private readonly IBufferItemFactory _bufferItemFactory;
 
         private readonly IClipboardController _clipboardController;
 
@@ -44,7 +44,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Вставляет текст из указанного буфера
         /// </summary>
         /// <param name="key">Нажатая клавиша, указывающая, из какого буфера будет вставлен текст</param>
-        public void Paste(object sender, InputHandlerEventArgs key)
+        private void Paste(object sender, InputHandlerEventArgs key)
         {
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
             tmpItem.Key = key.Key;
@@ -60,7 +60,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Копирует текст и сохраняет его в указанный буфер
         /// </summary>
         /// <param name="key">Нажатая клавиша, указывающая, в какой буфер будет вставлен текст</param>
-        public void Copy(object sender, InputHandlerEventArgs key)
+        private void Copy(object sender, InputHandlerEventArgs key)
         {
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
             tmpItem.Key = key.Key;

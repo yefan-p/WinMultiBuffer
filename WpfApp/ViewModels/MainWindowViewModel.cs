@@ -12,12 +12,20 @@ namespace MultiBuffer.WpfApp.ViewModels
 {
     public class MainWindowViewModel : BaseViewModel
     {
-        public MainWindowViewModel(ICommandFactory commandFactory)
+        public MainWindowViewModel(ICommandFactory commandFactory, 
+                                   IList<IBufferItem> buffers)
         {
             ShowBuffers = commandFactory.GetCommand(ShowBuffersHandler);
             ShowHelp = commandFactory.GetCommand(ShowHelpHandler);
             CloseApp = commandFactory.GetCommand(CloseAppHandler);
+
+            Buffers = buffers;
         }
+
+        /// <summary>
+        /// Хранит коллекцию буферов
+        /// </summary>
+        private IList<IBufferItem> Buffers { get; }
 
         /// <summary>
         /// Текущее состояние окна свернто/развернуто
@@ -25,7 +33,7 @@ namespace MultiBuffer.WpfApp.ViewModels
         private WindowState _currentWindowState;
 
         /// <summary>
-        /// Текущее состояние окна свернто/развернуто
+        /// Текущее состояние окна - свернто/развернуто
         /// </summary>
         public WindowState CurrentWindowState
         {
@@ -60,9 +68,16 @@ namespace MultiBuffer.WpfApp.ViewModels
         /// </summary>
         private void ShowBuffersHandler()
         {
-            NavigationManager.Navigate(NavigationKeys.BuffersView);
-            App.Current.MainWindow.Show();
-            CurrentWindowState = WindowState.Normal;
+            if (Buffers.Count != 0)
+            {
+                NavigationManager.Navigate(NavigationKeys.BuffersView);
+                App.Current.MainWindow.Show();
+                CurrentWindowState = WindowState.Normal;
+            }
+            else
+            {
+                ShowHelpHandler();
+            }
         }
 
         /// <summary>
