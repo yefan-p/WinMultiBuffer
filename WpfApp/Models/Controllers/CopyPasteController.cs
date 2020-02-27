@@ -10,7 +10,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         where TCollection : IList<IBufferItem>
     {
         public CopyPasteController(
-                    IInputHandler inputController,
+                    IInputHandler inputHandler,
                     TCollection collection,
                     IBufferItemFactory bufferItemFactory,
                     IClipboardController clipboardController)
@@ -19,8 +19,8 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             _bufferItemFactory = bufferItemFactory;
             _clipboardController = clipboardController;
 
-            inputController.PasteKeyPress += Paste;
-            inputController.CopyKeyPress += Copy;
+            inputHandler.PasteKeyPress += Paste;
+            inputHandler.CopyKeyPress += Copy;
         }
 
         /// <summary>

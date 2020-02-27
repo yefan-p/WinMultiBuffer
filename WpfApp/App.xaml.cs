@@ -70,7 +70,7 @@ namespace MultiBuffer.WpfApp
 
             container.RegisterService<IBufferItemFactory, BufferItemFactory>();
 
-            container.RegisterService<IInputHandler, InputHandler>();
+            container.RegisterSingleton<IInputHandler, InputHandler>();
 
             container.RegisterService<ICopyPasteController<IList<IBufferItem>>, CopyPasteController<IList<IBufferItem>>>();
 

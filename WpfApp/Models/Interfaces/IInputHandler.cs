@@ -14,5 +14,10 @@ namespace MultiBuffer.WpfApp.Models.Interfaces
         /// Указывает, что была нажата клавиша копирования
         /// </summary>
         event EventHandler<InputHandlerEventArgs> CopyKeyPress;
+
+        /// <summary>
+        /// Указывает, что была нажата клавиша отображения окна
+        /// </summary>
+        event EventHandler ShowWindowKeyPress;
     }
 }

@@ -32,32 +32,45 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         List<Keys> _keysPasteList = new List<Keys>();
 
         /// <summary>
+        /// Хранит последовательность нажатых клавиш для отображения окна
+        /// </summary>
+        List<Keys> _keysShowWindowList = new List<Keys>();
+
+        /// <summary>
+        /// Управляет глобальным перехватом нажатых клавиш. Если true - то перехват активен.
+        /// </summary>
+        bool _globalKeyDown = true;
+
+        /// <summary>
         /// Перехватывает нажатие всех клавиш в системе
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e">Нажатая клавиша</param>
         private void InputController_KeyDown(object sender, KeyEventArgs e)
         {
-            //ESC 
-            if(e.KeyCode == Keys.Escape)
+            if(!_globalKeyDown)
+            {
+                return;
+            }
+            //ESC
+            else if (e.KeyCode == Keys.Escape)
             {
                 _keysCopyList.Clear();
                 _keysPasteList.Clear();
-            }
-            else if (_keysPasteList.Count == 3 && _keysPasteList[0] == Keys.LControlKey && _keysPasteList[1] == Keys.V)
-            {
-                _keysPasteList.Clear();
+                _keysShowWindowList.Clear();
             }
             //LeftCtrl
             else if ((_keysCopyList.Count == 0 || _keysPasteList.Count == 0) && e.KeyCode == Keys.LControlKey)
             {
                 _keysCopyList.Add(e.KeyCode);
                 _keysPasteList.Add(e.KeyCode);
+                _keysShowWindowList.Add(e.KeyCode);
             }
             //LeftCtrl + C
             else if (_keysCopyList.Count == 1 && _keysCopyList[0] == Keys.LControlKey && e.KeyCode == Keys.C)
             {
                 _keysPasteList.Clear();
+                _keysShowWindowList.Clear();
                 _keysCopyList.Add(e.KeyCode);
             }
             //LeftCtrl + V
@@ -66,7 +79,18 @@ namespace MultiBuffer.WpfApp.Models.Handlers
                 e.SuppressKeyPress = true;
                 e.Handled = true;
                 _keysCopyList.Clear();
+                _keysShowWindowList.Clear();
                 _keysPasteList.Add(e.KeyCode);
+            }
+            //LeftCtrl + ~
+            else if(_keysShowWindowList.Count == 1 && _keysShowWindowList[0] == Keys.LControlKey && e.KeyCode == Keys.Oemtilde)
+            {
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+                _keysShowWindowList.Clear();
+                _keysCopyList.Clear();
+                _keysPasteList.Clear();
+                ShowWindowKeyPress?.Invoke(this, EventArgs.Empty);
             }
             //LeftCtrl + C + AnyKey
             else if (_keysCopyList.Count == 2 && _keysCopyList[0] == Keys.LControlKey && _keysCopyList[1] == Keys.C)
@@ -85,6 +109,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
             }
             else
             {
+                _keysShowWindowList.Clear();
                 _keysCopyList.Clear();
                 _keysPasteList.Clear();
             }
@@ -104,9 +129,12 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         {
             if (_keysPasteList.Count == 3 && _keysPasteList[0] == Keys.LControlKey && _keysPasteList[1] == Keys.V)
             {
+                _globalKeyDown = false;
                 _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
                 _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
                 _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
+                _globalKeyDown = true;
+                _keysPasteList.Clear();
                 return;
             }
 
@@ -135,5 +163,10 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// Указывает, что была нажата клавиша копирования
         /// </summary>
         public event EventHandler<InputHandlerEventArgs> CopyKeyPress;
+
+        /// <summary>
+        /// Указывает, что была нажата клавиша отображения окна
+        /// </summary>
+        public event EventHandler ShowWindowKeyPress;
     }
 }

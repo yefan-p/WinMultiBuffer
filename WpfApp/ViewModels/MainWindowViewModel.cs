@@ -13,14 +13,22 @@ namespace MultiBuffer.WpfApp.ViewModels
     public class MainWindowViewModel : BaseViewModel
     {
         public MainWindowViewModel(ICommandFactory commandFactory, 
-                                   IList<IBufferItem> buffers)
+                                   IList<IBufferItem> buffers,
+                                   IInputHandler inputHandler)
         {
             ShowBuffers = commandFactory.GetCommand(ShowBuffersHandler);
             ShowHelp = commandFactory.GetCommand(ShowHelpHandler);
             CloseApp = commandFactory.GetCommand(CloseAppHandler);
+
+            inputHandler.ShowWindowKeyPress += InputHandler_ShowWindowKeyPress;
             App.Current.MainWindow.Deactivated += MainWindow_Deactivated;
 
             Buffers = buffers;
+        }
+
+        private void InputHandler_ShowWindowKeyPress(object sender, EventArgs e)
+        {
+            ShowBuffersHandler();
         }
 
         /// <summary>
