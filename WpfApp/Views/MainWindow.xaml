@@ -4,8 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tb="http://www.hardcodet.net/taskbar"
-        xmlns:local="clr-namespace:MultiBuffer.WpfApp.Views"
-        xmlns:viewModel="clr-namespace:MultiBuffer.WpfApp.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="840" MinHeight="455" MinWidth="840" WindowState="{Binding CurrentWindowState}">
     <StackPanel Orientation="Horizontal">

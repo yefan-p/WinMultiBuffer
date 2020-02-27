@@ -18,19 +18,20 @@ namespace MultiBuffer.WpfApp.ViewModels
             ShowBuffers = commandFactory.GetCommand(ShowBuffersHandler);
             ShowHelp = commandFactory.GetCommand(ShowHelpHandler);
             CloseApp = commandFactory.GetCommand(CloseAppHandler);
+            App.Current.MainWindow.Deactivated += MainWindow_Deactivated;
 
             Buffers = buffers;
         }
 
         /// <summary>
-        /// Хранит коллекцию буферов
+        /// Если приложение потеряло фокус - скрываем его.
         /// </summary>
-        private IList<IBufferItem> Buffers { get; }
-
-        /// <summary>
-        /// Текущее состояние окна свернто/развернуто
-        /// </summary>
-        private WindowState _currentWindowState;
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainWindow_Deactivated(object sender, EventArgs e)
+        {
+            CurrentWindowState = WindowState.Minimized;
+        }
 
         /// <summary>
         /// Текущее состояние окна - свернто/развернуто
@@ -62,6 +63,16 @@ namespace MultiBuffer.WpfApp.ViewModels
         /// Закрывает приложение
         /// </summary>
         public ICommand CloseApp { get; }
+
+        /// <summary>
+        /// Хранит коллекцию буферов
+        /// </summary>
+        private IList<IBufferItem> Buffers { get; }
+
+        /// <summary>
+        /// Текущее состояние окна свернто/развернуто
+        /// </summary>
+        private WindowState _currentWindowState;
 
         /// <summary>
         /// Обработчик команды ShowBuffers
