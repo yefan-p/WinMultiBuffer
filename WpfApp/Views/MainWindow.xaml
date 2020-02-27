@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="840" MinHeight="455" MinWidth="840" WindowState="{Binding CurrentWindowState}">
+        Title="{Binding ViewName}" Height="450" Width="840" MinHeight="455" MinWidth="840" WindowState="{Binding CurrentWindowState}">
     <StackPanel Orientation="Horizontal">
         <StackPanel.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -13,10 +13,15 @@
                 <GradientStop Color="#FF30B093" Offset="1"/>
             </LinearGradientBrush>
         </StackPanel.Background>
-        <tb:TaskbarIcon x:Name="NotifyIcon" ToolTipText="MultiBuffer is runnig!" LeftClickCommand="{Binding ShowBuffers}" DoubleClickCommand="{Binding ShowBuffers}">
+        <tb:TaskbarIcon 
+            x:Name="NotifyIcon" 
+            ToolTipText="MultiBuffer is runnig!" 
+            LeftClickCommand="{Binding ShowBuffers}" 
+            DoubleClickCommand="{Binding ShowBuffers}"
+            IconSource="/Resources/hook-icon.ico">
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Buffers" Command="{Binding ShowBuffers}"/>
+                    <MenuItem Header="Buffers   LeftCtrl + ~" Command="{Binding ShowBuffers}"/>
                     <MenuItem Header="Help" Command="{Binding ShowHelp}"/>
                     <MenuItem Header="Exit" Command="{Binding CloseApp}"/>
                 </ContextMenu>

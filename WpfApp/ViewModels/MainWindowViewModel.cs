@@ -16,6 +16,8 @@ namespace MultiBuffer.WpfApp.ViewModels
                                    IList<IBufferItem> buffers,
                                    IInputHandler inputHandler)
         {
+            ViewName = NavigationKeys.HelpView;
+
             ShowBuffers = commandFactory.GetCommand(ShowBuffersHandler);
             ShowHelp = commandFactory.GetCommand(ShowHelpHandler);
             CloseApp = commandFactory.GetCommand(CloseAppHandler);
@@ -26,6 +28,11 @@ namespace MultiBuffer.WpfApp.ViewModels
             Buffers = buffers;
         }
 
+        /// <summary>
+        /// Если нажата горячая клавиша для отображения главного окна, показываем его.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InputHandler_ShowWindowKeyPress(object sender, EventArgs e)
         {
             ShowBuffersHandler();
@@ -54,6 +61,24 @@ namespace MultiBuffer.WpfApp.ViewModels
                 {
                     App.Current.MainWindow.Hide();
                 }
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Заголовок окна
+        /// </summary>
+        private string _viewName;
+
+        /// <summary>
+        /// Заголовок окна
+        /// </summary>
+        public string ViewName
+        {
+            get { return _viewName; }
+            set
+            {
+                _viewName = value;
                 OnPropertyChanged();
             }
         }
@@ -90,6 +115,7 @@ namespace MultiBuffer.WpfApp.ViewModels
             if (Buffers.Count != 0)
             {
                 NavigationManager.Navigate(NavigationKeys.BuffersView);
+                ViewName = NavigationKeys.BuffersView;
                 App.Current.MainWindow.Show();
                 CurrentWindowState = WindowState.Normal;
             }
@@ -105,6 +131,7 @@ namespace MultiBuffer.WpfApp.ViewModels
         private void ShowHelpHandler()
         {
             NavigationManager.Navigate(NavigationKeys.HelpView);
+            ViewName = NavigationKeys.HelpView;
             App.Current.MainWindow.Show();
             CurrentWindowState = WindowState.Normal;
         }
