@@ -12,8 +12,8 @@ namespace MultiBuffer.WpfApp.ViewModels
 {
     public class MainWindowViewModel : BaseViewModel
     {
-        public MainWindowViewModel(ICommandFactory commandFactory, 
-                                   IList<IBufferItem> buffers,
+        public MainWindowViewModel(ICommandFactory commandFactory,
+                                   ICopyPasteController<IList<IBufferItem>> copyPasteController,
                                    IInputHandler inputHandler)
         {
             ViewName = NavigationKeys.HelpView;
@@ -25,7 +25,20 @@ namespace MultiBuffer.WpfApp.ViewModels
             inputHandler.ShowWindowKeyPress += InputHandler_ShowWindowKeyPress;
             App.Current.MainWindow.Deactivated += MainWindow_Deactivated;
 
-            Buffers = buffers;
+            Buffers = copyPasteController.Buffer;
+            copyPasteController.Update += CopyPasteController_Update;
+        }
+
+        /// <summary>
+        /// Обновляет заголовок окна после удаления последнего буфера
+        /// </summary>
+        /// <param name="obj"></param>
+        private void CopyPasteController_Update(IBufferItem obj)
+        {
+            if (Buffers.Count == 0)
+            {
+                ViewName = NavigationKeys.HelpView;
+            }
         }
 
         /// <summary>
