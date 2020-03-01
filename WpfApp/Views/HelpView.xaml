@@ -10,23 +10,30 @@
              Width="825" 
              HorizontalAlignment="Left" 
              VerticalAlignment="Top">
+    <UserControl.Resources>
+        <Style x:Key="BorderStyle" TargetType="Border">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="685"/>
+            <Setter Property="Margin" Value="0, 5"/>
+            <Setter Property="CornerRadius" Value="7"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="White" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <SolidColorBrush Color="White" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <StackPanel>
-        <Border BorderThickness="1" Height="50" Width="685" Margin="0, 5">
-            <Border.Background>
-                <SolidColorBrush Color="White" Opacity="0.3"/>
-            </Border.Background>
-            <Border.BorderBrush>
-                <SolidColorBrush Color="White" Opacity="0.3"/>
-            </Border.BorderBrush>
+        <Border Style="{StaticResource BorderStyle}">
             <TextBlock HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center" FontSize="14" Text="1. Press &quot;Left Ctrl + C, Any key&quot; for copy "/>
         </Border>
-        <Border BorderThickness="1" Height="50" Width="685" Margin="0, 5">
-            <Border.Background>
-                <SolidColorBrush Color="White" Opacity="0.3"/>
-            </Border.Background>
-            <Border.BorderBrush>
-                <SolidColorBrush Color="White" Opacity="0.3"/>
-            </Border.BorderBrush>
+        <Border Style="{StaticResource BorderStyle}">
             <TextBlock HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center" FontSize="14" Text="2. Press &quot;Left Ctrl + V, Any key&quot; for paste "/>
         </Border>
     </StackPanel>
