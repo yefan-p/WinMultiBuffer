@@ -6,15 +6,11 @@
              xmlns:viewModel="clr-namespace:MultiBuffer.WpfApp.ViewModels"
              d:DataContext="{d:DesignInstance viewModel:HelpViewModel}"
              mc:Ignorable="d" 
-             Height="460" 
-             Width="825" 
-             HorizontalAlignment="Left" 
-             VerticalAlignment="Top">
+             HorizontalAlignment="Center" 
+             VerticalAlignment="Center">
     <UserControl.Resources>
         <Style x:Key="BorderStyle" TargetType="Border">
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="Width" Value="685"/>
             <Setter Property="Margin" Value="0, 5"/>
             <Setter Property="CornerRadius" Value="7"/>
             <Setter Property="Background">
@@ -28,13 +24,54 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="10, 0, 10, 0"/>
+        </Style>
     </UserControl.Resources>
     <StackPanel>
-        <Border Style="{StaticResource BorderStyle}">
-            <TextBlock HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center" FontSize="14" Text="1. Press &quot;Left Ctrl + C, Any key&quot; for copy "/>
+        <Border Style="{StaticResource BorderStyle}" HorizontalAlignment="Center">
+            <TextBlock Style="{StaticResource TextBlockStyle}" 
+                       Text="Now your buffers is empty" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}" HorizontalAlignment="Left">
+            <TextBlock Style="{StaticResource TextBlockStyle}" 
+                       Text="For copy:"/>
         </Border>
         <Border Style="{StaticResource BorderStyle}">
-            <TextBlock HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center" FontSize="14" Text="2. Press &quot;Left Ctrl + V, Any key&quot; for paste "/>
+            <TextBlock Style="{StaticResource TextBlockStyle}" 
+                    Text="   1. Press keys combination &quot;Left Ctrl + C&quot;.&#x0a;   2. After appearance message &quot;Bind any key for buffer&quot;, press any key, except &quot;Esc&quot;.&#x0a;   3. Text copied!">
+            </TextBlock>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}" HorizontalAlignment="Left">
+            <TextBlock Style="{StaticResource TextBlockStyle}"
+                       Text="For paste:"/>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}">
+            <TextBlock Style="{StaticResource TextBlockStyle}"
+                       Text="   1. Press keys combination &quot;LCtrl + V&quot;.&#x0a;   2. After appearance message &quot;Press binded key&quot;, press key, which you binded on time copy.&#x0a;   3. Text pasted!"/>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}" HorizontalAlignment="Left">
+            <TextBlock Style="{StaticResource TextBlockStyle}"
+                       Text="For canceling:"/>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}">
+            <TextBlock Style="{StaticResource TextBlockStyle}"
+                       Text="   - If you pressed keys combination &quot;LCtrl + C&quot; or &quot;LCtrl + V&quot;,&#x0a;   but you don't want continues this, press &quot;Esc&quot; for cancel."/>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}" HorizontalAlignment="Left">
+            <TextBlock Style="{StaticResource TextBlockStyle}"
+                       Text="Context menu buffer:"/>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}">
+            <TextBlock Style="{StaticResource TextBlockStyle}"
+                       Text="   - Text, which you copied by context menu, binded &quot;Space&quot; key.&#x0a;   - On time paste with context menu will paste text, which you copied or pasted last time."/>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}" HorizontalAlignment="Center">
+            <TextBlock Style="{StaticResource TextBlockStyle}" 
+                       Text="You will might to make buffers, until keys on your keyboard end!" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16"/>
         </Border>
     </StackPanel>
 </UserControl>
