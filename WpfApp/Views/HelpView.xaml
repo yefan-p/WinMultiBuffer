@@ -51,7 +51,7 @@
         </Border>
         <Border Style="{StaticResource BorderStyle}">
             <TextBlock Style="{StaticResource TextBlockStyle}"
-                       Text="   1. Press keys combination &quot;LCtrl + V&quot;.&#x0a;   2. After appearance message &quot;Press binded key&quot;, press key, which you binded on time copy.&#x0a;   3. Text pasted!"/>
+                       Text="   1. Press keys combination &quot;Left Ctrl + V&quot;.&#x0a;   2. After appearance message &quot;Press binded key&quot;, press key, which you binded on time copy.&#x0a;   3. Text pasted!"/>
         </Border>
         <Border Style="{StaticResource BorderStyle}" HorizontalAlignment="Left">
             <TextBlock Style="{StaticResource TextBlockStyle}"
@@ -59,7 +59,7 @@
         </Border>
         <Border Style="{StaticResource BorderStyle}">
             <TextBlock Style="{StaticResource TextBlockStyle}"
-                       Text="   - If you pressed keys combination &quot;LCtrl + C&quot; or &quot;LCtrl + V&quot;,&#x0a;   but you don't want continues this, press &quot;Esc&quot; for cancel."/>
+                       Text="   - If you pressed keys combination &quot;Left Ctrl + C&quot; or &quot;Left Ctrl + V&quot;,&#x0a;   but you don't want continues this, press &quot;Esc&quot; for cancel."/>
         </Border>
         <Border Style="{StaticResource BorderStyle}" HorizontalAlignment="Left">
             <TextBlock Style="{StaticResource TextBlockStyle}"

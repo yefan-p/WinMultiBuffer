@@ -7,6 +7,24 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModel:BuffersViewModel}">
+    <UserControl.Resources>
+        <Style x:Key="BorderStyle" TargetType="Border">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="10,10,0,0"/>
+            <Setter Property="CornerRadius" Value="7"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="White" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <SolidColorBrush Color="White" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <WrapPanel x:Name="MainPanel" HorizontalAlignment="Left" VerticalAlignment="Top" >
         <ItemsControl ItemsSource="{Binding Buffers}">
             <ItemsControl.ItemTemplate>
@@ -20,52 +38,42 @@
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="10*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Margin="10,10,0,0" 
-                                   TextWrapping="Wrap" 
-                                   x:Name="HeadItem" 
+                        <Border Style="{StaticResource BorderStyle}" Grid.Row="0" Grid.Column="0">
+                            <TextBlock TextWrapping="Wrap" 
                                    TextAlignment="Center" 
                                    Foreground="Black" 
                                    FontWeight="SemiBold"
-                                   Grid.Row="0"
-                                   Grid.Column="0" 
-                                   Padding="5"
                                    Text="{Binding Name}">
-                            <TextBlock.Background>
-                                <SolidColorBrush Color="White" Opacity="0.3"/>
-                            </TextBlock.Background>
-                        </TextBlock>
-                        <Button x:Name="Clear"
-                                Content="X" 
-                                Margin="5,10,10,0"
-                                Grid.Row="0"
-                                Grid.Column="1" 
+                            </TextBlock>
+                        </Border>
+                        <Border Style="{StaticResource BorderStyle}" Grid.Row="0" Grid.Column="1" Margin="5,10,10,0">
+                            <Button Content="X" 
                                 FontWeight="SemiBold" 
                                 VerticalContentAlignment="Center" 
                                 HorizontalContentAlignment="Center" 
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="5"
-                                Command="{Binding DeleteCommand}">
-                            <Button.BorderBrush>
-                                <SolidColorBrush Color="White" Opacity="0.3"/>
-                            </Button.BorderBrush>
-                            <Button.Background>
-                                <SolidColorBrush Color="White" Opacity="0.3"/>
-                            </Button.Background>
-                        </Button>
-                        <TextBox Name="BodyItem" 
-                                 Margin="10" 
-                                 Grid.Row="1" 
+                                Command="{Binding DeleteCommand}" BorderBrush="{x:Null}" BorderThickness="0">
+                                <Button.Background>
+                                    <SolidColorBrush Color="White" Opacity="0"/>
+                                </Button.Background>
+                            </Button>
+                        </Border>
+                        <Border Style="{StaticResource BorderStyle}" Grid.Row="1" Grid.ColumnSpan="2" Margin="10">
+                            <TextBox     
                                  TextWrapping="Wrap" 
                                  Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  HorizontalContentAlignment="Stretch" 
                                  VerticalContentAlignment="Stretch" 
                                  HorizontalScrollBarVisibility="Visible" 
                                  VerticalScrollBarVisibility="Auto" 
-                                 SelectionBrush="#FFD75800" 
-                                 Grid.ColumnSpan="2">
-                            <TextBox.Background>
+                                 SelectionBrush="#FFD75800" BorderBrush="{x:Null}" BorderThickness="0" >
+                                <TextBox.Background>
+                                    <SolidColorBrush Color="White" Opacity="0"/>
+                                </TextBox.Background>
+                            </TextBox>
+                            <Border.Background>
                                 <SolidColorBrush Color="White" Opacity="0.85"/>
-                            </TextBox.Background>
-                        </TextBox>
+                            </Border.Background>
+                        </Border>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
