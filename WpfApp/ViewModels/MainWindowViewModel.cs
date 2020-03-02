@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using Hardcodet.Wpf.TaskbarNotification;
+using System.Drawing;
 
 namespace MultiBuffer.WpfApp.ViewModels
 {
@@ -41,6 +43,8 @@ namespace MultiBuffer.WpfApp.ViewModels
             }
         }
 
+        public TaskbarIcon TaskbarIcon;
+
         /// <summary>
         /// Если нажата горячая клавиша для отображения главного окна, показываем его.
         /// </summary>
@@ -59,6 +63,7 @@ namespace MultiBuffer.WpfApp.ViewModels
         private void MainWindow_Deactivated(object sender, EventArgs e)
         {
             CurrentWindowState = WindowState.Minimized;
+            TaskbarIcon.ShowBalloonTip("MultiBuffers", "Test", BalloonIcon.Info);
         }
 
         /// <summary>

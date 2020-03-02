@@ -16,6 +16,7 @@ using MultiBuffer.WpfApp.ViewModels;
 using MultiBuffer.WpfApp.ViewModels.Implements;
 using MultiBuffer.WpfApp.Views;
 using WindowsInput;
+using Hardcodet.Wpf.TaskbarNotification;
 
 namespace MultiBuffer.WpfApp
 {
