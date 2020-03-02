@@ -138,6 +138,11 @@ namespace MultiBuffer.WpfApp.Models.Handlers
                 return;
             }
 
+            if(e.ContentType == SharpClipboard.ContentTypes.Text && (_keysCopyList.Count == 1 || _keysCopyList.Count == 0))
+            {
+                CopyKeyPress?.Invoke(this, new InputHandlerEventArgs(Keys.Space, (string)e.Content));
+            }
+
             await Task.Run(() =>
             {
                 while (_keysCopyList.Count >= 2 && _keysCopyList[0] == Keys.LControlKey && _keysCopyList[1] == Keys.C)
