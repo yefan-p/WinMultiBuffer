@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="{Binding ViewName}" MinHeight="455" MinWidth="420" WindowState="{Binding CurrentWindowState}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        Title="{Binding ViewName}" MinHeight="500" MinWidth="650" WindowState="{Binding CurrentWindowState}">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF2D3EAC" Offset="0"/>
             <GradientStop Color="#FF30B093" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+    <StackPanel>
         <tb:TaskbarIcon 
             x:Name="NotifyIcon" 
             ToolTipText="MultiBuffer is runnig!" 
@@ -27,6 +27,7 @@
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>
-        <ContentControl x:Name="FrameContent" x:FieldModifier="public" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+        <ContentControl x:Name="FrameContent" x:FieldModifier="public" VerticalAlignment="Top" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
     </StackPanel>
 </Window>
