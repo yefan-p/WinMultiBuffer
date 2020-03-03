@@ -78,6 +78,8 @@ namespace MultiBuffer.WpfApp
             container.RegisterSingleton<ICopyPasteController<IList<IBufferItem>>, CopyPasteController<IList<IBufferItem>>>();
 
             container.RegisterService<IInputSimulator, InputSimulator>();
+
+            container.RegisterService<IShowNotifyController, ShowNotifyController>();
         }
 
         private void RegisterViewModels()

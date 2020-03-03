@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
-using Notifications.Wpf;
 
 namespace MultiBuffer.WpfApp.ViewModels
 {
@@ -15,7 +14,8 @@ namespace MultiBuffer.WpfApp.ViewModels
     {
         public MainWindowViewModel(ICommandFactory commandFactory,
                                    ICopyPasteController<IList<IBufferItem>> copyPasteController,
-                                   IInputHandler inputHandler)
+                                   IInputHandler inputHandler,
+                                   IShowNotifyController showNotifyController)
         {
             ViewName = NavigationKeys.HelpView;
 
@@ -24,72 +24,10 @@ namespace MultiBuffer.WpfApp.ViewModels
             CloseApp = commandFactory.GetCommand(CloseAppHandler);
 
             inputHandler.ShowWindowKeyPress += InputHandler_ShowWindowKeyPress;
-            inputHandler.PasteKeyPress += InputHandler_PasteKeyPress;
-            inputHandler.CopyKeyPress += InputHandler_CopyKeyPress;
-
             App.Current.MainWindow.Deactivated += MainWindow_Deactivated;
 
-            Buffers = copyPasteController.Buffer;
+            _buffers = copyPasteController.Buffer;
             copyPasteController.Update += CopyPasteController_Update;
-        }
-
-        /// <summary>
-        /// Обработчик события нажатия кнопки копирования
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void InputHandler_CopyKeyPress(object sender, Models.Handlers.InputHandlerEventArgs e)
-        {
-            var notificationManager = new NotificationManager();
-            notificationManager.Show(new NotificationContent
-            {
-                Title = "Sample notification",
-                Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                Type = NotificationType.Information
-            });
-        }
-
-        /// <summary>
-        /// Обработчик события нажатия кнопки вставки
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void InputHandler_PasteKeyPress(object sender, Models.Handlers.InputHandlerEventArgs e)
-        {
-            
-        }
-
-        /// <summary>
-        /// Обновляет заголовок окна после удаления последнего буфера
-        /// </summary>
-        /// <param name="obj"></param>
-        private void CopyPasteController_Update(IBufferItem obj)
-        {
-            if (Buffers.Count == 0)
-            {
-                ViewName = NavigationKeys.HelpView;
-            }
-        }
-
-        /// <summary>
-        /// Если нажата горячая клавиша для отображения главного окна, показываем его.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void InputHandler_ShowWindowKeyPress(object sender, EventArgs e)
-        {
-            ShowBuffersHandler();
-            App.Current.MainWindow.Activate();
-        }
-
-        /// <summary>
-        /// Если приложение потеряло фокус - скрываем его.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MainWindow_Deactivated(object sender, EventArgs e)
-        {
-            CurrentWindowState = WindowState.Minimized;
         }
 
         /// <summary>
@@ -101,18 +39,13 @@ namespace MultiBuffer.WpfApp.ViewModels
             set
             {
                 _currentWindowState = value;
-                if(_currentWindowState == WindowState.Minimized)
+                if (_currentWindowState == WindowState.Minimized)
                 {
                     App.Current.MainWindow.Hide();
                 }
                 OnPropertyChanged();
             }
         }
-
-        /// <summary>
-        /// Заголовок окна
-        /// </summary>
-        private string _viewName;
 
         /// <summary>
         /// Заголовок окна
@@ -142,21 +75,59 @@ namespace MultiBuffer.WpfApp.ViewModels
         public ICommand CloseApp { get; }
 
         /// <summary>
+        /// Заголовок окна
+        /// </summary>
+        string _viewName;
+
+        /// <summary>
         /// Хранит коллекцию буферов
         /// </summary>
-        private IList<IBufferItem> Buffers { get; }
+        IList<IBufferItem> _buffers;
 
         /// <summary>
         /// Текущее состояние окна свернто/развернуто
         /// </summary>
-        private WindowState _currentWindowState;
+        WindowState _currentWindowState;
+
+        /// <summary>
+        /// Обновляет заголовок окна после удаления последнего буфера
+        /// </summary>
+        /// <param name="obj"></param>
+        void CopyPasteController_Update(IBufferItem obj)
+        {
+            if (_buffers.Count == 0)
+            {
+                ViewName = NavigationKeys.HelpView;
+            }
+        }
+
+        /// <summary>
+        /// Если нажата горячая клавиша для отображения главного окна, показываем его.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void InputHandler_ShowWindowKeyPress(object sender, EventArgs e)
+        {
+            ShowBuffersHandler();
+            App.Current.MainWindow.Activate();
+        }
+
+        /// <summary>
+        /// Если приложение потеряло фокус - скрываем его.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void MainWindow_Deactivated(object sender, EventArgs e)
+        {
+            CurrentWindowState = WindowState.Minimized;
+        }
 
         /// <summary>
         /// Обработчик команды ShowBuffers
         /// </summary>
         private void ShowBuffersHandler()
         {
-            if (Buffers.Count != 0)
+            if (_buffers.Count != 0)
             {
                 NavigationManager.Navigate(NavigationKeys.BuffersView);
                 ViewName = NavigationKeys.BuffersView;

@@ -105,6 +105,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\Controllers\ShowNotifyController.cs" />
     <Compile Include="Models\Interfaces\ICommandFactory.cs" />
+    <Compile Include="Models\Interfaces\IShowNotifyController.cs" />
     <Compile Include="Utils\WindzorExtension.cs" />
     <Compile Include="ViewModels\Implements\ClipboardController.cs" />
     <Compile Include="Models\Interfaces\IClipboardController.cs" />
