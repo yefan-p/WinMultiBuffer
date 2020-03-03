@@ -22,6 +22,38 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         }
 
         /// <summary>
+        /// Указывает, что была нажата клавиша вставки
+        /// </summary>
+        public event EventHandler<InputHandlerEventArgs> PasteKeyPress;
+
+        /// <summary>
+        /// Указывает, что была нажата клавиша копирования
+        /// </summary>
+        public event EventHandler<InputHandlerEventArgs> CopyKeyPress;
+
+        /// <summary>
+        /// Указывает, что была нажата клавиша отображения окна
+        /// </summary>
+        public event EventHandler ShowWindowKeyPress;
+
+        /// <summary>
+        /// Событие возникает после нажатия клавиш LCtrl + C
+        /// После него ожидается нажатие клавиши для вставки в буфер
+        /// </summary>
+        public event Action CopyIsActive;
+
+        /// <summary>
+        /// Событие возникает после нажатия клавиш LCtrl + V
+        /// После него ожидается нажатие клавиши для вставки в буфер
+        /// </summary>
+        public event Action PasteIsActive;
+
+        /// <summary>
+        /// Отменяет ожидание клавиши после клавиш вставки/копирования
+        /// </summary>
+        public event Action CopyPasteCancelled;
+
+        /// <summary>
         /// Хранит последовательность нажатых клавиш для копирования
         /// </summary>
         List<Keys> _keysCopyList = new List<Keys>();
@@ -46,7 +78,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e">Нажатая клавиша</param>
-        private void InputController_KeyDown(object sender, KeyEventArgs e)
+        void InputController_KeyDown(object sender, KeyEventArgs e)
         {
             if(!_globalKeyDown)
             {
@@ -58,6 +90,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
                 _keysCopyList.Clear();
                 _keysPasteList.Clear();
                 _keysShowWindowList.Clear();
+                CopyPasteCancelled?.Invoke();
             }
             //LeftCtrl
             else if ((_keysCopyList.Count == 0 || _keysPasteList.Count == 0) && e.KeyCode == Keys.LControlKey)
@@ -72,6 +105,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
                 _keysPasteList.Clear();
                 _keysShowWindowList.Clear();
                 _keysCopyList.Add(e.KeyCode);
+                CopyIsActive?.Invoke();
             }
             //LeftCtrl + V
             else if(_keysPasteList.Count == 1 && _keysPasteList[0] == Keys.LControlKey && e.KeyCode == Keys.V)
@@ -81,6 +115,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
                 _keysCopyList.Clear();
                 _keysShowWindowList.Clear();
                 _keysPasteList.Add(e.KeyCode);
+                PasteIsActive?.Invoke();
             }
             //LeftCtrl + ~
             else if(_keysShowWindowList.Count == 1 && _keysShowWindowList[0] == Keys.LControlKey && e.KeyCode == Keys.Oemtilde)
@@ -118,14 +153,14 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <summary>
         /// Эмулирует нажатие клавиш
         /// </summary>
-        private readonly IInputSimulator _inputSimulator;
+        readonly IInputSimulator _inputSimulator;
 
         /// <summary>
         /// Изменилось значение буфера обмена Windows
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
+        async void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
         {
             if (_keysPasteList.Count == 3 && _keysPasteList[0] == Keys.LControlKey && _keysPasteList[1] == Keys.V)
             {
@@ -158,20 +193,5 @@ namespace MultiBuffer.WpfApp.Models.Handlers
                 }
             });
         }
-
-        /// <summary>
-        /// Указывает, что была нажата клавиша вставки
-        /// </summary>
-        public event EventHandler<InputHandlerEventArgs> PasteKeyPress;
-
-        /// <summary>
-        /// Указывает, что была нажата клавиша копирования
-        /// </summary>
-        public event EventHandler<InputHandlerEventArgs> CopyKeyPress;
-
-        /// <summary>
-        /// Указывает, что была нажата клавиша отображения окна
-        /// </summary>
-        public event EventHandler ShowWindowKeyPress;
     }
 }
