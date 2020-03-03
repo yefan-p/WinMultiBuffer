@@ -79,6 +79,7 @@ namespace MultiBuffer.WpfApp.ViewModels
         private void InputHandler_ShowWindowKeyPress(object sender, EventArgs e)
         {
             ShowBuffersHandler();
+            App.Current.MainWindow.Activate();
         }
 
         /// <summary>
@@ -160,7 +161,6 @@ namespace MultiBuffer.WpfApp.ViewModels
                 NavigationManager.Navigate(NavigationKeys.BuffersView);
                 ViewName = NavigationKeys.BuffersView;
                 App.Current.MainWindow.Show();
-                App.Current.MainWindow.Activate();
                 CurrentWindowState = WindowState.Normal;
             }
             else

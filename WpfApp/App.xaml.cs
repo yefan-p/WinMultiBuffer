@@ -37,6 +37,7 @@ namespace MultiBuffer.WpfApp
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            //костыль, из-за уведомлений
             App.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
             var window = new MainWindow();
