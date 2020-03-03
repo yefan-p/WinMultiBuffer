@@ -7,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
-using Hardcodet.Wpf.TaskbarNotification;
-using System.Drawing;
+using Notifications.Wpf;
 
 namespace MultiBuffer.WpfApp.ViewModels
 {
@@ -25,10 +24,39 @@ namespace MultiBuffer.WpfApp.ViewModels
             CloseApp = commandFactory.GetCommand(CloseAppHandler);
 
             inputHandler.ShowWindowKeyPress += InputHandler_ShowWindowKeyPress;
+            inputHandler.PasteKeyPress += InputHandler_PasteKeyPress;
+            inputHandler.CopyKeyPress += InputHandler_CopyKeyPress;
+
             App.Current.MainWindow.Deactivated += MainWindow_Deactivated;
 
             Buffers = copyPasteController.Buffer;
             copyPasteController.Update += CopyPasteController_Update;
+        }
+
+        /// <summary>
+        /// Обработчик события нажатия кнопки копирования
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InputHandler_CopyKeyPress(object sender, Models.Handlers.InputHandlerEventArgs e)
+        {
+            var notificationManager = new NotificationManager();
+            notificationManager.Show(new NotificationContent
+            {
+                Title = "Sample notification",
+                Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                Type = NotificationType.Information
+            });
+        }
+
+        /// <summary>
+        /// Обработчик события нажатия кнопки вставки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InputHandler_PasteKeyPress(object sender, Models.Handlers.InputHandlerEventArgs e)
+        {
+            
         }
 
         /// <summary>
@@ -42,8 +70,6 @@ namespace MultiBuffer.WpfApp.ViewModels
                 ViewName = NavigationKeys.HelpView;
             }
         }
-
-        public TaskbarIcon TaskbarIcon;
 
         /// <summary>
         /// Если нажата горячая клавиша для отображения главного окна, показываем его.
@@ -63,7 +89,6 @@ namespace MultiBuffer.WpfApp.ViewModels
         private void MainWindow_Deactivated(object sender, EventArgs e)
         {
             CurrentWindowState = WindowState.Minimized;
-            TaskbarIcon.ShowBalloonTip("MultiBuffers", "Test", BalloonIcon.Info);
         }
 
         /// <summary>
@@ -135,6 +160,7 @@ namespace MultiBuffer.WpfApp.ViewModels
                 NavigationManager.Navigate(NavigationKeys.BuffersView);
                 ViewName = NavigationKeys.BuffersView;
                 App.Current.MainWindow.Show();
+                App.Current.MainWindow.Activate();
                 CurrentWindowState = WindowState.Normal;
             }
             else

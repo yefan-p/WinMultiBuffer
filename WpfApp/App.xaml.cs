@@ -16,7 +16,6 @@ using MultiBuffer.WpfApp.ViewModels;
 using MultiBuffer.WpfApp.ViewModels.Implements;
 using MultiBuffer.WpfApp.Views;
 using WindowsInput;
-using Hardcodet.Wpf.TaskbarNotification;
 
 namespace MultiBuffer.WpfApp
 {
@@ -38,6 +37,8 @@ namespace MultiBuffer.WpfApp
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            App.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);
 
