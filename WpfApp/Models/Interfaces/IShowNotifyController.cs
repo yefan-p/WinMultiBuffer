@@ -6,20 +6,13 @@ namespace MultiBuffer.WpfApp.Models.Interfaces
     {
 
         /// <summary>
-        /// Событие возникает после нажатия клавиш LCtrl + C
-        /// После него ожидается нажатие клавиши для вставки в буфер
+        /// Был выполнен клик в контекстном меню "Buffers"
         /// </summary>
-        public event Action CopyIsActive;
+        public event Action ShowBuffersClick;
 
         /// <summary>
-        /// Событие возникает после нажатия клавиш LCtrl + V
-        /// После него ожидается нажатие клавиши для вставки в буфер
+        /// Был выполнен клик в контекстном меню "Help"
         /// </summary>
-        public event Action PasteIsActive;
-
-        /// <summary>
-        /// Отменяет ожидание клавиши после клавиш вставки/копирования
-        /// </summary>
-        public event Action CopyPasteCancelled;
+        public event Action ShowHelpClick;
     }
 }

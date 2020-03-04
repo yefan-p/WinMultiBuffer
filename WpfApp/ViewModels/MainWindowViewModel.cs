@@ -12,22 +12,17 @@ namespace MultiBuffer.WpfApp.ViewModels
 {
     public class MainWindowViewModel : BaseViewModel
     {
-        public MainWindowViewModel(ICommandFactory commandFactory,
-                                   ICopyPasteController<IList<IBufferItem>> copyPasteController,
-                                   IInputHandler inputHandler,
+        public MainWindowViewModel(ICopyPasteController<IList<IBufferItem>> copyPasteController,
                                    IShowNotifyController showNotifyController)
         {
             ViewName = NavigationKeys.HelpView;
-
-            ShowBuffers = commandFactory.GetCommand(ShowBuffersHandler);
-            ShowHelp = commandFactory.GetCommand(ShowHelpHandler);
-            CloseApp = commandFactory.GetCommand(CloseAppHandler);
-
-            inputHandler.ShowWindowKeyPress += InputHandler_ShowWindowKeyPress;
             App.Current.MainWindow.Deactivated += MainWindow_Deactivated;
 
             _buffers = copyPasteController.Buffer;
             copyPasteController.Update += CopyPasteController_Update;
+
+            showNotifyController.ShowBuffersClick += ShowNotifyController_ShowBuffersClick;
+            showNotifyController.ShowHelpClick += ShowNotifyController_ShowHelpClick;
         }
 
         /// <summary>
@@ -60,20 +55,6 @@ namespace MultiBuffer.WpfApp.ViewModels
             }
         }
 
-        /// Показывает окно и view Buffers
-        /// </summary>
-        public ICommand ShowBuffers { get; }
-
-        /// <summary>
-        /// Показывает окно с подсказкой
-        /// </summary>
-        public ICommand ShowHelp { get; }
-
-        /// <summary>
-        /// Закрывает приложение
-        /// </summary>
-        public ICommand CloseApp { get; }
-
         /// <summary>
         /// Заголовок окна
         /// </summary>
@@ -89,6 +70,18 @@ namespace MultiBuffer.WpfApp.ViewModels
         /// </summary>
         WindowState _currentWindowState;
 
+        void ShowNotifyController_ShowHelpClick()
+        {
+            CurrentWindowState = WindowState.Maximized;
+            ViewName = NavigationKeys.HelpView;
+        }
+
+        void ShowNotifyController_ShowBuffersClick()
+        {
+            CurrentWindowState = WindowState.Maximized;
+            ViewName = NavigationKeys.BuffersView;
+        }
+
         /// <summary>
         /// Обновляет заголовок окна после удаления последнего буфера
         /// </summary>
@@ -102,17 +95,6 @@ namespace MultiBuffer.WpfApp.ViewModels
         }
 
         /// <summary>
-        /// Если нажата горячая клавиша для отображения главного окна, показываем его.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void InputHandler_ShowWindowKeyPress(object sender, EventArgs e)
-        {
-            ShowBuffersHandler();
-            App.Current.MainWindow.Activate();
-        }
-
-        /// <summary>
         /// Если приложение потеряло фокус - скрываем его.
         /// </summary>
         /// <param name="sender"></param>
@@ -120,43 +102,6 @@ namespace MultiBuffer.WpfApp.ViewModels
         void MainWindow_Deactivated(object sender, EventArgs e)
         {
             CurrentWindowState = WindowState.Minimized;
-        }
-
-        /// <summary>
-        /// Обработчик команды ShowBuffers
-        /// </summary>
-        private void ShowBuffersHandler()
-        {
-            if (_buffers.Count != 0)
-            {
-                NavigationManager.Navigate(NavigationKeys.BuffersView);
-                ViewName = NavigationKeys.BuffersView;
-                App.Current.MainWindow.Show();
-                CurrentWindowState = WindowState.Normal;
-            }
-            else
-            {
-                ShowHelpHandler();
-            }
-        }
-
-        /// <summary>
-        /// Обработчик команды ShowHelp
-        /// </summary>
-        private void ShowHelpHandler()
-        {
-            NavigationManager.Navigate(NavigationKeys.HelpView);
-            ViewName = NavigationKeys.HelpView;
-            App.Current.MainWindow.Show();
-            CurrentWindowState = WindowState.Normal;
-        }
-
-        /// <summary>
-        /// Обработчик команды CloseApp
-        /// </summary>
-        private void CloseAppHandler()
-        {
-            App.Current.Shutdown();
         }
     }
 }

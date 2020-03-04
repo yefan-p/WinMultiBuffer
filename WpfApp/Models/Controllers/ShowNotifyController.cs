@@ -4,55 +4,94 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MultiBuffer.WpfApp.Models.Interfaces;
-using Notifications.Wpf;
+using Hardcodet.Wpf.TaskbarNotification;
+using System.Windows.Controls;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {
     public class ShowNotifyController : IShowNotifyController
     {
-        public ShowNotifyController(IInputHandler inputHandler)
+        public ShowNotifyController(IInputHandler inputHandler,
+                                    ICommandFactory commandFactory,
+                                    IList<IBufferItem> buffers)
         {
-            _notificationManager = new NotificationManager();
+            _buffers = buffers;
+
+            var buffersMenuItem = new MenuItem
+            {
+                Command = commandFactory.GetCommand(ShowBuffersHandler),
+                Header = "Buffers   LeftCtrl + ~"
+            };
+            var helpMenuItem = new MenuItem
+            {
+                Command = commandFactory.GetCommand(ShowBuffersHandler),
+                Header = "Help"
+            };
+            var closeMenuItem = new MenuItem
+            {
+                Command = commandFactory.GetCommand(CloseAppHandler),
+                Header = "Close"
+            };
+
+            var contextMenu = new ContextMenu();
+            contextMenu.Items.Add(buffersMenuItem);
+            contextMenu.Items.Add(helpMenuItem);
+            contextMenu.Items.Add(closeMenuItem);
+
+            _taskbarIcon = new TaskbarIcon
+            {
+                ToolTipText = "MultiBuffer is runnig!",
+                Icon = WpfApp.Properties.Resources.hook_icon,
+                LeftClickCommand = commandFactory.GetCommand(ShowBuffersHandler),
+                DoubleClickCommand = commandFactory.GetCommand(ShowBuffersHandler),
+                ContextMenu = contextMenu
+            };
 
             inputHandler.CopyIsActive += InputHandler_CopyIsActive;
             inputHandler.PasteIsActive += InputHandler_PasteIsActive;
             inputHandler.CopyPasteCancelled += InputHandler_CopyPasteCancelled;
+            inputHandler.ShowWindowKeyPress += InputHandler_ShowWindowKeyPress;
         }
 
         /// <summary>
-        /// Событие возникает после нажатия клавиш LCtrl + C
-        /// После него ожидается нажатие клавиши для вставки в буфер
+        /// Был выполнен клик в контекстном меню "Buffers"
         /// </summary>
-        public event Action CopyIsActive;
+        public event Action ShowBuffersClick;
 
         /// <summary>
-        /// Событие возникает после нажатия клавиш LCtrl + V
-        /// После него ожидается нажатие клавиши для вставки в буфер
+        /// Был выполнен клик в контекстном меню "Help"
         /// </summary>
-        public event Action PasteIsActive;
+        public event Action ShowHelpClick;
 
         /// <summary>
-        /// Отменяет ожидание клавиши после клавиш вставки/копирования
+        /// Коллекция буферов
         /// </summary>
-        public event Action CopyPasteCancelled;
+        readonly IList<IBufferItem> _buffers;
 
         /// <summary>
-        /// Отправляет уведомления
+        /// Икона в трее
         /// </summary>
-        NotificationManager _notificationManager;
+        readonly TaskbarIcon _taskbarIcon;
+
+        /// <summary>
+        /// Если нажата горячая клавиша для отображения главного окна, показываем его.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void InputHandler_ShowWindowKeyPress(object sender, EventArgs e)
+        {
+            ShowBuffersHandler();
+            App.Current.MainWindow.Activate();
+        }
 
         /// <summary>
         /// Обработчик события после активации копирования
         /// </summary>
         void InputHandler_CopyPasteCancelled()
         {
-            _notificationManager.Show(new NotificationContent
-            {
-                Title = "MultiBuffers",
-                Message = "Copy/Paste was cancelled.",
-                Type = NotificationType.Error
-            });
-            CopyPasteCancelled?.Invoke();
+            _taskbarIcon.ShowBalloonTip("MultiBuffers",
+                                        "Copy/Paste was cancelled.",
+                                        _taskbarIcon.Icon);
         }
 
         /// <summary>
@@ -60,13 +99,9 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void InputHandler_PasteIsActive()
         {
-            _notificationManager.Show(new NotificationContent
-            {
-                Title = "MultiBuffers",
-                Message = "Press binded key.",
-                Type = NotificationType.Information
-            });
-            PasteIsActive?.Invoke();
+            _taskbarIcon.ShowBalloonTip("MultiBuffers",
+                                        "Press binded key.",
+                                        _taskbarIcon.Icon);
         }
 
         /// <summary>
@@ -74,13 +109,44 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void InputHandler_CopyIsActive()
         {
-            _notificationManager.Show(new NotificationContent
+            _taskbarIcon.ShowBalloonTip("MultiBuffers",
+                            "Bind any key for buffer.",
+                            _taskbarIcon.Icon);
+        }
+
+        /// <summary>
+        /// Обработчик команды ShowBuffers
+        /// </summary>
+        void ShowBuffersHandler()
+        {
+            if (_buffers.Count != 0)
             {
-                Title = "MultiBuffers",
-                Message = "Bind any key for buffer.",
-                Type = NotificationType.Information
-            });
-            CopyIsActive?.Invoke();
+                App.Current.MainWindow.Show();
+                App.Current.MainWindow.Activate();
+                ShowBuffersClick?.Invoke();
+            }
+            else
+            {
+                ShowHelpHandler();
+            }
+        }
+
+        /// <summary>
+        /// Обработчик команды ShowHelp
+        /// </summary>
+        void ShowHelpHandler()
+        {
+            App.Current.MainWindow.Show();
+            App.Current.MainWindow.Activate();
+            ShowHelpClick?.Invoke();
+        }
+
+        /// <summary>
+        /// Обработчик команды CloseApp
+        /// </summary>
+        void CloseAppHandler()
+        {
+            App.Current.Shutdown();
         }
     }
 }

@@ -13,20 +13,6 @@
         </LinearGradientBrush>
     </Window.Background>
     <StackPanel>
-        <tb:TaskbarIcon 
-            x:Name="NotifyIcon" 
-            ToolTipText="MultiBuffer is runnig!" 
-            LeftClickCommand="{Binding ShowBuffers}" 
-            DoubleClickCommand="{Binding ShowBuffers}"
-            IconSource="/Resources/hook-icon.ico">
-            <tb:TaskbarIcon.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Buffers   LeftCtrl + ~" Command="{Binding ShowBuffers}"/>
-                    <MenuItem Header="Help" Command="{Binding ShowHelp}"/>
-                    <MenuItem Header="Exit" Command="{Binding CloseApp}"/>
-                </ContextMenu>
-            </tb:TaskbarIcon.ContextMenu>
-        </tb:TaskbarIcon>
         <ContentControl x:Name="FrameContent" x:FieldModifier="public" VerticalAlignment="Top" 
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
     </StackPanel>
