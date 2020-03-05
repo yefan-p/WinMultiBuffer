@@ -37,9 +37,6 @@ namespace MultiBuffer.WpfApp
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            //костыль, из-за уведомлений
-            App.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
-
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);
 
@@ -79,7 +76,7 @@ namespace MultiBuffer.WpfApp
 
             container.RegisterService<IInputSimulator, InputSimulator>();
 
-            container.RegisterService<IShowNotifyController, ShowNotifyController>();
+            container.RegisterSingleton<IShowNotifyController, ShowNotifyController>();
         }
 
         private void RegisterViewModels()

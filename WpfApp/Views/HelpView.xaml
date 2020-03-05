@@ -67,7 +67,7 @@
         </Border>
         <Border Style="{StaticResource BorderStyle}">
             <TextBlock Style="{StaticResource TextBlockStyle}"
-                       Text="   - Text, which you copied by context menu, binded &quot;Space&quot; key.&#x0a;   - On time paste with context menu will paste text, which you copied or pasted last time."/>
+                       Text="   - Text, which you copied by context menu, binded &quot;Space&quot; key.&#x0a;   - Every time you paste text with context menu text which you copied or pasted last time will be pasted."/>
         </Border>
         <Border Style="{StaticResource BorderStyle}" HorizontalAlignment="Center">
             <TextBlock Style="{StaticResource TextBlockStyle}" 

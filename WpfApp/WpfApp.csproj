@@ -129,6 +129,9 @@
     </Compile>
     <Compile Include="Models\Handlers\InputHandler.cs" />
     <Compile Include="Models\Handlers\InputHandlerEventArgs.cs" />
+    <Compile Include="Views\Notifications\CopyNotifyView.xaml.cs">
+      <DependentUpon>CopyNotifyView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HelpView.xaml.cs">
       <DependentUpon>HelpView.xaml</DependentUpon>
     </Compile>
@@ -139,7 +142,14 @@
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Notifications\PasteNotifyView.xaml.cs">
+      <DependentUpon>PasteNotifyView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\BuffersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Notifications\CopyNotifyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Notifications\PasteNotifyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

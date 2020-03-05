@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using MultiBuffer.WpfApp.Models.Interfaces;
 using Hardcodet.Wpf.TaskbarNotification;
 using System.Windows.Controls;
+using MultiBuffer.WpfApp.Views.Notifications;
+using System.Windows.Controls.Primitives;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {
-    public class ShowNotifyController : IShowNotifyController
+    public class ShowNotifyController : IShowNotifyController, IDisposable
     {
         public ShowNotifyController(IInputHandler inputHandler,
                                     ICommandFactory commandFactory,
@@ -51,6 +53,13 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             inputHandler.PasteIsActive += InputHandler_PasteIsActive;
             inputHandler.CopyPasteCancelled += InputHandler_CopyPasteCancelled;
             inputHandler.ShowWindowKeyPress += InputHandler_ShowWindowKeyPress;
+            inputHandler.CopyKeyPress += InputHandler_CopyKeyPress;
+            inputHandler.PasteKeyPress += InputHandler_PasteKeyPress;
+        }
+
+        public void Dispose()
+        {
+            _taskbarIcon.Dispose();
         }
 
         /// <summary>
@@ -74,6 +83,26 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         readonly TaskbarIcon _taskbarIcon;
 
         /// <summary>
+        /// Обработчик события нажатия забинденой клавиши
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void InputHandler_PasteKeyPress(object sender, Handlers.InputHandlerEventArgs e)
+        {
+            _taskbarIcon.CloseBalloon();
+        }
+
+        /// <summary>
+        /// Обработчик события бинда клавиши для копирования
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void InputHandler_CopyKeyPress(object sender, Handlers.InputHandlerEventArgs e)
+        {
+            _taskbarIcon.CloseBalloon();
+        }
+
+        /// <summary>
         /// Если нажата горячая клавиша для отображения главного окна, показываем его.
         /// </summary>
         /// <param name="sender"></param>
@@ -81,7 +110,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         void InputHandler_ShowWindowKeyPress(object sender, EventArgs e)
         {
             ShowBuffersHandler();
-            App.Current.MainWindow.Activate();
         }
 
         /// <summary>
@@ -89,9 +117,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void InputHandler_CopyPasteCancelled()
         {
-            _taskbarIcon.ShowBalloonTip("MultiBuffers",
-                                        "Copy/Paste was cancelled.",
-                                        _taskbarIcon.Icon);
+            _taskbarIcon.CloseBalloon();
         }
 
         /// <summary>
@@ -99,9 +125,8 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void InputHandler_PasteIsActive()
         {
-            _taskbarIcon.ShowBalloonTip("MultiBuffers",
-                                        "Press binded key.",
-                                        _taskbarIcon.Icon);
+            var pasteNotifyView = new PasteNotifyView();
+            _taskbarIcon.ShowCustomBalloon(pasteNotifyView, PopupAnimation.Slide, 60000);
         }
 
         /// <summary>
@@ -109,9 +134,8 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void InputHandler_CopyIsActive()
         {
-            _taskbarIcon.ShowBalloonTip("MultiBuffers",
-                            "Bind any key for buffer.",
-                            _taskbarIcon.Icon);
+            var copyNotifyView = new CopyNotifyView();
+            _taskbarIcon.ShowCustomBalloon(copyNotifyView, PopupAnimation.Slide, 60000);
         }
 
         /// <summary>

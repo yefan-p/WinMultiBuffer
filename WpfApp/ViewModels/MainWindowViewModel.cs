@@ -70,15 +70,21 @@ namespace MultiBuffer.WpfApp.ViewModels
         /// </summary>
         WindowState _currentWindowState;
 
+        /// <summary>
+        /// Обрабобтчик события в контекстом меню выбран пункт Help
+        /// </summary>
         void ShowNotifyController_ShowHelpClick()
         {
-            CurrentWindowState = WindowState.Maximized;
+            CurrentWindowState = WindowState.Normal;
             ViewName = NavigationKeys.HelpView;
         }
 
+        /// <summary>
+        /// Обработчик события в контекстом меню выбран пункт Buffers
+        /// </summary>
         void ShowNotifyController_ShowBuffersClick()
         {
-            CurrentWindowState = WindowState.Maximized;
+            CurrentWindowState = WindowState.Normal;
             ViewName = NavigationKeys.BuffersView;
         }
 
