@@ -17,7 +17,7 @@ For canceling
 
 Context menu buffer
 - Text, which you copied by context menu, binded "Space" key.
-- On time paste with context menu will paste text, which you copied or pasted last time.
+- Every time you paste text with context menu text which you copied or pasted last time will be pasted.
 
 You will might to make buffers, until keys on your keyboard end!
 
