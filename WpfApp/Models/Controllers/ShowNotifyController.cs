@@ -4,50 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MultiBuffer.WpfApp.Models.Interfaces;
-using Hardcodet.Wpf.TaskbarNotification;
-using System.Windows.Controls;
-using MultiBuffer.WpfApp.Views.Notifications;
-using System.Windows.Controls.Primitives;
+using MultiBuffer.WpfApp.Utils;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {
-    public class ShowNotifyController : IShowNotifyController, IDisposable
+    public class ShowNotifyController : IShowNotifyController
     {
         public ShowNotifyController(IInputHandler inputHandler,
-                                    ICommandFactory commandFactory,
-                                    IList<IBufferItem> buffers)
+                                    IList<IBufferItem> buffers,
+                                    ITrayIconManager trayIconManager)
         {
             _buffers = buffers;
+            _trayIconManager = trayIconManager;
 
-            var buffersMenuItem = new MenuItem
-            {
-                Command = commandFactory.GetCommand(ShowBuffersHandler),
-                Header = "Buffers   LeftCtrl + ~"
-            };
-            var helpMenuItem = new MenuItem
-            {
-                Command = commandFactory.GetCommand(ShowBuffersHandler),
-                Header = "Help"
-            };
-            var closeMenuItem = new MenuItem
-            {
-                Command = commandFactory.GetCommand(CloseAppHandler),
-                Header = "Close"
-            };
-
-            var contextMenu = new ContextMenu();
-            contextMenu.Items.Add(buffersMenuItem);
-            contextMenu.Items.Add(helpMenuItem);
-            contextMenu.Items.Add(closeMenuItem);
-
-            _taskbarIcon = new TaskbarIcon
-            {
-                ToolTipText = "MultiBuffer is runnig!",
-                Icon = WpfApp.Properties.Resources.hook_icon,
-                LeftClickCommand = commandFactory.GetCommand(ShowBuffersHandler),
-                DoubleClickCommand = commandFactory.GetCommand(ShowBuffersHandler),
-                ContextMenu = contextMenu
-            };
+            _trayIconManager.AddContextMenuItem("Buffers   LeftCtrl + ~", ShowBuffersHandler);
+            _trayIconManager.AddContextMenuItem("Help", ShowBuffersHandler);
+            _trayIconManager.AddContextMenuItem("Close", CloseAppHandler);
+            _trayIconManager.AddClickCommand(ShowBuffersHandler);
 
             inputHandler.CopyIsActive += InputHandler_CopyIsActive;
             inputHandler.PasteIsActive += InputHandler_PasteIsActive;
@@ -55,11 +28,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             inputHandler.ShowWindowKeyPress += InputHandler_ShowWindowKeyPress;
             inputHandler.CopyKeyPress += InputHandler_CopyKeyPress;
             inputHandler.PasteKeyPress += InputHandler_PasteKeyPress;
-        }
-
-        public void Dispose()
-        {
-            _taskbarIcon.Dispose();
         }
 
         /// <summary>
@@ -80,7 +48,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// <summary>
         /// Икона в трее
         /// </summary>
-        readonly TaskbarIcon _taskbarIcon;
+        readonly ITrayIconManager _trayIconManager;
 
         /// <summary>
         /// Обработчик события нажатия забинденой клавиши
@@ -89,7 +57,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// <param name="e"></param>
         void InputHandler_PasteKeyPress(object sender, Handlers.InputHandlerEventArgs e)
         {
-            _taskbarIcon.CloseBalloon();
+            _trayIconManager.HideNotify();
         }
 
         /// <summary>
@@ -99,7 +67,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// <param name="e"></param>
         void InputHandler_CopyKeyPress(object sender, Handlers.InputHandlerEventArgs e)
         {
-            _taskbarIcon.CloseBalloon();
+            _trayIconManager.HideNotify();
         }
 
         /// <summary>
@@ -117,7 +85,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void InputHandler_CopyPasteCancelled()
         {
-            _taskbarIcon.CloseBalloon();
+            _trayIconManager.HideNotify();
         }
 
         /// <summary>
@@ -125,8 +93,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void InputHandler_PasteIsActive()
         {
-            var pasteNotifyView = new PasteNotifyView();
-            _taskbarIcon.ShowCustomBalloon(pasteNotifyView, PopupAnimation.Slide, 60000);
+            _trayIconManager.ShowNotify(60000);
         }
 
         /// <summary>
@@ -134,8 +101,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void InputHandler_CopyIsActive()
         {
-            var copyNotifyView = new CopyNotifyView();
-            _taskbarIcon.ShowCustomBalloon(copyNotifyView, PopupAnimation.Slide, 60000);
+            _trayIconManager.ShowNotify(60000);
         }
 
         /// <summary>

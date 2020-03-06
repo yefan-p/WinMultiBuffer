@@ -39,10 +39,15 @@ namespace MultiBuffer.WpfApp
         {
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);
+            var trayIconManager = new TrayIconManager(new CommandFactory(), new NotifyView());
 
             container.Register(Component
                 .For<INavigationManager>()
                 .Instance(mainNavManager));
+
+            container.Register(Component
+                .For<ITrayIconManager>()
+                .Instance(trayIconManager));
 
             var helpViewModel = container.Resolve<HelpViewModel>();
             var buffersViewModel = container.Resolve<BuffersViewModel>();

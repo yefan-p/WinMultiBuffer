@@ -12,8 +12,6 @@ namespace MultiBuffer.WpfApp.ViewModels.Implements
 
         public event EventHandler CanExecuteChanged;
 
-        private readonly Action action;
-
         public bool CanExecute(object parameter)
         {
             return true;
@@ -23,5 +21,7 @@ namespace MultiBuffer.WpfApp.ViewModels.Implements
         {
             action?.Invoke();
         }
+
+        readonly Action action;
     }
 }

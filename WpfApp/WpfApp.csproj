@@ -104,6 +104,8 @@
     <Compile Include="Models\Controllers\ShowNotifyController.cs" />
     <Compile Include="Models\Interfaces\ICommandFactory.cs" />
     <Compile Include="Models\Interfaces\IShowNotifyController.cs" />
+    <Compile Include="Utils\ITrayIconManager.cs" />
+    <Compile Include="Utils\TrayIconManager.cs" />
     <Compile Include="Utils\WindzorExtension.cs" />
     <Compile Include="ViewModels\Implements\ClipboardController.cs" />
     <Compile Include="Models\Interfaces\IClipboardController.cs" />
@@ -129,6 +131,9 @@
     </Compile>
     <Compile Include="Models\Handlers\InputHandler.cs" />
     <Compile Include="Models\Handlers\InputHandlerEventArgs.cs" />
+    <Compile Include="Views\NotifyView.xaml.cs">
+      <DependentUpon>NotifyView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Notifications\CopyNotifyView.xaml.cs">
       <DependentUpon>CopyNotifyView.xaml</DependentUpon>
     </Compile>
@@ -148,6 +153,10 @@
     <Page Include="Views\BuffersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NotifyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Notifications\CopyNotifyView.xaml">
       <SubType>Designer</SubType>
