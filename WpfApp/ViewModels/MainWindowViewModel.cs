@@ -63,7 +63,7 @@ namespace MultiBuffer.WpfApp.ViewModels
         /// <summary>
         /// Хранит коллекцию буферов
         /// </summary>
-        IList<IBufferItem> _buffers;
+        readonly IList<IBufferItem> _buffers;
 
         /// <summary>
         /// Текущее состояние окна свернто/развернуто
@@ -75,6 +75,7 @@ namespace MultiBuffer.WpfApp.ViewModels
         /// </summary>
         void ShowNotifyController_ShowHelpClick()
         {
+            NavigationManager.Navigate(NavigationKeys.HelpView);
             CurrentWindowState = WindowState.Normal;
             ViewName = NavigationKeys.HelpView;
         }
@@ -84,6 +85,7 @@ namespace MultiBuffer.WpfApp.ViewModels
         /// </summary>
         void ShowNotifyController_ShowBuffersClick()
         {
+            NavigationManager.Navigate(NavigationKeys.BuffersView);
             CurrentWindowState = WindowState.Normal;
             ViewName = NavigationKeys.BuffersView;
         }

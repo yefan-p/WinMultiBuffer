@@ -18,7 +18,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             _trayIconManager = trayIconManager;
 
             _trayIconManager.AddContextMenuItem("Buffers   LeftCtrl + ~", ShowBuffersHandler);
-            _trayIconManager.AddContextMenuItem("Help", ShowBuffersHandler);
+            _trayIconManager.AddContextMenuItem("Help", ShowHelpHandler);
             _trayIconManager.AddContextMenuItem("Close", CloseAppHandler);
             _trayIconManager.AddClickCommand(ShowBuffersHandler);
 
