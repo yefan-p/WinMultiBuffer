@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -12,16 +13,17 @@ namespace MultiBuffer.WebApi.DataModel
         /// <summary>
         /// Заголовок буфера
         /// </summary>
+        [MaxLength(100)]
         public string Name { get; set; }
 
         /// <summary>
         /// Клавиша, которая будет привязна к буферу
         /// </summary>
+        [Required]
         public int Key { get; set; }
 
         /// <summary>
-        /// Значение.
-        /// Оповещает о своем изменении
+        /// Значение? которое хранит буфер
         /// </summary>
         public string Value { get; set; }
     }

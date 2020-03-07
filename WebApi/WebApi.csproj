@@ -104,6 +104,10 @@
     <Compile Include="Migrations\202003071006315_InitialCreate.designer.cs">
       <DependentUpon>202003071006315_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003071030471_DataAnotationsForBufferItem.cs" />
+    <Compile Include="Migrations\202003071030471_DataAnotationsForBufferItem.designer.cs">
+      <DependentUpon>202003071030471_DataAnotationsForBufferItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -120,14 +124,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{291801fc-05bd-470e-96ac-56101e657ec3}</Project>
-      <Name>DAL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Migrations\202003071006315_InitialCreate.resx">
       <DependentUpon>202003071006315_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003071030471_DataAnotationsForBufferItem.resx">
+      <DependentUpon>202003071030471_DataAnotationsForBufferItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
