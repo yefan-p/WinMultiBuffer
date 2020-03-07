@@ -12,6 +12,7 @@ namespace MultiBuffer.WebApi.DataModel
         {
         }
 
+        public DbSet<BufferItem> BufferItems { get; set; }
     }
 
 }

@@ -95,10 +95,16 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BuffersController.cs" />
+    <Compile Include="DataModel\BufferItem.cs" />
     <Compile Include="DataModel\MultiBufferContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003071006315_InitialCreate.cs" />
+    <Compile Include="Migrations\202003071006315_InitialCreate.designer.cs">
+      <DependentUpon>202003071006315_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +124,11 @@
       <Project>{291801fc-05bd-470e-96ac-56101e657ec3}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202003071006315_InitialCreate.resx">
+      <DependentUpon>202003071006315_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
