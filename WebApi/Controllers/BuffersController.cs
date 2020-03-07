@@ -4,26 +4,26 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using DAL.Models;
-using DAL.Repos;
+using MultiBuffer.WebApi.DataModel;
 
 namespace MultiBuffer.WebApi.Controllers
 {
     [RoutePrefix("api/Buffers")]
     public class BuffersController : ApiController
     {
-        public BuffersController()
-        {
-            _buffersRepo = new BuffersRepo();
-        }
-
-        private BuffersRepo _buffersRepo;
 
         // GET: api/Buffers/5
-        [HttpGet, Route("{idUser}")]
-        public IEnumerable<BuffersModel> Get(int idUser)
+        [HttpGet, Route("{intKey}")]
+        public BufferItem Get(int intKey)
         {
-            return _buffersRepo.Read(idUser);
+            var context = new MultiBufferContext();
+
+            var query =
+                from el in context.BufferItems
+                where el.Key == intKey
+                select el;
+
+            return query.SingleOrDefault();
         }
     }
 }
