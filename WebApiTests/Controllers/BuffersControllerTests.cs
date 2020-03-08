@@ -13,10 +13,10 @@ namespace MultiBuffer.WebApi.Controllers.Tests
     public class BuffersControllerTests
     {
         [TestMethod()]
-        public void GetTest()
+        public void ReadTest()
         {
             var buffersController = new BuffersController();
-            BufferItem bufferItemActual = buffersController.Get(0);
+            BufferItem bufferItemActual = buffersController.Read(0);
             var bufferItemExpected = new BufferItem
             {
                 Id = 1,
@@ -25,6 +25,21 @@ namespace MultiBuffer.WebApi.Controllers.Tests
                 Value = "000"
             };
             Assert.Equals(bufferItemExpected, bufferItemActual);
+        }
+
+        [TestMethod()]
+        public void UpdateTest()
+        {
+            var controller = new BuffersController();
+            var item = new BufferItem
+            {
+                Id = 1,
+                Name = "Zero",
+                Key = 0,
+                Value = "111",
+            };
+            var tmp = controller.Update(0, item);
+            Assert.IsTrue(true);
         }
     }
 }
