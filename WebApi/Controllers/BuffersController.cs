@@ -28,6 +28,39 @@ namespace MultiBuffer.WebApi.Controllers
             return query.SingleOrDefault();
         }
 
+        // DELETE: api/Buffers/5
+        [HttpDelete, Route("{intKey}")]
+        [ResponseType(typeof(BufferItem))]
+        public IHttpActionResult Delete(int intKey)
+        {
+            var context = new MultiBufferContext();
+
+            var query =
+                from el in context.BufferItems
+                where el.Key == intKey
+                select el;
+
+            BufferItem item = query.SingleOrDefault();
+            if (item != null)
+            {
+                try
+                {
+                    context.BufferItems.Remove(item);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            else
+            {
+                return BadRequest("Item is already not existing");
+            }
+        }
+
         // PUT: api/Buffers/5
         [HttpPut, Route("{intKey}")]
         [ResponseType(typeof(void))]

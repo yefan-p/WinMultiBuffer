@@ -49,5 +49,13 @@ namespace MultiBuffer.WebApi.Controllers.Tests
             var tmp = controller.Create(2, item);
             Assert.IsTrue(true);
         }
+
+        [TestMethod()]
+        public void DeleteTest()
+        {
+            var controller = new BuffersController();
+            controller.Delete(1);
+            Assert.IsTrue(true);
+        }
     }
 }
