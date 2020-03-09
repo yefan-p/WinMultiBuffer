@@ -67,5 +67,47 @@ namespace MultiBuffer.WebApi.Controllers
             }
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        // POST: api/Buffers/5
+        [HttpPost, Route("{intKey}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult Create(int intKey, BufferItem bufferItem)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (intKey != bufferItem.Key)
+            {
+                return BadRequest("Wrong data");
+            }
+
+            var context = new MultiBufferContext();
+            var query =
+                from el in context.BufferItems
+                where el.Key == intKey
+                select el;
+
+            BufferItem item = query.SingleOrDefault();
+            if (item == null)
+            {
+                try
+                {
+                    bufferItem.Id = 0;
+                    context.BufferItems.Add(bufferItem);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            else
+            {
+                return BadRequest("Item is already existing");
+            }
+        }
     }
 }
