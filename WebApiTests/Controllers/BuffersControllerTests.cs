@@ -29,7 +29,7 @@ namespace MultiBuffer.WebApi.Controllers.Tests
                 Id = 1,
                 Name = "Zero",
                 Key = 0,
-                Value = "111",
+                Value = "Update test",
             };
             var tmp = controller.Update(0, item);
             Assert.IsTrue(true);
@@ -43,10 +43,10 @@ namespace MultiBuffer.WebApi.Controllers.Tests
             {
                 Id = 1,
                 Name = "Zero",
-                Key = 1,
-                Value = "111",
+                Key = 2,
+                Value = "Create method test",
             };
-            var tmp = controller.Create(1, item);
+            var tmp = controller.Create(2, item);
             Assert.IsTrue(true);
         }
     }
