@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MultiBuffer.WpfApp.Models.Interfaces;
+using System.Net;
 
 namespace MultiBuffer.WpfApp.Models.Handlers
 {
@@ -13,7 +14,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
 
         public void Create(IBufferItem item)
         {
-
+            var request = WebRequest.Create(_webApiAddress + (int)item.Key) as HttpWebRequest;
         }
     }
 }
