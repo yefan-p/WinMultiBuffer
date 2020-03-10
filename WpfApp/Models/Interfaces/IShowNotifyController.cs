@@ -8,11 +8,21 @@ namespace MultiBuffer.WpfApp.Models.Interfaces
         /// <summary>
         /// Был выполнен клик в контекстном меню "Buffers"
         /// </summary>
-        public event Action ShowBuffersClick;
+        event Action ShowBuffersClick;
 
         /// <summary>
         /// Был выполнен клик в контекстном меню "Help"
         /// </summary>
-        public event Action ShowHelpClick;
+        event Action ShowHelpClick;
+
+        /// <summary>
+        /// Загловок уведомления
+        /// </summary>
+        string HeaderNotifyMessage { get; }
+
+        /// <summary>
+        /// Текст уведомления
+        /// </summary>
+        string BodyNotifyMessage { get; }
     }
 }

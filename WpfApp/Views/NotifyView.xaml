@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignWidth="360" Height="155" Opacity="0.9">
+             xmlns:viewModel="clr-namespace:MultiBuffer.WpfApp.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="360" Height="155" Opacity="0.9"
+             d:DataContext="{d:DesignInstance viewModel:NotifyViewModel}">
     <Border BorderThickness="2" Width="360" Height="155">
         <Border.BorderBrush>
             <SolidColorBrush Color="#FF323232"/>
@@ -21,11 +23,15 @@
                 </Border.Effect>
                 <Image Source="/Resources/hook-icon.ico"/>
             </Border>
-            <TextBlock Height="45" Canvas.Left="115" TextWrapping="Wrap" Canvas.Top="20" Width="231" FontSize="20" FontWeight="Bold" Foreground="Black" TextDecorations="{x:Null}">
-                <Span FontFamily="Consolas"><Run Text="Bind any key for buffer"/></Span>
-            </TextBlock>
-            <TextBlock Height="60" Canvas.Left="115" TextWrapping="Wrap" Canvas.Top="70" Width="231" Foreground="Black" FontSize="14"
-			Text="You can bind any key, expect &quot;Esc&quot; and &quot;Left Ctrl&quot;. After binded you might to use binded key for paste."/>
+            <TextBlock Height="45" Canvas.Left="115" 
+                       TextWrapping="Wrap" Canvas.Top="20" 
+                       Width="231" FontSize="20" FontWeight="Bold" 
+                       Foreground="Black" TextDecorations="{x:Null}"
+                       Text="{Binding HeaderMessage}"/>
+            <TextBlock Height="60" Canvas.Left="115" 
+                       TextWrapping="Wrap" Canvas.Top="70" 
+                       Width="231" Foreground="Black" 
+                       FontSize="14" Text="{Binding BodyMessage}"/>
         </Canvas>
     </Border>
 </UserControl>
