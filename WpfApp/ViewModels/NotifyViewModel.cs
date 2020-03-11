@@ -9,20 +9,46 @@ namespace MultiBuffer.WpfApp.ViewModels
 {
     public class NotifyViewModel : BaseViewModel
     {
-        public NotifyViewModel(IShowNotifyController showNotifyController)
+        public NotifyViewModel(ITextMessageNotifyController textNotifyContoller)
         {
-            HeaderMessage = showNotifyController.HeaderNotifyMessage;
-            BodyMessage = showNotifyController.BodyNotifyMessage;
+            textNotifyContoller.CopyIsActive += TextNotifyContoller_UpdateProps;
+            textNotifyContoller.PasteIsActive += TextNotifyContoller_UpdateProps;
         }
+
+        void TextNotifyContoller_UpdateProps(string arg1, string arg2)
+        {
+            HeaderMessage = arg1;
+            BodyMessage = arg2;
+        }
+
+        string _header;
+
+        string _body;
 
         /// <summary>
         /// Загловок уведомления
         /// </summary>
-        public string HeaderMessage { get; }
+        public string HeaderMessage 
+        { 
+            get { return _header; }
+            private set
+            {
+                _header = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Текст уведомления
         /// </summary>
-        public string BodyMessage { get; }
+        public string BodyMessage 
+        { 
+            get { return _body; }
+            private set
+            {
+                _body = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

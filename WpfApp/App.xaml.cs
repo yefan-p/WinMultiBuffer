@@ -85,6 +85,8 @@ namespace MultiBuffer.WpfApp
             container.RegisterService<IInputSimulator, InputSimulator>();
 
             container.RegisterSingleton<IShowNotifyController, ShowNotifyController>();
+
+            container.RegisterSingleton<ITextMessageNotifyController, TextMessageNotifyController>();
         }
 
         private void RegisterViewModels()

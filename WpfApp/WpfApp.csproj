@@ -102,9 +102,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Controllers\ShowNotifyController.cs" />
+    <Compile Include="Models\Controllers\TextMessageNotifyController.cs" />
     <Compile Include="Models\Handlers\StorageWebApiHandler.cs" />
     <Compile Include="Models\Interfaces\ICommandFactory.cs" />
     <Compile Include="Models\Interfaces\IShowNotifyController.cs" />
+    <Compile Include="Models\Interfaces\ITextMessageNotifyController.cs" />
     <Compile Include="Utils\ITrayIconManager.cs" />
     <Compile Include="Utils\TrayIconManager.cs" />
     <Compile Include="Utils\WindzorExtension.cs" />

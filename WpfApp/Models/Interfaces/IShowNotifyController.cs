@@ -14,15 +14,5 @@ namespace MultiBuffer.WpfApp.Models.Interfaces
         /// Был выполнен клик в контекстном меню "Help"
         /// </summary>
         event Action ShowHelpClick;
-
-        /// <summary>
-        /// Загловок уведомления
-        /// </summary>
-        string HeaderNotifyMessage { get; }
-
-        /// <summary>
-        /// Текст уведомления
-        /// </summary>
-        string BodyNotifyMessage { get; }
     }
 }

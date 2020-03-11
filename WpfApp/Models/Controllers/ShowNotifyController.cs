@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using MultiBuffer.WpfApp.Models.Interfaces;
 using MultiBuffer.WpfApp.Utils;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {
-    public class ShowNotifyController : IShowNotifyController, INotifyPropertyChanged
+    /// <summary>
+    /// Решает когда показывать уведомления и какие команды отображаются в трее
+    /// </summary>
+    public class ShowNotifyController : IShowNotifyController
     {
         public ShowNotifyController(IInputHandler inputHandler,
                                     IList<IBufferItem> buffers,
@@ -33,43 +34,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         }
 
         /// <summary>
-        /// Загловок уведомления
-        /// </summary>
-        public string HeaderNotifyMessage 
-        {
-            get
-            {
-                return _headerNotifyMessage;
-            } 
-            private set
-            {
-                _headerNotifyMessage = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Текст уведомления
-        /// </summary>
-        public string BodyNotifyMessage 
-        {
-            get
-            {
-                return _bodyNotifyMessage;
-            } 
-            private set
-            {
-                _bodyNotifyMessage = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Свойство обновлено
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
         /// Был выполнен клик в контекстном меню "Buffers"
         /// </summary>
         public event Action ShowBuffersClick;
@@ -78,16 +42,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Был выполнен клик в контекстном меню "Help"
         /// </summary>
         public event Action ShowHelpClick;
-
-        /// <summary>
-        /// Загловок уведомления
-        /// </summary>
-        string _headerNotifyMessage;
-
-        /// <summary>
-        /// Текст уведомления
-        /// </summary>
-        string _bodyNotifyMessage;
 
         /// <summary>
         /// Коллекция буферов
@@ -142,8 +96,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void InputHandler_PasteIsActive()
         {
-            HeaderNotifyMessage = "Press binded key";
-            BodyNotifyMessage = "Press key, which you binded on time copy.";
             _trayIconManager.ShowNotify(60000);
         }
 
@@ -152,8 +104,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void InputHandler_CopyIsActive()
         {
-            HeaderNotifyMessage = "Bind any key for buffer";
-            BodyNotifyMessage = "You can bind any key, expect &quot;Esc&quot; and &quot;Left Ctrl&quot;. After binded you might to use binded key for paste.";
             _trayIconManager.ShowNotify(60000);
         }
 
@@ -190,15 +140,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         void CloseAppHandler()
         {
             App.Current.Shutdown();
-        }
-
-        /// <summary>
-        /// Функция вызова события "Свойство обновленно"
-        /// </summary>
-        /// <param name="propertyName">Имя вызывающего метода или свойства. Заполняется автоматически</param>
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
