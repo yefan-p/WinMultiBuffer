@@ -38,8 +38,10 @@ namespace MultiBuffer.WpfApp
         protected override void OnStartup(StartupEventArgs e)
         {
             var window = new MainWindow();
+            var notifyView = new NotifyView();
+
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);
-            var trayIconManager = new TrayIconManager(new CommandFactory(), new NotifyView());
+            var trayIconManager = new TrayIconManager(new CommandFactory(), notifyView);
 
             container.Register(Component
                 .For<INavigationManager>()
@@ -47,13 +49,15 @@ namespace MultiBuffer.WpfApp
 
             container.Register(Component
                 .For<ITrayIconManager>()
-                .Instance(trayIconManager));
+                .Instance(trayIconManager).LifestyleSingleton());
 
             var helpViewModel = container.Resolve<HelpViewModel>();
             var buffersViewModel = container.Resolve<BuffersViewModel>();
             var windowViewModel = container.Resolve<MainWindowViewModel>();
+            var notifyViewModel = container.Resolve<NotifyViewModel>();
 
             window.DataContext = windowViewModel;
+            notifyView.DataContext = notifyViewModel;
 
             mainNavManager.Register<HelpViewModel, HelpView>(
                 helpViewModel, NavigationKeys.HelpView);
@@ -93,6 +97,8 @@ namespace MultiBuffer.WpfApp
             container.RegisterService<BuffersViewModel, BuffersViewModel>();
 
             container.RegisterService<MainWindowViewModel, MainWindowViewModel>();
+
+            container.RegisterService<NotifyViewModel, NotifyViewModel>();
         }
     }
 }

@@ -9,10 +9,10 @@ namespace MultiBuffer.WpfApp.ViewModels
 {
     public class NotifyViewModel : BaseViewModel
     {
-        public NotifyViewModel(ITextMessageNotifyController textNotifyContoller)
+        public NotifyViewModel(IShowNotifyController notifyContoller)
         {
-            textNotifyContoller.CopyIsActive += TextNotifyContoller_UpdateProps;
-            textNotifyContoller.PasteIsActive += TextNotifyContoller_UpdateProps;
+            notifyContoller.CopyIsActive += TextNotifyContoller_UpdateProps;
+            notifyContoller.PasteIsActive += TextNotifyContoller_UpdateProps;
         }
 
         void TextNotifyContoller_UpdateProps(string arg1, string arg2)

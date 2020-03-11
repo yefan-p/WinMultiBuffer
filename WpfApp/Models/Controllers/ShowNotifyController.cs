@@ -41,6 +41,16 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         public event Action ShowHelpClick;
 
         /// <summary>
+        /// Копирование активно, ждет клавишу для бинда
+        /// </summary>
+        public event Action<string, string> CopyIsActive;
+
+        /// <summary>
+        /// Вставка актина, ждет забинденную клавишу
+        /// </summary>
+        public event Action<string, string> PasteIsActive;
+
+        /// <summary>
         /// Коллекция буферов
         /// </summary>
         readonly IList<IBufferItem> _buffers;
@@ -93,6 +103,9 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void InputHandler_PasteIsActive()
         {
+            string headerNotifyMessage = "Press binded key";
+            string bodyNotifyMessage = "Press key, which you binded on time copy.";
+            PasteIsActive?.Invoke(headerNotifyMessage, bodyNotifyMessage);
             _trayIconManager.ShowNotify(60000);
         }
 
@@ -101,6 +114,9 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// </summary>
         void InputHandler_CopyIsActive()
         {
+            string headerNotifyMessage = "Bind any key for buffer";
+            string bodyNotifyMessage = "You can bind any key, expect &quot;Esc&quot; and &quot;Left Ctrl&quot;. After binded you might to use binded key for paste.";
+            CopyIsActive?.Invoke(headerNotifyMessage, bodyNotifyMessage);
             _trayIconManager.ShowNotify(60000);
         }
 
