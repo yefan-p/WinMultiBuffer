@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignWidth="360" Height="155" Opacity="0.9">
-    <Border BorderThickness="2" Width="360" Height="155">
+             mc:Ignorable="d" Opacity="0.9">
+    <Border BorderThickness="2">
         <Border.BorderBrush>
             <SolidColorBrush Color="#FF323232"/>
         </Border.BorderBrush>
@@ -14,22 +14,20 @@
                 <GradientStop Color="#FF30B093" Offset="1"/>
             </LinearGradientBrush>
         </Border.Background>
-        <Canvas>
-            <Border BorderThickness="1" Height="64" Canvas.Top="42" Width="64" Canvas.Left="21">
+        <StackPanel Orientation="Horizontal">
+            <Border BorderThickness="1" Height="64" Width="64" Margin="25" VerticalAlignment="Center">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="50"/>
                 </Border.Effect>
                 <Image Source="/Resources/hook-icon.ico"/>
             </Border>
-            <TextBlock Height="45" Canvas.Left="115" 
-                       TextWrapping="Wrap" Canvas.Top="20" 
-                       Width="231" FontSize="20" 
+            <StackPanel Margin="10,25,25,25" VerticalAlignment="Center">
+                <TextBlock TextWrapping="Wrap" FontSize="22" 
                        FontWeight="Bold" Foreground="Black" 
-                       TextDecorations="{x:Null}" Text="{Binding HeaderMessage}" />
-            <TextBlock Height="60" Canvas.Left="115" 
-                       TextWrapping="Wrap" Canvas.Top="70" 
-                       Width="231" Foreground="Black" 
-                       FontSize="14" Text="{Binding BodyMessage}"/>
-        </Canvas>
+                       Text="{Binding HeaderMessage}" MaxWidth="300" />
+                <TextBlock TextWrapping="Wrap"  Foreground="Black" 
+                       FontSize="18" Text="{Binding BodyMessage}" MaxWidth="300"/>
+            </StackPanel>
+        </StackPanel>
     </Border>
 </UserControl>

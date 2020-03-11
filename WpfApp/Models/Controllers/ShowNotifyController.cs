@@ -115,7 +115,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         void InputHandler_CopyIsActive()
         {
             string headerNotifyMessage = "Bind any key for buffer";
-            string bodyNotifyMessage = "You can bind any key, expect &quot;Esc&quot; and &quot;Left Ctrl&quot;. After binded you might to use binded key for paste.";
+            string bodyNotifyMessage = "You can bind any key, expect \"Esc\" and \"Left Ctrl\" After binded you might to use binded key for paste.";
             CopyIsActive?.Invoke(headerNotifyMessage, bodyNotifyMessage);
             _trayIconManager.ShowNotify(60000);
         }
