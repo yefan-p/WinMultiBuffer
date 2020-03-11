@@ -49,7 +49,7 @@ namespace MultiBuffer.WpfApp
 
             container.Register(Component
                 .For<ITrayIconManager>()
-                .Instance(trayIconManager).LifestyleSingleton());
+                .Instance(trayIconManager));
 
             var helpViewModel = container.Resolve<HelpViewModel>();
             var buffersViewModel = container.Resolve<BuffersViewModel>();
@@ -69,13 +69,11 @@ namespace MultiBuffer.WpfApp
             window.Show();
         }
 
-        private void RegisterComponents()
+        void RegisterComponents()
         {
             container.RegisterSingleton<IList<IBufferItem>, ObservableCollection<IBufferItem>>();
 
             container.RegisterService<ICommandFactory, CommandFactory>();
-
-            container.RegisterService<IClipboardController, ClipboardController>();
 
             container.RegisterService<IBufferItemFactory, BufferItemFactory>();
 
@@ -88,7 +86,7 @@ namespace MultiBuffer.WpfApp
             container.RegisterSingleton<IShowNotifyController, ShowNotifyController>();
         }
 
-        private void RegisterViewModels()
+        void RegisterViewModels()
         {
             container.RegisterService<HelpViewModel, HelpViewModel>();
 

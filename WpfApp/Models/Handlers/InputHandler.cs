@@ -12,9 +12,8 @@ namespace MultiBuffer.WpfApp.Models.Handlers
 {
     public class InputHandler : IInputHandler
     {
-        public InputHandler(IInputSimulator simulator)
+        public InputHandler()
         {
-            _inputSimulator = simulator;
             var clipboardMonitor = new SharpClipboard();
             clipboardMonitor.ClipboardChanged += ClipboardMonitor_ClipboardChanged;
 
@@ -56,17 +55,17 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <summary>
         /// Хранит последовательность нажатых клавиш для копирования
         /// </summary>
-        List<Keys> _keysCopyList = new List<Keys>();
+        readonly List<Keys> _keysCopyList = new List<Keys>();
 
         /// <summary>
         /// Хранит последовательность нажатых клавиш для вставки
         /// </summary>
-        List<Keys> _keysPasteList = new List<Keys>();
+        readonly List<Keys> _keysPasteList = new List<Keys>();
 
         /// <summary>
         /// Хранит последовательность нажатых клавиш для отображения окна
         /// </summary>
-        List<Keys> _keysShowWindowList = new List<Keys>();
+        readonly List<Keys> _keysShowWindowList = new List<Keys>();
 
         /// <summary>
         /// Управляет глобальным перехватом нажатых клавиш. Если true - то перехват активен.
@@ -151,11 +150,6 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         }
 
         /// <summary>
-        /// Эмулирует нажатие клавиш
-        /// </summary>
-        readonly IInputSimulator _inputSimulator;
-
-        /// <summary>
         /// Изменилось значение буфера обмена Windows
         /// </summary>
         /// <param name="sender"></param>
@@ -165,9 +159,10 @@ namespace MultiBuffer.WpfApp.Models.Handlers
             if (_keysPasteList.Count == 3 && _keysPasteList[0] == Keys.LControlKey && _keysPasteList[1] == Keys.V)
             {
                 _globalKeyDown = false;
-                _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
-                _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
-                _inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
+                InputSimulator inputSimulator = new InputSimulator();
+                inputSimulator.Keyboard.KeyDown(VirtualKeyCode.LCONTROL);
+                inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_V);
+                inputSimulator.Keyboard.KeyUp(VirtualKeyCode.LCONTROL);
                 _globalKeyDown = true;
                 _keysPasteList.Clear();
                 return;

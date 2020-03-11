@@ -24,7 +24,7 @@ namespace MultiBuffer.WpfApp.ViewModels
         /// Обрабатывает обновление коллекции
         /// </summary>
         /// <param name="obj">Буфер, который стал причиной обновления</param>
-        private void CopyPasteController_Update(IBufferItem obj)
+        void CopyPasteController_Update(IBufferItem obj)
         {
             if (Buffers.Count == 0)
             {

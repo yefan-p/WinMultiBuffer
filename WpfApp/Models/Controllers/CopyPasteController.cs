@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MultiBuffer.WpfApp.Models.Interfaces;
 using MultiBuffer.WpfApp.Models.Handlers;
+using TextCopy;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {
@@ -12,12 +13,10 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         public CopyPasteController(
                     IInputHandler inputHandler,
                     TCollection collection,
-                    IBufferItemFactory bufferItemFactory,
-                    IClipboardController clipboardController)
+                    IBufferItemFactory bufferItemFactory)
         {
             Buffer = collection;
             _bufferItemFactory = bufferItemFactory;
-            _clipboardController = clipboardController;
 
             inputHandler.PasteKeyPress += Paste;
             inputHandler.CopyKeyPress += Copy;
@@ -36,15 +35,13 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// <summary>
         /// Предоставляет экземпляр класса BufferItem
         /// </summary>
-        private readonly IBufferItemFactory _bufferItemFactory;
-
-        private readonly IClipboardController _clipboardController;
+        readonly IBufferItemFactory _bufferItemFactory;
 
         /// <summary>
         /// Вставляет текст из указанного буфера
         /// </summary>
         /// <param name="key">Нажатая клавиша, указывающая, из какого буфера будет вставлен текст</param>
-        private void Paste(object sender, InputHandlerEventArgs key)
+        void Paste(object sender, InputHandlerEventArgs key)
         {
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
             tmpItem.Key = key.Key;
@@ -52,7 +49,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             int index = Buffer.IndexOf(tmpItem);
             if (index > -1)
             {
-                _clipboardController.SetText(Buffer[index].Value);
+                Clipboard.SetText(Buffer[index].Value);
             }
         }
 
@@ -60,7 +57,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Копирует текст и сохраняет его в указанный буфер
         /// </summary>
         /// <param name="key">Нажатая клавиша, указывающая, в какой буфер будет вставлен текст</param>
-        private void Copy(object sender, InputHandlerEventArgs key)
+        void Copy(object sender, InputHandlerEventArgs key)
         {
             IBufferItem tmpItem = _bufferItemFactory.GetBuffer();
             tmpItem.Key = key.Key;
@@ -87,7 +84,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Удаляет выбранный буфер
         /// </summary>
         /// <param name="obj"></param>
-        private void TmpItem_Delete(IBufferItem obj)
+        void TmpItem_Delete(IBufferItem obj)
         {
             Buffer.Remove(obj);
             Update?.Invoke(obj);

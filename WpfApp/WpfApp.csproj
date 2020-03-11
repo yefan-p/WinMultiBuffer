@@ -108,8 +108,6 @@
     <Compile Include="Utils\ITrayIconManager.cs" />
     <Compile Include="Utils\TrayIconManager.cs" />
     <Compile Include="Utils\WindzorExtension.cs" />
-    <Compile Include="ViewModels\Implements\ClipboardController.cs" />
-    <Compile Include="Models\Interfaces\IClipboardController.cs" />
     <Compile Include="ViewModels\Implements\Command.cs" />
     <Compile Include="Models\Interfaces\IBufferItem.cs" />
     <Compile Include="Models\Interfaces\IBufferItemFactory.cs" />
