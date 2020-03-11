@@ -8,9 +8,6 @@ using MultiBuffer.WpfApp.Utils;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {
-    /// <summary>
-    /// Решает когда показывать уведомления и какие команды отображаются в трее
-    /// </summary>
     public class ShowNotifyController : IShowNotifyController
     {
         public ShowNotifyController(IInputHandler inputHandler,
@@ -84,7 +81,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         }
 
         /// <summary>
-        /// Обработчик события после отмены копирования/вставки
+        /// Обработчик события после активации копирования
         /// </summary>
         void InputHandler_CopyPasteCancelled()
         {
@@ -100,7 +97,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         }
 
         /// <summary>
-        /// Обработчик события после активации копирования
+        /// Обработчик события после отмены копирования/вставки
         /// </summary>
         void InputHandler_CopyIsActive()
         {

@@ -39,18 +39,15 @@ namespace MultiBuffer.WpfApp
         {
             var window = new MainWindow();
             var mainNavManager = new NavigationManager(Dispatcher, window.FrameContent);
-
-            var notifyView = new NotifyView();
-            notifyView.DataContext = container.Resolve<NotifyViewModel>();
-            var trayIconManager = new TrayIconManager(new CommandFactory(), notifyView);
-
-            container.Register(Component
-                .For<ITrayIconManager>()
-                .Instance(trayIconManager));
+            var trayIconManager = new TrayIconManager(new CommandFactory(), new NotifyView());
 
             container.Register(Component
                 .For<INavigationManager>()
                 .Instance(mainNavManager));
+
+            container.Register(Component
+                .For<ITrayIconManager>()
+                .Instance(trayIconManager));
 
             var helpViewModel = container.Resolve<HelpViewModel>();
             var buffersViewModel = container.Resolve<BuffersViewModel>();
@@ -96,8 +93,6 @@ namespace MultiBuffer.WpfApp
             container.RegisterService<BuffersViewModel, BuffersViewModel>();
 
             container.RegisterService<MainWindowViewModel, MainWindowViewModel>();
-
-            container.RegisterService<NotifyViewModel, NotifyViewModel>();
         }
     }
 }

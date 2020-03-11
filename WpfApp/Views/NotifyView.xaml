@@ -21,15 +21,11 @@
                 </Border.Effect>
                 <Image Source="/Resources/hook-icon.ico"/>
             </Border>
-            <TextBlock Height="45" Canvas.Left="115" 
-                       TextWrapping="Wrap" Canvas.Top="20" 
-                       Width="231" FontSize="20" FontWeight="Bold" 
-                       Foreground="Black" TextDecorations="{x:Null}"
-                       Text="{Binding HeaderMessage}"/>
-            <TextBlock Height="60" Canvas.Left="115" 
-                       TextWrapping="Wrap" Canvas.Top="70" 
-                       Width="231" Foreground="Black" 
-                       FontSize="14" Text="{Binding BodyMessage}"/>
+            <TextBlock Height="45" Canvas.Left="115" TextWrapping="Wrap" Canvas.Top="20" Width="231" FontSize="20" FontWeight="Bold" Foreground="Black" TextDecorations="{x:Null}">
+                <Span FontFamily="Consolas"><Run Text="Bind any key for buffer"/></Span>
+            </TextBlock>
+            <TextBlock Height="60" Canvas.Left="115" TextWrapping="Wrap" Canvas.Top="70" Width="231" Foreground="Black" FontSize="14"
+			Text="You can bind any key, expect &quot;Esc&quot; and &quot;Left Ctrl&quot;. After binded you might to use binded key for paste."/>
         </Canvas>
     </Border>
 </UserControl>
