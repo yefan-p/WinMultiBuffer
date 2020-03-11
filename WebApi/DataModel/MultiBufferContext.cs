@@ -8,7 +8,7 @@ namespace MultiBuffer.WebApi.DataModel
     {
 
         public MultiBufferContext()
-            : base("name=MultiBufferContext")
+            : base("MultiBufferContext")
         {
         }
 
