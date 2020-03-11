@@ -1,9 +1,4 @@
 ﻿using MultiBuffer.WpfApp.Models.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MultiBuffer.WpfApp.ViewModels
 {
@@ -14,16 +9,6 @@ namespace MultiBuffer.WpfApp.ViewModels
             notifyContoller.CopyIsActive += TextNotifyContoller_UpdateProps;
             notifyContoller.PasteIsActive += TextNotifyContoller_UpdateProps;
         }
-
-        void TextNotifyContoller_UpdateProps(string arg1, string arg2)
-        {
-            HeaderMessage = arg1;
-            BodyMessage = arg2;
-        }
-
-        string _header;
-
-        string _body;
 
         /// <summary>
         /// Загловок уведомления
@@ -50,5 +35,26 @@ namespace MultiBuffer.WpfApp.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        /// <summary>
+        /// Обработчик событий активации копирования или вставки
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        void TextNotifyContoller_UpdateProps(string arg1, string arg2)
+        {
+            HeaderMessage = arg1;
+            BodyMessage = arg2;
+        }
+
+        /// <summary>
+        /// Загловок сообщения
+        /// </summary>
+        string _header;
+
+        /// <summary>
+        /// Текст сообщения
+        /// </summary>
+        string _body;
     }
 }

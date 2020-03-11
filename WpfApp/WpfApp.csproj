@@ -102,11 +102,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Controllers\ShowNotifyController.cs" />
-    <Compile Include="Models\Controllers\TextMessageNotifyController.cs" />
     <Compile Include="Models\Handlers\StorageWebApiHandler.cs" />
     <Compile Include="Models\Interfaces\ICommandFactory.cs" />
     <Compile Include="Models\Interfaces\IShowNotifyController.cs" />
-    <Compile Include="Models\Interfaces\ITextMessageNotifyController.cs" />
     <Compile Include="Utils\ITrayIconManager.cs" />
     <Compile Include="Utils\TrayIconManager.cs" />
     <Compile Include="Utils\WindzorExtension.cs" />
@@ -138,9 +136,6 @@
     <Compile Include="Views\NotifyView.xaml.cs">
       <DependentUpon>NotifyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Notifications\CopyNotifyView.xaml.cs">
-      <DependentUpon>CopyNotifyView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\HelpView.xaml.cs">
       <DependentUpon>HelpView.xaml</DependentUpon>
     </Compile>
@@ -151,9 +146,6 @@
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Notifications\PasteNotifyView.xaml.cs">
-      <DependentUpon>PasteNotifyView.xaml</DependentUpon>
-    </Compile>
     <Page Include="Views\BuffersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -162,19 +154,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Notifications\CopyNotifyView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\HelpView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Notifications\PasteNotifyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
