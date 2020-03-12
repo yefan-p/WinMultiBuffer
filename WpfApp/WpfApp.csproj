@@ -108,6 +108,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Controllers\ShowNotifyController.cs" />
+    <Compile Include="Models\DataModels\BufferItemDataModel.cs" />
     <Compile Include="Models\Handlers\StorageWebApiHandler.cs" />
     <Compile Include="Models\Interfaces\ICommandFactory.cs" />
     <Compile Include="Models\Interfaces\IShowNotifyController.cs" />

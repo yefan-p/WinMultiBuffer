@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MultiBuffer.WpfApp.ViewModels.Implements;
+using MultiBuffer.WpfApp.Models.Interfaces;
+using MultiBuffer.WpfApp.Models.DataModels;
+using System.Diagnostics;
 
 namespace MultiBuffer.WpfApp.Models.Handlers.Tests
 {
@@ -13,18 +16,42 @@ namespace MultiBuffer.WpfApp.Models.Handlers.Tests
     public class StorageWebApiHandlerTests
     {
         [TestMethod()]
-        public void CreateAsyncTest()
+        public async Task CreateAsyncTest()
         {
             var item = new BufferItem
             {
-                Key = System.Windows.Forms.Keys.Control,
+                Key = System.Windows.Forms.Keys.Shift,
                 Value = "Create WpfApp client test"
             };
 
             var webApi = new StorageWebApiHandler();
-            webApi.CreateAsync(item);
+            await webApi.CreateAsync(item);
+            Assert.IsTrue(true);
+        }
 
-            while(true)
+        [TestMethod()]
+        public async Task ReadAsyncTest()
+        {
+            var webApi = new StorageWebApiHandler();
+            BufferItemDataModel item = await webApi.ReadAsync(32);
+
+            Debug.WriteLine(item.Name);
+            Debug.WriteLine(item.Key);
+            Debug.WriteLine(item.Value);
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod()]
+        public async Task UpdateAsyncTest()
+        {
+            var item = new BufferItem
+            {
+                Key = System.Windows.Forms.Keys.Shift,
+                Value = "Update WpfApp client test"
+            };
+
+            var webApi = new StorageWebApiHandler();
+            await webApi.UpdateAsync(item);
             Assert.IsTrue(true);
         }
     }

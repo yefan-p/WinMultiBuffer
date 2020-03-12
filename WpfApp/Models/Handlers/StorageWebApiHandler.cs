@@ -7,7 +7,7 @@ using MultiBuffer.WpfApp.Models.Interfaces;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Diagnostics;
+using MultiBuffer.WpfApp.Models.DataModels;
 
 namespace MultiBuffer.WpfApp.Models.Handlers
 {
@@ -15,8 +15,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
     {
         public StorageWebApiHandler()
         {
-            _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri("https://localhost:44315/");
+            _httpClient.BaseAddress = new Uri("https://localhost:44315/api/Buffers/");
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -24,21 +23,55 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <summary>
         /// Отправить новый элемент
         /// </summary>
-        /// <param name="item"></param>
-        public async void CreateAsync(IBufferItem item)
+        /// <param name="item">Элемент для сохранения в базу</param>
+        public async Task CreateAsync(IBufferItem item)
         {
-            HttpResponseMessage httpResponse = await _httpClient.PostAsJsonAsync(_webApiBuffers + (int)item.Key, item);
-            httpResponse.EnsureSuccessStatusCode();
+            var dataItem = new BufferItemDataModel
+            {
+                Id = 0,
+                Key = (int)item.Key,
+                Name = item.Name,
+                Value = item.Value
+            };
+            HttpResponseMessage httpResponse = await _httpClient.PostAsJsonAsync(dataItem.Key.ToString(), dataItem);
+        }
+
+        /// <summary>
+        /// Получить буфер по привязанной клавише
+        /// </summary>
+        /// <param name="bufferKey">Номер привязанной клавиши</param>
+        /// <returns></returns>
+        public async Task<BufferItemDataModel> ReadAsync(int bufferKey)
+        {
+            BufferItemDataModel bufferItem = null;
+            HttpResponseMessage httpResponse = await _httpClient.GetAsync(bufferKey.ToString());
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                bufferItem = await httpResponse.Content.ReadAsAsync<BufferItemDataModel>();
+            }
+            return bufferItem;
+        }
+
+        /// <summary>
+        /// Обновляет указнный буфер
+        /// </summary>
+        /// <param name="item">Новый буфер</param>
+        /// <returns></returns>
+        public async Task UpdateAsync(IBufferItem item)
+        {
+            var dataItem = new BufferItemDataModel
+            {
+                Id = 0,
+                Name = item.Name,
+                Value = item.Value,
+                Key = (int)item.Key
+            };
+            HttpResponseMessage httpResponse = await _httpClient.PutAsJsonAsync(dataItem.Key.ToString(), dataItem);
         }
 
         /// <summary>
         /// Клиент для отправки запросов
         /// </summary>
-        HttpClient _httpClient;
-
-        /// <summary>
-        /// Адрес для работы с буферами
-        /// </summary>
-        string _webApiBuffers = "api/Buffers/";
+        HttpClient _httpClient = new HttpClient();
     }
 }
