@@ -7,7 +7,7 @@ using MultiBuffer.WpfApp.Models.Interfaces;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace MultiBuffer.WpfApp.Models.Handlers
 {
@@ -27,7 +27,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <param name="item"></param>
         public async void CreateAsync(IBufferItem item)
         {
-            HttpResponseMessage httpResponse = await _httpClient.PostAsJsonAsync(_webApiBuffers, item);
+            HttpResponseMessage httpResponse = await _httpClient.PostAsJsonAsync(_webApiBuffers + (int)item.Key, item);
             httpResponse.EnsureSuccessStatusCode();
         }
 
