@@ -70,6 +70,16 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         }
 
         /// <summary>
+        /// Удаляет указанный буфер
+        /// </summary>
+        /// <param name="bufferKey">Номер привязанной к буферу клавиши</param>
+        /// <returns></returns>
+        public async Task DeleteAsync(int bufferKey)
+        {
+            HttpResponseMessage httpResponse = await _httpClient.DeleteAsync(bufferKey.ToString());
+        }
+
+        /// <summary>
         /// Клиент для отправки запросов
         /// </summary>
         HttpClient _httpClient = new HttpClient();

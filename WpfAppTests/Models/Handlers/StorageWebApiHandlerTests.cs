@@ -54,5 +54,14 @@ namespace MultiBuffer.WpfApp.Models.Handlers.Tests
             await webApi.UpdateAsync(item);
             Assert.IsTrue(true);
         }
+
+        [TestMethod()]
+        public async Task DeleteAsyncTest()
+        {
+            var webApi = new StorageWebApiHandler();
+            await webApi.DeleteAsync(2);
+
+            Assert.IsTrue(true);
+        }
     }
 }
