@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace WebApiCore.Controllers
+namespace MultiBuffer.WebApiCore.Controllers
 {
     [ApiController]
     [Route("[controller]")]

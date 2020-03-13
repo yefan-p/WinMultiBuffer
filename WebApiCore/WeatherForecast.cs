@@ -1,6 +1,6 @@
 using System;
 
-namespace WebApiCore
+namespace MultiBuffer.WebApiCore
 {
     public class WeatherForecast
     {

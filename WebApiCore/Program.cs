@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace WebApiCore
+namespace MultiBuffer.WebApiCore
 {
     public class Program
     {
