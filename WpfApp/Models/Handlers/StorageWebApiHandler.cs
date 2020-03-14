@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using MultiBuffer.WpfApp.Models.DataModels;
+using MultiBuffer.WebApiInterfaces;
 
 namespace MultiBuffer.WpfApp.Models.Handlers
 {
@@ -15,7 +16,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
     {
         public StorageWebApiHandler()
         {
-            _httpClient.BaseAddress = new Uri("https://localhost:44315/api/Buffers/");
+            _httpClient.BaseAddress = new Uri("https://localhost:44324/api/buffers/");
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -26,14 +27,14 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <param name="item">Элемент для сохранения в базу</param>
         public async Task CreateAsync(IBufferItem item)
         {
-            var dataItem = new BufferItemDataModel
+            IBufferItemWebApi bufferWebApi = new BufferItemWebApi()
             {
-                Id = 0,
                 Key = (int)item.Key,
                 Name = item.Name,
                 Value = item.Value
             };
-            HttpResponseMessage httpResponse = await _httpClient.PostAsJsonAsync(dataItem.Key.ToString(), dataItem);
+
+            HttpResponseMessage httpResponse = await _httpClient.PostAsJsonAsync("", bufferWebApi);
         }
 
         /// <summary>

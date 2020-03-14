@@ -96,7 +96,6 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BuffersController.cs" />
-    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="DataModel\BufferItem.cs" />
     <Compile Include="DataModel\MultiBufferContext.cs" />
     <Compile Include="Global.asax.cs">

@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppTests", "WpfAppTests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiTests", "WebApiTests\WebApiTests.csproj", "{7C0C737F-0C41-434E-B0D2-5B8AA139294E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiCore", "WebApiCore\WebApiCore.csproj", "{C81D6293-7D00-45D7-B6A8-8C83A852E94C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiCore", "WebApiCore\WebApiCore.csproj", "{C81D6293-7D00-45D7-B6A8-8C83A852E94C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiInterfaces", "WebApiInterfaces\WebApiInterfaces.csproj", "{BA14906A-D690-4027-9CD0-1B33B7A2EEA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{C81D6293-7D00-45D7-B6A8-8C83A852E94C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C81D6293-7D00-45D7-B6A8-8C83A852E94C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C81D6293-7D00-45D7-B6A8-8C83A852E94C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA14906A-D690-4027-9CD0-1B33B7A2EEA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA14906A-D690-4027-9CD0-1B33B7A2EEA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA14906A-D690-4027-9CD0-1B33B7A2EEA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA14906A-D690-4027-9CD0-1B33B7A2EEA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
