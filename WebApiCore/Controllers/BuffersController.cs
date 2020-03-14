@@ -20,7 +20,7 @@ namespace MultiBuffer.WebApiCore.Controllers
         /// <param name="bufferItem">Экземпляр буфера</param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Create(IBufferItemWebApi bufferItem)
+        public IActionResult Create(BufferItemWebApi bufferItem)
         {
             var contextDb = new MultiBufferContext();
             var query =
@@ -33,6 +33,13 @@ namespace MultiBuffer.WebApiCore.Controllers
             {
                 try
                 {
+                    item = new BufferItem()
+                    {
+                        Name = bufferItem.Name,
+                        Value = bufferItem.Value,
+                        Key = bufferItem.Key,
+                    };
+
                     contextDb.BufferItems.Add(item);
                     contextDb.SaveChanges();
                 }

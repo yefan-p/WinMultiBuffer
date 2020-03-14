@@ -27,7 +27,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <param name="item">Элемент для сохранения в базу</param>
         public async Task CreateAsync(IBufferItem item)
         {
-            IBufferItemWebApi bufferWebApi = new BufferItemWebApi()
+            BufferItemWebApi bufferWebApi = new BufferItemWebApi()
             {
                 Key = (int)item.Key,
                 Name = item.Name,

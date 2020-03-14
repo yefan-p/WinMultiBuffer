@@ -3,7 +3,7 @@ using MultiBuffer.WebApiInterfaces;
 
 namespace MultiBuffer.WebApiCore.DataModels
 {
-    public class BufferItem : IBufferItemWebApi
+    public class BufferItem
     {
         public int Id { get; set; }
 
