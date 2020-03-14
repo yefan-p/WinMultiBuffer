@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using MultiBuffer.WpfApp.ViewModels.Implements;
 using MultiBuffer.WpfApp.Models.Interfaces;
-using MultiBuffer.WpfApp.Models.DataModels;
 using System.Diagnostics;
 
 namespace MultiBuffer.WpfApp.Models.Handlers.Tests
@@ -24,7 +23,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers.Tests
                 Value = "Create WpfApp client test"
             };
 
-            var webApi = new StorageWebApiHandler();
+            var webApi = new WebApiHandler(new BufferItemFactory());
             await webApi.CreateAsync(item);
             Assert.IsTrue(true);
         }
@@ -32,8 +31,8 @@ namespace MultiBuffer.WpfApp.Models.Handlers.Tests
         [TestMethod()]
         public async Task ReadAsyncTest()
         {
-            var webApi = new StorageWebApiHandler();
-            BufferItemDataModel item = await webApi.ReadAsync(32);
+            var webApi = new WebApiHandler(new BufferItemFactory());
+            IBufferItem item = await webApi.ReadAsync(4);
 
             Debug.WriteLine(item.Name);
             Debug.WriteLine(item.Key);
@@ -50,7 +49,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers.Tests
                 Value = "Update WpfApp client test"
             };
 
-            var webApi = new StorageWebApiHandler();
+            var webApi = new WebApiHandler(new BufferItemFactory());
             await webApi.UpdateAsync(item);
             Assert.IsTrue(true);
         }
@@ -58,8 +57,8 @@ namespace MultiBuffer.WpfApp.Models.Handlers.Tests
         [TestMethod()]
         public async Task DeleteAsyncTest()
         {
-            var webApi = new StorageWebApiHandler();
-            await webApi.DeleteAsync(2);
+            var webApi = new WebApiHandler(new BufferItemFactory());
+            await webApi.DeleteAsync(5);
 
             Assert.IsTrue(true);
         }

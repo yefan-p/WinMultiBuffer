@@ -7,15 +7,16 @@ using MultiBuffer.WpfApp.Models.Interfaces;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using MultiBuffer.WpfApp.Models.DataModels;
 using MultiBuffer.WebApiInterfaces;
+using System.Windows.Forms;
 
 namespace MultiBuffer.WpfApp.Models.Handlers
 {
-    public class StorageWebApiHandler
+    public class WebApiHandler
     {
-        public StorageWebApiHandler()
+        public WebApiHandler(IBufferItemFactory bufferFactory)
         {
+            _bufferFactory = bufferFactory;
             _httpClient.BaseAddress = new Uri("https://localhost:44324/api/buffers/");
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -42,14 +43,19 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// </summary>
         /// <param name="bufferKey">Номер привязанной клавиши</param>
         /// <returns></returns>
-        public async Task<BufferItemDataModel> ReadAsync(int bufferKey)
+        public async Task<IBufferItem> ReadAsync(int bufferKey)
         {
-            BufferItemDataModel bufferItem = null;
+            BufferItemWebApi bufferWebItem = null;
             HttpResponseMessage httpResponse = await _httpClient.GetAsync(bufferKey.ToString());
             if (httpResponse.IsSuccessStatusCode)
             {
-                bufferItem = await httpResponse.Content.ReadAsAsync<BufferItemDataModel>();
+                bufferWebItem = await httpResponse.Content.ReadAsAsync<BufferItemWebApi>();
             }
+
+            IBufferItem bufferItem = _bufferFactory.GetBuffer();
+            bufferItem.Key = (Keys)bufferWebItem.Key;
+            bufferItem.Value = bufferWebItem.Value;
+
             return bufferItem;
         }
 
@@ -60,9 +66,8 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <returns></returns>
         public async Task UpdateAsync(IBufferItem item)
         {
-            var dataItem = new BufferItemDataModel
+            var dataItem = new BufferItemWebApi
             {
-                Id = 0,
                 Name = item.Name,
                 Value = item.Value,
                 Key = (int)item.Key
@@ -84,5 +89,10 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// Клиент для отправки запросов
         /// </summary>
         HttpClient _httpClient = new HttpClient();
+
+        /// <summary>
+        /// Фабрика буферов
+        /// </summary>
+        IBufferItemFactory _bufferFactory;
     }
 }
