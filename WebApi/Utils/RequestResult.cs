@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace MultiBuffer.WebApiCore.Utils
+namespace MultiBuffer.WebApi.Utils
 {
     public static class RequestResult
     {

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MultiBuffer.WebApiCore.DataModels;
-using MultiBuffer.WebApiInterfaces;
-using MultiBuffer.WebApiCore.Utils;
+using MultiBuffer.WebApi.DataModels;
+using MultiBuffer.IWebApi;
+using MultiBuffer.WebApi.Utils;
 
-namespace MultiBuffer.WebApiCore.Controllers
+namespace MultiBuffer.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -20,7 +20,7 @@ namespace MultiBuffer.WebApiCore.Controllers
         /// <param name="bufferItem">Экземпляр буфера</param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Create(BufferItemWebApi bufferItem)
+        public IActionResult Create(WebBuffer bufferItem)
         {
             var contextDb = new MultiBufferContext();
             var query =
@@ -58,7 +58,7 @@ namespace MultiBuffer.WebApiCore.Controllers
         /// <param name="keyNumber">Номер привязанной клавиши</param>
         /// <returns></returns>
         [HttpGet("{keyNumber}")]
-        public BufferItemWebApi Read(int keyNumber)
+        public WebBuffer Read(int keyNumber)
         {
             var context = new MultiBufferContext();
 
@@ -68,7 +68,7 @@ namespace MultiBuffer.WebApiCore.Controllers
                 select el;
             BufferItem item = query.SingleOrDefault();
 
-            var itemWebApi = new BufferItemWebApi();
+            var itemWebApi = new WebBuffer();
             if (item == null) return itemWebApi;
 
             itemWebApi.Key = item.Key;
@@ -84,7 +84,7 @@ namespace MultiBuffer.WebApiCore.Controllers
         /// <param name="bufferItem">Экземпляр буфера с обновленными данными</param>
         /// <returns></returns>
         [HttpPut("{keyNumber}")]
-        public IActionResult Update(int keyNumber, BufferItemWebApi bufferItem)
+        public IActionResult Update(int keyNumber, WebBuffer bufferItem)
         {
             if(keyNumber != bufferItem.Key) return RequestResult.ClientError;
 

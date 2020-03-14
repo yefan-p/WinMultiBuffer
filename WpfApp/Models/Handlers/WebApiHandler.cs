@@ -7,8 +7,8 @@ using MultiBuffer.WpfApp.Models.Interfaces;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using MultiBuffer.WebApiInterfaces;
 using System.Windows.Forms;
+using MultiBuffer.IWebApi;
 
 namespace MultiBuffer.WpfApp.Models.Handlers
 {
@@ -28,7 +28,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <param name="item">Элемент для сохранения в базу</param>
         public async Task CreateAsync(IBufferItem item)
         {
-            BufferItemWebApi bufferWebApi = new BufferItemWebApi()
+            WebBuffer bufferWebApi = new WebBuffer()
             {
                 Key = (int)item.Key,
                 Name = item.Name,
@@ -45,11 +45,11 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <returns></returns>
         public async Task<IBufferItem> ReadAsync(int bufferKey)
         {
-            BufferItemWebApi bufferWebItem = null;
+            WebBuffer bufferWebItem = null;
             HttpResponseMessage httpResponse = await _httpClient.GetAsync(bufferKey.ToString());
             if (httpResponse.IsSuccessStatusCode)
             {
-                bufferWebItem = await httpResponse.Content.ReadAsAsync<BufferItemWebApi>();
+                bufferWebItem = await httpResponse.Content.ReadAsAsync<WebBuffer>();
             }
 
             IBufferItem bufferItem = _bufferFactory.GetBuffer();
@@ -66,7 +66,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <returns></returns>
         public async Task UpdateAsync(IBufferItem item)
         {
-            var dataItem = new BufferItemWebApi
+            var dataItem = new WebBuffer
             {
                 Name = item.Name,
                 Value = item.Value,

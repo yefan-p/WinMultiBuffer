@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>MultiBuffer.WebApiCore</RootNamespace>
+    <RootNamespace>MultiBuffer.WebApi</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebApiInterfaces\WebApiInterfaces.csproj" />
+    <ProjectReference Include="..\IWebApi\IWebApi.csproj" />
   </ItemGroup>
 
 

@@ -210,9 +210,9 @@
     <Resource Include="Resources\hook-icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebApiInterfaces\WebApiInterfaces.csproj">
-      <Project>{ba14906a-d690-4027-9cd0-1b33b7a2eea5}</Project>
-      <Name>WebApiInterfaces</Name>
+    <ProjectReference Include="..\IWebApi\IWebApi.csproj">
+      <Project>{e38517cd-a3fc-4b04-9a92-45cb6b9e9790}</Project>
+      <Name>IWebApi</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

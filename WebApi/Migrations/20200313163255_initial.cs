@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MultiBuffer.WebApiCore.Migrations
+namespace MultiBuffer.WebApi.Migrations
 {
     public partial class initial : Migration
     {

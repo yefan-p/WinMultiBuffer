@@ -1,6 +1,6 @@
-﻿namespace MultiBuffer.WebApiInterfaces
+﻿namespace MultiBuffer.IWebApi
 {
-    public interface IBufferItemWebApi
+    public interface IWebBuffer
     {
         /// <summary>
         /// Заголовок буфера

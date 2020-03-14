@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MultiBuffer.WebApiInterfaces;
+using MultiBuffer.IWebApi;
 
-namespace MultiBuffer.WebApiCore.DataModels
+namespace MultiBuffer.WebApi.DataModels
 {
-    public class BufferItem : IBufferItemWebApi
+    public class BufferItem : IWebBuffer
     {
         public int Id { get; set; }
 
