@@ -82,12 +82,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WebApi\WebApi.csproj">
-      <Project>{2AABFB03-4E21-4EB8-A518-91D9CA30803F}</Project>
-      <Name>WebApi</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
