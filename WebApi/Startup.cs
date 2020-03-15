@@ -14,26 +14,27 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using MultiBuffer.WebApi.Utils;
+using MultiBuffer.WebApi.DataModels;
 
 namespace MultiBuffer.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            _configuration = configuration;
+            _env = env;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MultiBufferContext>();
             services.AddCors();
             services.AddControllers();
 
             // configure strongly typed settings objects
-            var appSettingsSection = Configuration.GetSection("AppSettings");
+            var appSettingsSection = _configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
             // configure jwt authentication
@@ -78,7 +79,7 @@ namespace MultiBuffer.WebApi
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            app.UseAuthorization();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -86,5 +87,9 @@ namespace MultiBuffer.WebApi
                 endpoints.MapControllers();
             });
         }
+
+        readonly IWebHostEnvironment _env;
+
+        readonly IConfiguration _configuration;
     }
 }

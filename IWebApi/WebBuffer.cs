@@ -1,6 +1,9 @@
 ﻿namespace MultiBuffer.IWebApi
 {
-    public class WebBuffer : IWebBuffer
+    /// <summary>
+    /// Информация о буфере, которая будет отправляться по сети
+    /// </summary>
+    public class WebBuffer
     {
         /// <summary>
         /// Заголовок буфера

@@ -4,14 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using MultiBuffer.WebApi.DataModels;
 using MultiBuffer.IWebApi;
 using MultiBuffer.WebApi.Utils;
 
 namespace MultiBuffer.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class BuffersController : ControllerBase
     {
         /// <summary>

@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MultiBuffer.IWebApi;
 
 namespace MultiBuffer.WebApi.DataModels
 {
-    public class BufferItem : IWebBuffer
+    /// <summary>
+    /// Хранит информацию о буфере
+    /// </summary>
+    public class BufferItem
     {
         public int Id { get; set; }
 
