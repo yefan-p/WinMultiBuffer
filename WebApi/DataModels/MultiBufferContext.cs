@@ -14,5 +14,7 @@ namespace MultiBuffer.WebApi.DataModels
         }
 
         public DbSet<BufferItem> BufferItems { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }
