@@ -12,14 +12,34 @@ using MultiBuffer.IWebApi;
 
 namespace MultiBuffer.WpfApp.Models.Handlers
 {
+    /// <summary>
+    /// Обращение к api. Получение сохраненных данных из буферов
+    /// </summary>
     public class WebApiHandler
     {
         public WebApiHandler(IBufferItemFactory bufferFactory)
         {
             _bufferFactory = bufferFactory;
-            _httpClient.BaseAddress = new Uri("https://localhost:44324/api/buffers/");
+            _httpClient.BaseAddress = new Uri("https://localhost:44324/");
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        /// <summary>
+        /// Аутентифицирует пользователя в webApi
+        /// </summary>
+        /// <param name="username">Имя пользователя</param>
+        /// <param name="password">Пароль</param>
+        /// <returns></returns>
+        public async Task AuthUser(string username, string password)
+        {
+            var authUser = new AuthenticateUser()
+            {
+                Username = username,
+                Password = password
+            };
+
+            HttpResponseMessage httpResponse = await _httpClient.PostAsJsonAsync(_usersAddr + "auth", authUser);
         }
 
         /// <summary>
@@ -28,14 +48,14 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <param name="item">Элемент для сохранения в базу</param>
         public async Task CreateAsync(IBufferItem item)
         {
-            WebBuffer bufferWebApi = new WebBuffer()
+            var bufferWebApi = new WebBuffer()
             {
                 Key = (int)item.Key,
                 Name = item.Name,
                 Value = item.Value
             };
 
-            HttpResponseMessage httpResponse = await _httpClient.PostAsJsonAsync("", bufferWebApi);
+            HttpResponseMessage httpResponse = await _httpClient.PostAsJsonAsync(_buffersAddr, bufferWebApi);
         }
 
         /// <summary>
@@ -46,7 +66,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         public async Task<IBufferItem> ReadAsync(int bufferKey)
         {
             WebBuffer bufferWebItem = null;
-            HttpResponseMessage httpResponse = await _httpClient.GetAsync(bufferKey.ToString());
+            HttpResponseMessage httpResponse = await _httpClient.GetAsync(_buffersAddr + bufferKey.ToString());
             if (httpResponse.IsSuccessStatusCode)
             {
                 bufferWebItem = await httpResponse.Content.ReadAsAsync<WebBuffer>();
@@ -72,7 +92,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
                 Value = item.Value,
                 Key = (int)item.Key
             };
-            HttpResponseMessage httpResponse = await _httpClient.PutAsJsonAsync(dataItem.Key.ToString(), dataItem);
+            HttpResponseMessage httpResponse = await _httpClient.PutAsJsonAsync(_buffersAddr + dataItem.Key.ToString(), dataItem);
         }
 
         /// <summary>
@@ -82,17 +102,27 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <returns></returns>
         public async Task DeleteAsync(int bufferKey)
         {
-            HttpResponseMessage httpResponse = await _httpClient.DeleteAsync(bufferKey.ToString());
+            HttpResponseMessage httpResponse = await _httpClient.DeleteAsync(_buffersAddr + bufferKey.ToString());
         }
 
         /// <summary>
         /// Клиент для отправки запросов
         /// </summary>
-        HttpClient _httpClient = new HttpClient();
+        readonly HttpClient _httpClient = new HttpClient();
 
         /// <summary>
         /// Фабрика буферов
         /// </summary>
-        IBufferItemFactory _bufferFactory;
+        readonly IBufferItemFactory _bufferFactory;
+
+        /// <summary>
+        /// Адрес api для работы с буферами
+        /// </summary>
+        readonly string _buffersAddr = "api/buffers/";
+
+        /// <summary>
+        /// Адрес api для работы с пользователем
+        /// </summary>
+        readonly string _usersAddr = "api/users/";
     }
 }
