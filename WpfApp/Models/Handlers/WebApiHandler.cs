@@ -7,7 +7,6 @@ using MultiBuffer.WpfApp.Models.Interfaces;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Windows.Forms;
 using MultiBuffer.IWebApi;
 
 namespace MultiBuffer.WpfApp.Models.Handlers
@@ -17,9 +16,8 @@ namespace MultiBuffer.WpfApp.Models.Handlers
     /// </summary>
     public class WebApiHandler
     {
-        public WebApiHandler(IBufferItemFactory bufferFactory)
+        public WebApiHandler()
         {
-            _bufferFactory = bufferFactory;
             _httpClient.BaseAddress = new Uri("https://localhost:44324/");
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -39,12 +37,25 @@ namespace MultiBuffer.WpfApp.Models.Handlers
                 Password = password
             };
 
-            HttpResponseMessage httpResponse = await _httpClient.PostAsJsonAsync(_usersAddr + "auth", authUser);
+            HttpResponseMessage httpResponse;
+            try
+            {
+                httpResponse = await _httpClient.PostAsJsonAsync(_usersAddr + "auth", authUser);
+            }
+            catch (HttpRequestException ex)
+            {
+                //TODO: Выводить сообщение о недоступности сервера
+                return;
+            }
 
             if (httpResponse.IsSuccessStatusCode)
             {
                 authUser = await httpResponse.Content.ReadAsAsync<AuthenticateUser>();
                 _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + authUser.Token);
+            }
+            else
+            {
+                //TODO: Выводить сообщение с ошибкой от сервера
             }
         }
 
@@ -61,7 +72,21 @@ namespace MultiBuffer.WpfApp.Models.Handlers
                 Value = item.Value
             };
 
-            HttpResponseMessage httpResponse = await _httpClient.PostAsJsonAsync(_buffersAddr, bufferWebApi);
+            HttpResponseMessage httpResponse;
+            try
+            {
+                httpResponse = await _httpClient.PostAsJsonAsync(_buffersAddr, bufferWebApi);
+            }
+            catch (HttpRequestException ex)
+            {
+                //TODO: Выводить сообщение о недоступности сервера
+                return;
+            }
+
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                //TODO: Выводить сообщение с ошибкой от сервера
+            }
         }
 
         /// <summary>
@@ -69,20 +94,31 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// </summary>
         /// <param name="bufferKey">Номер привязанной клавиши</param>
         /// <returns></returns>
-        public async Task<IBufferItem> ReadAsync(int bufferKey)
+        public async Task<WebBuffer> ReadAsync(int bufferKey)
         {
             WebBuffer bufferWebItem = null;
-            HttpResponseMessage httpResponse = await _httpClient.GetAsync(_buffersAddr + bufferKey.ToString());
+            HttpResponseMessage httpResponse;
+
+            try
+            {
+                httpResponse = await _httpClient.GetAsync(_buffersAddr + bufferKey.ToString());
+            }
+            catch (HttpRequestException ex)
+            {
+                //TODO: Выводить сообщение о недоступности сервера
+                return null;
+            }
+
             if (httpResponse.IsSuccessStatusCode)
             {
                 bufferWebItem = await httpResponse.Content.ReadAsAsync<WebBuffer>();
             }
+            else
+            {
+                //TODO: Выводить сообщение с ошибкой от сервера
+            }
 
-            IBufferItem bufferItem = _bufferFactory.GetBuffer();
-            bufferItem.Key = (Keys)bufferWebItem.Key;
-            bufferItem.Value = bufferWebItem.Value;
-
-            return bufferItem;
+            return bufferWebItem;
         }
 
         /// <summary>
@@ -98,7 +134,22 @@ namespace MultiBuffer.WpfApp.Models.Handlers
                 Value = item.Value,
                 Key = (int)item.Key
             };
-            HttpResponseMessage httpResponse = await _httpClient.PutAsJsonAsync(_buffersAddr + dataItem.Key.ToString(), dataItem);
+            HttpResponseMessage httpResponse;
+
+            try
+            {
+                httpResponse = await _httpClient.PutAsJsonAsync(_buffersAddr + dataItem.Key.ToString(), dataItem);
+            }
+            catch (HttpRequestException ex)
+            {
+                //TODO: Выводить сообщение о недоступности сервера
+                return;
+            }
+
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                //TODO: Выводить сообщение с ошибкой от сервера
+            }
         }
 
         /// <summary>
@@ -108,18 +159,27 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <returns></returns>
         public async Task DeleteAsync(int bufferKey)
         {
-            HttpResponseMessage httpResponse = await _httpClient.DeleteAsync(_buffersAddr + bufferKey.ToString());
+            HttpResponseMessage httpResponse;
+            try
+            {
+                httpResponse = await _httpClient.DeleteAsync(_buffersAddr + bufferKey.ToString());
+            }
+            catch (HttpRequestException ex)
+            {
+                //TODO: Выводить сообщение о недоступности сервера
+                return;
+            }
+
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                //TODO: Выводить сообщение с ошибкой от сервера
+            }
         }
 
         /// <summary>
         /// Клиент для отправки запросов
         /// </summary>
         readonly HttpClient _httpClient = new HttpClient();
-
-        /// <summary>
-        /// Фабрика буферов
-        /// </summary>
-        readonly IBufferItemFactory _bufferFactory;
 
         /// <summary>
         /// Адрес api для работы с буферами

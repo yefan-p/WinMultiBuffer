@@ -68,6 +68,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IWebApi\IWebApi.csproj">
+      <Project>{e38517cd-a3fc-4b04-9a92-45cb6b9e9790}</Project>
+      <Name>IWebApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WpfApp\WpfApp.csproj">
       <Project>{8826FC59-6AAF-47C9-8165-43E363262190}</Project>
       <Name>WpfApp</Name>
