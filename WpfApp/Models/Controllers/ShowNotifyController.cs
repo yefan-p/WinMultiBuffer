@@ -91,7 +91,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         }
 
         /// <summary>
-        /// Обработчик события после активации копирования
+        /// Обработчик события после отмены копирования/вставки
         /// </summary>
         void InputHandler_CopyPasteCancelled()
         {
@@ -110,7 +110,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         }
 
         /// <summary>
-        /// Обработчик события после отмены копирования/вставки
+        /// Обработчик события после активации копирования
         /// </summary>
         void InputHandler_CopyIsActive()
         {
@@ -120,8 +120,9 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             _trayIconManager.ShowNotify(60000);
         }
 
+        #region Команды контекстного меню
         /// <summary>
-        /// Обработчик команды ShowBuffers
+        /// Обработчик команды ShowBuffers, кнопка показать буферы в контекстном меню
         /// </summary>
         void ShowBuffersHandler()
         {
@@ -138,7 +139,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         }
 
         /// <summary>
-        /// Обработчик команды ShowHelp
+        /// Обработчик команды ShowHelp, кнопка показать справку в контекстном меню
         /// </summary>
         void ShowHelpHandler()
         {
@@ -148,11 +149,12 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         }
 
         /// <summary>
-        /// Обработчик команды CloseApp
+        /// Обработчик команды CloseApp, кнопка закрыть в контекстном меню
         /// </summary>
         void CloseAppHandler()
         {
             App.Current.Shutdown();
         }
+        #endregion
     }
 }

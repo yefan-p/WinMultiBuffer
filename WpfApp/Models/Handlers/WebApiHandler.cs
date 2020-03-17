@@ -40,6 +40,12 @@ namespace MultiBuffer.WpfApp.Models.Handlers
             };
 
             HttpResponseMessage httpResponse = await _httpClient.PostAsJsonAsync(_usersAddr + "auth", authUser);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                authUser = await httpResponse.Content.ReadAsAsync<AuthenticateUser>();
+                _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + authUser.Token);
+            }
         }
 
         /// <summary>

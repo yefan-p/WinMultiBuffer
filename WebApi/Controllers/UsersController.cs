@@ -30,7 +30,10 @@ namespace MultiBuffer.WebApi.Controllers
             if (user == null)
                 return RequestResult.ClientError;
 
-            return Ok(user);
+            model.Password = "";
+            model.Token = user.Token;
+
+            return Ok(model);
         }
 
         IUserService _userService;

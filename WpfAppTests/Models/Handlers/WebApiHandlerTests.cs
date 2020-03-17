@@ -12,7 +12,7 @@ using System.Diagnostics;
 namespace MultiBuffer.WpfApp.Models.Handlers.Tests
 {
     [TestClass()]
-    public class StorageWebApiHandlerTests
+    public class WebApiHandlerTests
     {
         [TestMethod()]
         public async Task CreateAsyncTest()
@@ -59,6 +59,15 @@ namespace MultiBuffer.WpfApp.Models.Handlers.Tests
         {
             var webApi = new WebApiHandler(new BufferItemFactory());
             await webApi.DeleteAsync(5);
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod()]
+        public async Task AuthUserTest()
+        {
+            var webApi = new WebApiHandler(new BufferItemFactory());
+            await webApi.AuthUser("admin", "admin");
 
             Assert.IsTrue(true);
         }
