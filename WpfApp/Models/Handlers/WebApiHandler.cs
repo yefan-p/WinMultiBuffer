@@ -14,7 +14,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
     /// <summary>
     /// Обращение к api. Получение сохраненных данных из буферов
     /// </summary>
-    public class WebApiHandler
+    public class WebApiHandler : IWebApiHandler
     {
         public WebApiHandler()
         {
