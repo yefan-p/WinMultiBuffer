@@ -72,15 +72,13 @@ namespace MultiBuffer.WpfApp
         void RegisterComponents()
         {
             container.RegisterSingleton<IList<IBufferItem>, ObservableCollection<IBufferItem>>();
-
             container.RegisterService<ICommandFactory, CommandFactory>();
-
             container.RegisterService<IBufferItemFactory, BufferItemFactory>();
 
             container.RegisterSingleton<IInputHandler, InputHandler>();
+            container.RegisterSingleton<IWebApiHandler, WebApiHandler>();
 
             container.RegisterSingleton<ICopyPasteController<IList<IBufferItem>>, CopyPasteController<IList<IBufferItem>>>();
-
             container.RegisterSingleton<IShowNotifyController, ShowNotifyController>();
         }
 

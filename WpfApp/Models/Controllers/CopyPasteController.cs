@@ -6,17 +6,19 @@ using TextCopy;
 
 namespace MultiBuffer.WpfApp.Models.Controllers
 {
-    public class CopyPasteController<TCollection>
-        : ICopyPasteController<TCollection>
-        where TCollection : IList<IBufferItem>
+    public class CopyPasteController<TCollection> : ICopyPasteController<TCollection>
+                 where TCollection : IList<IBufferItem>
     {
         public CopyPasteController(
                     IInputHandler inputHandler,
                     TCollection collection,
-                    IBufferItemFactory bufferItemFactory)
+                    IBufferItemFactory bufferItemFactory,
+                    IWebApiHandler webHandler)
         {
             Buffer = collection;
             _bufferItemFactory = bufferItemFactory;
+            _webHandler = webHandler;
+            _webHandler.AuthUser("admin", "admin");//TODO: убрать 
 
             inputHandler.PasteKeyPress += Paste;
             inputHandler.CopyKeyPress += Copy;
@@ -36,6 +38,11 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         /// Предоставляет экземпляр класса BufferItem
         /// </summary>
         readonly IBufferItemFactory _bufferItemFactory;
+
+        /// <summary>
+        /// Добавляет, читает, обновляет, удаляет буфферы в облаке
+        /// </summary>
+        readonly IWebApiHandler _webHandler;
 
         /// <summary>
         /// Вставляет текст из указанного буфера
@@ -67,12 +74,14 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             if (index > -1)
             {
                 Buffer[index].Value = tmpItem.Value;
+                _webHandler.UpdateAsync(tmpItem);
             }
             else
             {
                 App.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     Buffer.Add(tmpItem);
+                    _webHandler.CreateAsync(tmpItem);
                     tmpItem.Delete += TmpItem_Delete;
                 }));
             }
@@ -87,6 +96,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         void TmpItem_Delete(IBufferItem obj)
         {
             Buffer.Remove(obj);
+            _webHandler.DeleteAsync((int)obj.Key);
             Update?.Invoke(obj);
         }
     }
