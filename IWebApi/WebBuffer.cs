@@ -19,5 +19,10 @@
         /// Значение, которое хранит буфер
         /// </summary>
         public string Value { get; set; }
+
+        /// <summary>
+        /// Пользователь, которому принадлежит буфер
+        /// </summary>
+        public int UserId { get; set; }
     }
 }

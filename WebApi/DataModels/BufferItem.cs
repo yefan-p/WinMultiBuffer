@@ -25,5 +25,15 @@ namespace MultiBuffer.WebApi.DataModels
         /// Значение? которое хранит буфер
         /// </summary>
         public string Value { get; set; }
+
+        /// <summary>
+        /// Id пользователя, которому принадлежит буфер
+        /// </summary>
+        public int UserId { get; set; }
+
+        /// <summary>
+        /// Пользователь, которому принадлежит буфер
+        /// </summary>
+        public User User { get; set; }
     }
 }
