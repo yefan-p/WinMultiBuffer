@@ -138,7 +138,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
 
             try
             {
-                httpResponse = await _httpClient.PutAsJsonAsync(_buffersAddr + dataItem.Key.ToString(), dataItem);
+                httpResponse = await _httpClient.PutAsJsonAsync(_buffersAddr, dataItem);
             }
             catch (HttpRequestException ex)
             {

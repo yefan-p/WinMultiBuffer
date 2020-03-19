@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using MultiBuffer.WebApi.DataModels;
 using MultiBuffer.IWebApi;
 using MultiBuffer.WebApi.Utils;
-using System.Security.Claims;
 
 namespace MultiBuffer.WebApi.Controllers
 {
@@ -69,11 +68,13 @@ namespace MultiBuffer.WebApi.Controllers
         [HttpGet("{keyNumber}")]
         public WebBuffer Read(int keyNumber)
         {
-            var context = new MultiBufferContext();
+            User user = _userService.GetUserByClaims(HttpContext.User);
+            if (user == null) return null;
 
+            var context = new MultiBufferContext();
             var query =
                 from el in context.BufferItems
-                where el.Key == keyNumber
+                where el.Key == keyNumber && el.UserId == user.Id
                 select el;
             BufferItem item = query.SingleOrDefault();
 
@@ -92,18 +93,17 @@ namespace MultiBuffer.WebApi.Controllers
         /// <param name="keyNumber">Клавиша, привязанная к буферу</param>
         /// <param name="bufferItem">Экземпляр буфера с обновленными данными</param>
         /// <returns></returns>
-        [HttpPut("{keyNumber}")]
-        public IActionResult Update(int keyNumber, WebBuffer bufferItem)
+        [HttpPut]
+        public IActionResult Update(WebBuffer bufferItem)
         {
-            if(keyNumber != bufferItem.Key) return RequestResult.ClientError;
+            User user = _userService.GetUserByClaims(HttpContext.User);
+            if (user == null) return RequestResult.ClientError;
 
             var context = new MultiBufferContext();
-
             var query =
                 from el in context.BufferItems
-                where el.Key == keyNumber
+                where el.Key == bufferItem.Key && el.UserId == user.Id
                 select el;
-
             BufferItem item = query.SingleOrDefault();
 
             if (item == null) return RequestResult.ClientError;
@@ -128,13 +128,14 @@ namespace MultiBuffer.WebApi.Controllers
         [HttpDelete("{keyNumber}")]
         public IActionResult Delete(int keyNumber)
         {
-            var context = new MultiBufferContext();
+            User user = _userService.GetUserByClaims(HttpContext.User);
+            if (user == null) return RequestResult.ClientError;
 
+            var context = new MultiBufferContext();
             var query =
                 from el in context.BufferItems
-                where el.Key == keyNumber
+                where el.Key == keyNumber && el.UserId == user.Id
                 select el;
-
             BufferItem item = query.SingleOrDefault();
 
             if (item == null) { return RequestResult.ClientError; }
