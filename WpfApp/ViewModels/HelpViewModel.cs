@@ -1,8 +1,10 @@
-﻿namespace MultiBuffer.WpfApp.ViewModels
+﻿using MultiBuffer.WpfApp.Models.Interfaces;
+
+namespace MultiBuffer.WpfApp.ViewModels
 {
     public class HelpViewModel : BaseViewModel
     {
-        public HelpViewModel()
+        public HelpViewModel(ISyncBuffersController syncBuffersController)
         {
             
         }

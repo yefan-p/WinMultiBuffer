@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MultiBuffer.IWebApi;
 
 namespace MultiBuffer.WpfApp.Models.Interfaces
@@ -26,6 +27,12 @@ namespace MultiBuffer.WpfApp.Models.Interfaces
         /// <param name="bufferKey">Номер привязанной клавиши</param>
         /// <returns></returns>
         Task<WebBuffer> ReadAsync(int bufferKey);
+
+        /// <summary>
+        /// Получает все буферы пользователя
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<WebBuffer>> ReadListAsync();
 
         /// <summary>
         /// Обновляет указнный буфер
