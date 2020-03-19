@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using MultiBuffer.WebApi.DataModels;
 using MultiBuffer.IWebApi;
 using MultiBuffer.WebApi.Utils;
+using System.Security.Claims;
 
 namespace MultiBuffer.WebApi.Controllers
 {
@@ -16,6 +17,11 @@ namespace MultiBuffer.WebApi.Controllers
     [Route("api/[controller]")]
     public class BuffersController : ControllerBase
     {
+        public BuffersController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         /// <summary>
         /// Добавляет экземплят буфера в базу.
         /// </summary>
@@ -24,34 +30,35 @@ namespace MultiBuffer.WebApi.Controllers
         [HttpPost]
         public IActionResult Create(WebBuffer bufferItem)
         {
+            User user = _userService.GetUserByClaims(HttpContext.User);
+            if (user == null) return RequestResult.ClientError;
+
             var contextDb = new MultiBufferContext();
-            var query =
+            var queryBuffer =
                 from el in contextDb.BufferItems
-                where el.Key == bufferItem.Key
+                where el.Key == bufferItem.Key && el.UserId == user.Id
                 select el;
+            BufferItem item = queryBuffer.SingleOrDefault();
 
-            BufferItem item = query.SingleOrDefault();
-            if (item == null)
+            if (item != null) return RequestResult.ClientError;
+
+            try
             {
-                try
+                item = new BufferItem()
                 {
-                    item = new BufferItem()
-                    {
-                        Name = bufferItem.Name,
-                        Value = bufferItem.Value,
-                        Key = bufferItem.Key,
-                    };
-
-                    contextDb.BufferItems.Add(item);
-                    contextDb.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    return RequestResult.ServerError;
-                }
-                return RequestResult.Success;
+                    Name = bufferItem.Name,
+                    Value = bufferItem.Value,
+                    Key = bufferItem.Key,
+                    UserId = user.Id,
+                };
+                contextDb.BufferItems.Add(item);
+                contextDb.SaveChanges();
             }
-            return RequestResult.ClientError;
+            catch (Exception)
+            {
+                return RequestResult.ServerError;
+            }
+            return RequestResult.Success;
         }
 
         /// <summary>
@@ -143,5 +150,7 @@ namespace MultiBuffer.WebApi.Controllers
             }
             return RequestResult.Success;
         }
+
+        readonly IUserService _userService;
     }
 }
