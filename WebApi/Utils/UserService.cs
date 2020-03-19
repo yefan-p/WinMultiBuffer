@@ -8,6 +8,7 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace MultiBuffer.WebApi.Utils
 {
@@ -67,18 +68,20 @@ namespace MultiBuffer.WebApi.Utils
         public User GetUserByClaims(ClaimsPrincipal claims)
         {
             var queryClaim =
-                    from el in claims.Claims
-                    where el.Type == ClaimTypes.Name
-                    select el;
+                from el in claims.Claims
+                where el.Type == ClaimTypes.Name
+                select el;
             Claim claim = queryClaim.SingleOrDefault();
 
             if (claim == null) return null;
             if (!int.TryParse(claim.Value, out int userId)) return null;
 
             var queryUser =
-                    from el in _context.Users
-                    where el.Id == userId
-                    select el;
+                (from el in _context.Users
+                where el.Id == userId
+                select el)
+                .Include(el => el.Buffers);
+
             return queryUser.SingleOrDefault();
         }
 

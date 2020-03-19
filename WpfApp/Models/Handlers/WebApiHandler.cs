@@ -122,6 +122,37 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         }
 
         /// <summary>
+        /// Получает все буферы пользователя
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<WebBuffer>> ReadListAsync()
+        {
+            IEnumerable<WebBuffer> buffers = null;
+            HttpResponseMessage httpResponse;
+
+            try
+            {
+                httpResponse = await _httpClient.GetAsync(_buffersAddr);
+            }
+            catch (HttpRequestException ex)
+            {
+                //TODO: Выводить сообщение о недоступности сервера
+                return null;
+            }
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                buffers = await httpResponse.Content.ReadAsAsync<IEnumerable<WebBuffer>>();
+            }
+            else
+            {
+                //TODO: Выводить сообщение с ошибкой от сервера
+            }
+
+            return buffers;
+        }
+
+        /// <summary>
         /// Обновляет указнный буфер
         /// </summary>
         /// <param name="item">Новый буфер</param>

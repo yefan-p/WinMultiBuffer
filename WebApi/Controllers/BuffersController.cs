@@ -88,6 +88,28 @@ namespace MultiBuffer.WebApi.Controllers
         }
 
         /// <summary>
+        /// Возвращает все буферы пользователя, которые есть в базе
+        /// </summary>
+        /// <returns>Коллекция буфферов</returns>
+        [HttpGet]
+        public IEnumerable<WebBuffer> Read()
+        {
+            User user = _userService.GetUserByClaims(HttpContext.User);
+            if (user == null) return null;
+
+            var query =
+                from els in user.Buffers
+                select new WebBuffer
+                {
+                    Name = els.Name,
+                    Key = els.Key,
+                    Value = els.Value,
+                };
+
+            return query;
+        }
+
+        /// <summary>
         /// Обновляет экземпляр указанного буфера
         /// </summary>
         /// <param name="keyNumber">Клавиша, привязанная к буферу</param>

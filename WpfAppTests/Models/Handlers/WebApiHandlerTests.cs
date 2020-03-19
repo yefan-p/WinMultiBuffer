@@ -72,5 +72,15 @@ namespace MultiBuffer.WpfApp.Models.Handlers.Tests
 
             Assert.IsTrue(true);
         }
+
+        [TestMethod()]
+        public async Task ReadListAsyncTest()
+        {
+            var webApi = new WebApiHandler();
+            await webApi.AuthUser("admin", "admin");
+            IEnumerable<WebBuffer> buffers = await webApi.ReadListAsync();
+
+            Assert.IsTrue(true);
+        }
     }
 }
