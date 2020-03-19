@@ -18,7 +18,6 @@ namespace MultiBuffer.WpfApp.Models.Controllers
             Buffer = collection;
             _bufferItemFactory = bufferItemFactory;
             _webHandler = webHandler;
-            _webHandler.AuthUser("admin", "admin");//TODO: убрать 
 
             inputHandler.PasteKeyPress += Paste;
             inputHandler.CopyKeyPress += Copy;

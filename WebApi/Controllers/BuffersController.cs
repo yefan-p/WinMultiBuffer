@@ -16,6 +16,11 @@ namespace MultiBuffer.WebApi.Controllers
     [Route("api/[controller]")]
     public class BuffersController : ControllerBase
     {
+        public BuffersController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         /// <summary>
         /// Добавляет экземплят буфера в базу.
         /// </summary>
@@ -24,34 +29,35 @@ namespace MultiBuffer.WebApi.Controllers
         [HttpPost]
         public IActionResult Create(WebBuffer bufferItem)
         {
+            User user = _userService.GetUserByClaims(HttpContext.User);
+            if (user == null) return RequestResult.ClientError;
+
             var contextDb = new MultiBufferContext();
-            var query =
+            var queryBuffer =
                 from el in contextDb.BufferItems
-                where el.Key == bufferItem.Key
+                where el.Key == bufferItem.Key && el.UserId == user.Id
                 select el;
+            BufferItem item = queryBuffer.SingleOrDefault();
 
-            BufferItem item = query.SingleOrDefault();
-            if (item == null)
+            if (item != null) return RequestResult.ClientError;
+
+            try
             {
-                try
+                item = new BufferItem()
                 {
-                    item = new BufferItem()
-                    {
-                        Name = bufferItem.Name,
-                        Value = bufferItem.Value,
-                        Key = bufferItem.Key,
-                    };
-
-                    contextDb.BufferItems.Add(item);
-                    contextDb.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    return RequestResult.ServerError;
-                }
-                return RequestResult.Success;
+                    Name = bufferItem.Name,
+                    Value = bufferItem.Value,
+                    Key = bufferItem.Key,
+                    UserId = user.Id,
+                };
+                contextDb.BufferItems.Add(item);
+                contextDb.SaveChanges();
             }
-            return RequestResult.ClientError;
+            catch (Exception)
+            {
+                return RequestResult.ServerError;
+            }
+            return RequestResult.Success;
         }
 
         /// <summary>
@@ -62,11 +68,13 @@ namespace MultiBuffer.WebApi.Controllers
         [HttpGet("{keyNumber}")]
         public WebBuffer Read(int keyNumber)
         {
-            var context = new MultiBufferContext();
+            User user = _userService.GetUserByClaims(HttpContext.User);
+            if (user == null) return null;
 
+            var context = new MultiBufferContext();
             var query =
                 from el in context.BufferItems
-                where el.Key == keyNumber
+                where el.Key == keyNumber && el.UserId == user.Id
                 select el;
             BufferItem item = query.SingleOrDefault();
 
@@ -80,23 +88,44 @@ namespace MultiBuffer.WebApi.Controllers
         }
 
         /// <summary>
+        /// Возвращает все буферы пользователя, которые есть в базе
+        /// </summary>
+        /// <returns>Коллекция буфферов</returns>
+        [HttpGet]
+        public IEnumerable<WebBuffer> Read()
+        {
+            User user = _userService.GetUserByClaims(HttpContext.User);
+            if (user == null) return null;
+
+            var query =
+                from els in user.Buffers
+                select new WebBuffer
+                {
+                    Name = els.Name,
+                    Key = els.Key,
+                    Value = els.Value,
+                };
+
+            return query;
+        }
+
+        /// <summary>
         /// Обновляет экземпляр указанного буфера
         /// </summary>
         /// <param name="keyNumber">Клавиша, привязанная к буферу</param>
         /// <param name="bufferItem">Экземпляр буфера с обновленными данными</param>
         /// <returns></returns>
-        [HttpPut("{keyNumber}")]
-        public IActionResult Update(int keyNumber, WebBuffer bufferItem)
+        [HttpPut]
+        public IActionResult Update(WebBuffer bufferItem)
         {
-            if(keyNumber != bufferItem.Key) return RequestResult.ClientError;
+            User user = _userService.GetUserByClaims(HttpContext.User);
+            if (user == null) return RequestResult.ClientError;
 
             var context = new MultiBufferContext();
-
             var query =
                 from el in context.BufferItems
-                where el.Key == keyNumber
+                where el.Key == bufferItem.Key && el.UserId == user.Id
                 select el;
-
             BufferItem item = query.SingleOrDefault();
 
             if (item == null) return RequestResult.ClientError;
@@ -121,13 +150,14 @@ namespace MultiBuffer.WebApi.Controllers
         [HttpDelete("{keyNumber}")]
         public IActionResult Delete(int keyNumber)
         {
-            var context = new MultiBufferContext();
+            User user = _userService.GetUserByClaims(HttpContext.User);
+            if (user == null) return RequestResult.ClientError;
 
+            var context = new MultiBufferContext();
             var query =
                 from el in context.BufferItems
-                where el.Key == keyNumber
+                where el.Key == keyNumber && el.UserId == user.Id
                 select el;
-
             BufferItem item = query.SingleOrDefault();
 
             if (item == null) { return RequestResult.ClientError; }
@@ -143,5 +173,7 @@ namespace MultiBuffer.WebApi.Controllers
             }
             return RequestResult.Success;
         }
+
+        readonly IUserService _userService;
     }
 }
