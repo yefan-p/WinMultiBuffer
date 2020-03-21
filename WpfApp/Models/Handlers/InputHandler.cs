@@ -156,7 +156,9 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <param name="e"></param>
         async void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
         {
-            if (_keysPasteList.Count == 3 && _keysPasteList[0] == Keys.LControlKey && _keysPasteList[1] == Keys.V)
+            if (_keysPasteList.Count == 3 && 
+                _keysPasteList[0] == Keys.LControlKey && 
+                _keysPasteList[1] == Keys.V)
             {
                 _globalKeyDown = false;
                 InputSimulator inputSimulator = new InputSimulator();
@@ -168,14 +170,17 @@ namespace MultiBuffer.WpfApp.Models.Handlers
                 return;
             }
 
-            if(e.ContentType == SharpClipboard.ContentTypes.Text && (_keysCopyList.Count == 1 || _keysCopyList.Count == 0))
+            if(e.ContentType == SharpClipboard.ContentTypes.Text && 
+                (_keysCopyList.Count == 1 || _keysCopyList.Count == 0))
             {
                 CopyKeyPress?.Invoke(this, new InputHandlerEventArgs(Keys.Space, (string)e.Content));
             }
 
             await Task.Run(() =>
             {
-                while (_keysCopyList.Count >= 2 && _keysCopyList[0] == Keys.LControlKey && _keysCopyList[1] == Keys.C)
+                while (_keysCopyList.Count >= 2 && 
+                        _keysCopyList[0] == Keys.LControlKey && 
+                        _keysCopyList[1] == Keys.C)
                 {
 
                     if (_keysCopyList.Count == 3)

@@ -61,6 +61,41 @@ namespace MultiBuffer.WebApi.Controllers
         }
 
         /// <summary>
+        /// Добавляет коллекцию буферов в базу
+        /// </summary>
+        /// <param name="list">Список буферов, которые необходимо добавить</param>
+        /// <returns></returns>
+        [HttpPost("addlist")]
+        public IActionResult CreateList(IEnumerable<WebBuffer> list)
+        {
+            User user = _userService.GetUserByClaims(HttpContext.User);
+            if (user == null) return RequestResult.ClientError;
+
+            var querySelect =
+                from el in list
+                select new BufferItem
+                {
+                    Key = el.Key,
+                    Name = el.Name,
+                    Value = el.Value,
+                    UserId = user.Id
+                };
+            IEnumerable<BufferItem> items = querySelect.ToList();
+
+            try
+            {
+                var context = new MultiBufferContext();
+                context.BufferItems.AddRange(items);
+                context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return RequestResult.ServerError;
+            }
+            return RequestResult.Success;
+        }
+
+        /// <summary>
         /// Возвращает экземляр буфера
         /// </summary>
         /// <param name="keyNumber">Номер привязанной клавиши</param>

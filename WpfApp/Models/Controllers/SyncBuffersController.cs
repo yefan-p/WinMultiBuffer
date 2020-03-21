@@ -26,6 +26,17 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                 await webApi.AuthUser("admin", "admin"); //TODO: брать из настроек
                 IEnumerable<WebBuffer> webBuffers = await webApi.ReadListAsync();
 
+                var queryOld =
+                        from el in _buffers
+                        select new WebBuffer()
+                        {
+                            Key = (int)el.Key,
+                            Name = el.Name,
+                            Value = el.Value
+                        };
+                IEnumerable<WebBuffer> oldBuffers = queryOld.ToList();
+                webBuffers = webBuffers.Except(queryOld, new WebBufferComparer());
+
                 foreach (WebBuffer item in webBuffers)
                 {
                     IBufferItem bufferItem = bufferItemFactory.GetBuffer();
