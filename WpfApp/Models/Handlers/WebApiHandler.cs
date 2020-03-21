@@ -65,6 +65,8 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <param name="item">Элемент для сохранения в базу</param>
         public async Task CreateAsync(IBufferItem item)
         {
+            if (_httpClient.DefaultRequestHeaders.Authorization == null) return;
+
             var bufferWebApi = new WebBuffer()
             {
                 Key = (int)item.Key,
@@ -96,6 +98,8 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <returns></returns>
         public async Task<WebBuffer> ReadAsync(int bufferKey)
         {
+            if (_httpClient.DefaultRequestHeaders.Authorization == null) return null;
+
             WebBuffer bufferWebItem = null;
             HttpResponseMessage httpResponse;
 
@@ -127,6 +131,8 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <returns></returns>
         public async Task<IEnumerable<WebBuffer>> ReadListAsync()
         {
+            if (_httpClient.DefaultRequestHeaders.Authorization == null) return null;
+
             IEnumerable<WebBuffer> buffers = null;
             HttpResponseMessage httpResponse;
 
@@ -159,6 +165,8 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <returns></returns>
         public async Task UpdateAsync(IBufferItem item)
         {
+            if (_httpClient.DefaultRequestHeaders.Authorization == null) return;
+
             var dataItem = new WebBuffer
             {
                 Name = item.Name,
@@ -190,6 +198,8 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <returns></returns>
         public async Task DeleteAsync(int bufferKey)
         {
+            if (_httpClient.DefaultRequestHeaders.Authorization == null) return;
+
             HttpResponseMessage httpResponse;
             try
             {
