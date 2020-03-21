@@ -92,6 +92,32 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         }
 
         /// <summary>
+        /// Добавить список элементов в буффер
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public async Task CreateListAsycn(IEnumerable<WebBuffer> list)
+        {
+            if (_httpClient.DefaultRequestHeaders.Authorization == null) return;
+
+            HttpResponseMessage httpResponse;
+            try
+            {
+                httpResponse = await _httpClient.PostAsJsonAsync(_buffersAddr + "addlist", list);
+            }
+            catch (HttpRequestException ex)
+            {
+                //TODO: Выводить сообщение о недоступности сервера
+                return;
+            }
+
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                //TODO: Выводить сообщение с ошибкой от сервера
+            }
+        }
+
+        /// <summary>
         /// Получить буфер по привязанной клавише
         /// </summary>
         /// <param name="bufferKey">Номер привязанной клавиши</param>

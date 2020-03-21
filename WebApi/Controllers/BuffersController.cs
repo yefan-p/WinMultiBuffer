@@ -71,6 +71,12 @@ namespace MultiBuffer.WebApi.Controllers
             User user = _userService.GetUserByClaims(HttpContext.User);
             if (user == null) return RequestResult.ClientError;
 
+            var context = new MultiBufferContext();
+            var queryOldBuffers =
+                from el in context.BufferItems
+                where el.UserId == user.Id
+                select el;
+
             var querySelect =
                 from el in list
                 select new BufferItem
@@ -80,12 +86,11 @@ namespace MultiBuffer.WebApi.Controllers
                     Value = el.Value,
                     UserId = user.Id
                 };
-            IEnumerable<BufferItem> items = querySelect.ToList();
+            IEnumerable<BufferItem> newBuffers = querySelect.Except(queryOldBuffers).ToList();
 
             try
             {
-                var context = new MultiBufferContext();
-                context.BufferItems.AddRange(items);
+                context.BufferItems.AddRange(newBuffers);
                 context.SaveChanges();
             }
             catch (Exception)

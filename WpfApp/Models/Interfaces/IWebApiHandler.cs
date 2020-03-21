@@ -22,6 +22,13 @@ namespace MultiBuffer.WpfApp.Models.Interfaces
         Task CreateAsync(IBufferItem item);
 
         /// <summary>
+        /// Добавить список элементов в буффер
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        Task CreateListAsycn(IEnumerable<WebBuffer> list);
+
+        /// <summary>
         /// Получить буфер по привязанной клавише
         /// </summary>
         /// <param name="bufferKey">Номер привязанной клавиши</param>

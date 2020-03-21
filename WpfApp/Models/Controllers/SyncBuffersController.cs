@@ -48,6 +48,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
                         _buffers.Add(bufferItem);
                     }));
                 }
+                await webApi.CreateListAsycn(oldBuffers);
             });
             task.Start();
         }
