@@ -7,10 +7,12 @@ namespace MultiBuffer.WpfApp.ViewModels
     public class BuffersViewModel : BaseViewModel
     {
 
-        public BuffersViewModel(ICopyPasteController<IList<IBufferItem>> copyPasteController)
+        public BuffersViewModel(ICopyPasteController<IList<IBufferItem>> copyPasteController,
+                                ISyncBuffersController syncBuffersController)
         {
             ICopyPasteController<IList<IBufferItem>> _copyPasteController = copyPasteController;
             _copyPasteController.Update += CopyPasteController_Update;
+            syncBuffersController.Update += CopyPasteController_Update;
 
             Buffers = copyPasteController.Buffer;
         }

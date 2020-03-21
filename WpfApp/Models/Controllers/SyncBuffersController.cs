@@ -42,6 +42,11 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         }
 
         /// <summary>
+        /// Событие возникает при удалении элемента из коллекции
+        /// </summary>
+        public event Action<IBufferItem> Update;
+
+        /// <summary>
         /// Обращение к api
         /// </summary>
         IWebApiHandler _webApiHandler;
@@ -59,6 +64,7 @@ namespace MultiBuffer.WpfApp.Models.Controllers
         {
             _buffers.Remove(obj);
             _webApiHandler.DeleteAsync((int)obj.Key);
+            Update?.Invoke(obj);
         }
     }
 }
