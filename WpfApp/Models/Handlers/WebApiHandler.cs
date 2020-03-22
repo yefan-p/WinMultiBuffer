@@ -29,7 +29,7 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// <param name="username">Имя пользователя</param>
         /// <param name="password">Пароль</param>
         /// <returns></returns>
-        public async Task AuthUser(string username, string password)
+        public async Task<bool> AuthUser(string username, string password)
         {
             var authUser = new AuthenticateUser()
             {
@@ -45,17 +45,19 @@ namespace MultiBuffer.WpfApp.Models.Handlers
             catch (HttpRequestException ex)
             {
                 //TODO: Выводить сообщение о недоступности сервера
-                return;
+                return false;
             }
 
             if (httpResponse.IsSuccessStatusCode)
             {
                 authUser = await httpResponse.Content.ReadAsAsync<AuthenticateUser>();
                 _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + authUser.Token);
+                return true;
             }
             else
             {
                 //TODO: Выводить сообщение с ошибкой от сервера
+                return false;
             }
         }
 

@@ -23,7 +23,8 @@ namespace MultiBuffer.WpfApp.Models.Controllers
 
             Task task = new Task(async () =>
             {
-                await webApi.AuthUser("admin", "admin"); //TODO: брать из настроек
+                bool result  = await webApi.AuthUser("admin", "admin"); //TODO: брать из настроек
+                if (!result) return;
                 IEnumerable<WebBuffer> webBuffers = await webApi.ReadListAsync();
 
                 var queryOld =

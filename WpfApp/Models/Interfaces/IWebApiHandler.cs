@@ -13,7 +13,7 @@ namespace MultiBuffer.WpfApp.Models.Interfaces
         /// <param name="username">Имя пользователя</param>
         /// <param name="password">Пароль</param>
         /// <returns></returns>
-        Task AuthUser(string username, string password);
+        Task<bool> AuthUser(string username, string password);
 
         /// <summary>
         /// Отправить новый элемент
