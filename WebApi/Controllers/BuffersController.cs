@@ -76,8 +76,9 @@ namespace MultiBuffer.WebApi.Controllers
                 from el in context.BufferItems
                 where el.UserId == user.Id
                 select el;
+            IEnumerable<BufferItem> oldBuffers = queryOldBuffers.ToList();
 
-            var querySelect =
+            var queryNewBuffers =
                 from el in list
                 select new BufferItem
                 {
@@ -86,11 +87,22 @@ namespace MultiBuffer.WebApi.Controllers
                     Value = el.Value,
                     UserId = user.Id
                 };
-            IEnumerable<BufferItem> newBuffers = querySelect.Except(queryOldBuffers).ToList();
+            IEnumerable<BufferItem> creatBuffers = queryNewBuffers.Except(oldBuffers).ToList();
+            IEnumerable<BufferItem> updateBuffres = oldBuffers.Except(creatBuffers).ToList();
+
+            foreach (BufferItem item in updateBuffres)
+            {
+                int key = item.Key;
+                item.Value = queryNewBuffers.Where(
+                                    (el, key) => 
+                                    { return el.Key == key; })
+                                .Single()
+                                .Value;
+            }
 
             try
             {
-                context.BufferItems.AddRange(newBuffers);
+                context.BufferItems.AddRange(creatBuffers);
                 context.SaveChanges();
             }
             catch (Exception)

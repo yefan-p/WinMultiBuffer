@@ -9,3 +9,6 @@ values ('admin', 'admin');
 
 delete from BufferItems
 where id = 33
+
+delete from Users
+where id > 1
