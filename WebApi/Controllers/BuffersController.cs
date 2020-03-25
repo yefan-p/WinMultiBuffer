@@ -63,10 +63,10 @@ namespace MultiBuffer.WebApi.Controllers
         /// <summary>
         /// Добавляет коллекцию буферов в базу
         /// </summary>
-        /// <param name="list">Список буферов, которые необходимо добавить</param>
+        /// <param name="localBuffers">Список буферов, которые необходимо добавить</param>
         /// <returns></returns>
         [HttpPost("addlist")]
-        public IActionResult CreateList(IEnumerable<WebBuffer> list)
+        public IActionResult CreateList(IEnumerable<WebBuffer> localBuffers)
         {
             User user = _userService.GetUserByClaims(HttpContext.User);
             if (user == null) return RequestResult.ClientError;
@@ -79,7 +79,7 @@ namespace MultiBuffer.WebApi.Controllers
             IEnumerable<BufferItem> oldBuffers = queryOldBuffers.ToList();
 
             var queryNewBuffers =
-                from el in list
+                from el in localBuffers
                 select new BufferItem
                 {
                     Key = el.Key,
