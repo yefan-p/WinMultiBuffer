@@ -7,6 +7,10 @@ using MultiBuffer.WebApi.Utils;
 using Microsoft.Extensions.Options;
 using WebApiTests.Mock;
 using MultiBuffer.IWebApi;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace MultiBuffer.WebApi.Controllers.Tests
 {
@@ -19,13 +23,18 @@ namespace MultiBuffer.WebApi.Controllers.Tests
             var controller = new BuffersController(new UserSeviceTest());
             var list = new List<WebBuffer>
             {
-                new WebBuffer{Key = 0, Name = "None", Value = "NewBuffer1"},
-                new WebBuffer{Key = 0, Name = "None", Value = "NewBuffer2"},
-                new WebBuffer{Key = 0, Name = "None", Value = "NewBuffer3"},
+                new WebBuffer{Key = 1, Name = "One", Value = "NewBuffer1"},
+                new WebBuffer{Key = 2, Name = "Two", Value = "NewBuffer2"},
+                new WebBuffer{Key = 3, Name = "Three", Value = "NewBuffer3"},
                 new WebBuffer{Key = 49, Name = "D1", Value = "UpdateBuffer1"},
                 new WebBuffer{Key = 50, Name = "D2", Value = "UpdateBuffer2"}
             };
-            controller.CreateList(list);
+            var actionContext = new ActionContext(new HttpContextTest(), 
+                                                  new RouteData(),
+                                                  new ControllerActionDescriptor());
+            var ctrlContext = new ControllerContext(actionContext);
+            controller.ControllerContext = ctrlContext;
+            controller.RefreshList(list);
             Assert.IsTrue(true);
         }
     }

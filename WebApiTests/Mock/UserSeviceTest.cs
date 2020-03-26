@@ -26,11 +26,9 @@ namespace WebApiTests.Mock
             {
                 Username = "test",
                 Password = "test",
-                Id = -8                
+                Id = 1                
             };
             return user;
         }
-
-        //public HttpContext HttpContext { get; } = HttpContext;
     }
 }

@@ -61,24 +61,25 @@ namespace MultiBuffer.WebApi.Controllers
         }
 
         /// <summary>
-        /// Добавляет коллекцию буферов в базу
+        /// Обновляет список буферов, если буфер из списка уже есть в базе и добавляет, если 
+        /// буфер из списка в базе отсутсвует
         /// </summary>
-        /// <param name="localBuffers">Список буферов, которые необходимо добавить</param>
+        /// <param name="localBuffers">Список буферов, которые необходимо обновить</param>
         /// <returns></returns>
-        [HttpPost("addlist")]
-        public IActionResult CreateList(IEnumerable<WebBuffer> localBuffers)
+        [HttpPost("refreshlist")]
+        public IActionResult RefreshList(IEnumerable<WebBuffer> localBuffers)
         {
             User user = _userService.GetUserByClaims(HttpContext.User);
             if (user == null) return RequestResult.ClientError;
 
             var context = new MultiBufferContext();
-            var queryOldBuffers =
+            var queryDBBuffers =
                 from el in context.BufferItems
                 where el.UserId == user.Id
                 select el;
-            IEnumerable<BufferItem> oldBuffers = queryOldBuffers.ToList();
+            IEnumerable<BufferItem> dbBuffers = queryDBBuffers.ToList();
 
-            var queryNewBuffers =
+            var queryUserBuffers =
                 from el in localBuffers
                 select new BufferItem
                 {
@@ -87,22 +88,24 @@ namespace MultiBuffer.WebApi.Controllers
                     Value = el.Value,
                     UserId = user.Id
                 };
-            IEnumerable<BufferItem> creatBuffers = queryNewBuffers.Except(oldBuffers).ToList();
-            IEnumerable<BufferItem> updateBuffres = oldBuffers.Except(creatBuffers).ToList();
+            IEnumerable<BufferItem> userBuffers = queryUserBuffers.ToList();
+
+            var bufferComparer = new BufferItemComparer();
+            IEnumerable<BufferItem> addBuffers = userBuffers.Except(dbBuffers, bufferComparer).ToList();
+            IEnumerable<BufferItem> updateBuffres = dbBuffers.Except(addBuffers, bufferComparer).ToList();
 
             foreach (BufferItem item in updateBuffres)
             {
-                int key = item.Key;
-                item.Value = queryNewBuffers.Where(
-                                    (el, key) => 
-                                    { return el.Key == key; })
-                                .Single()
-                                .Value;
+                string value =
+                    (from el in userBuffers
+                    where el.Key == item.Key
+                    select el.Value).First();
+                item.Value = value;
             }
 
             try
             {
-                context.BufferItems.AddRange(creatBuffers);
+                context.BufferItems.AddRange(addBuffers);
                 context.SaveChanges();
             }
             catch (Exception)

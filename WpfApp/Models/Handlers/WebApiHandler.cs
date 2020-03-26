@@ -94,18 +94,19 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         }
 
         /// <summary>
-        /// Добавить список элементов в буффер
+        /// Обновляет список буферов, если буфер из списка уже есть в базе и добавляет, если 
+        /// буфер из списка в базе отсутсвует
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public async Task CreateListAsycn(IEnumerable<WebBuffer> list)
+        public async Task RefreshListAsycn(IEnumerable<WebBuffer> list)
         {
             if (_httpClient.DefaultRequestHeaders.Authorization == null) return;
 
             HttpResponseMessage httpResponse;
             try
             {
-                httpResponse = await _httpClient.PostAsJsonAsync(_buffersAddr + "addlist", list);
+                httpResponse = await _httpClient.PostAsJsonAsync(_buffersAddr + "refreshlist", list);
             }
             catch (HttpRequestException ex)
             {
