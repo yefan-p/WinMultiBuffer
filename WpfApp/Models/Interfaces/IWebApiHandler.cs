@@ -26,7 +26,7 @@ namespace MultiBuffer.WpfApp.Models.Interfaces
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        Task RefreshListAsycn(IEnumerable<WebBuffer> list);
+        Task<IEnumerable<WebBuffer>> RefreshListAsycn(IEnumerable<WebBuffer> list);
 
         /// <summary>
         /// Получить буфер по привязанной клавише

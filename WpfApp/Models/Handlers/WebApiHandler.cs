@@ -98,11 +98,12 @@ namespace MultiBuffer.WpfApp.Models.Handlers
         /// буфер из списка в базе отсутсвует
         /// </summary>
         /// <param name="list"></param>
-        /// <returns></returns>
-        public async Task RefreshListAsycn(IEnumerable<WebBuffer> list)
+        /// <returns>Возвращает список синхронизированных буферов</returns>
+        public async Task<IEnumerable<WebBuffer>> RefreshListAsycn(IEnumerable<WebBuffer> list)
         {
-            if (_httpClient.DefaultRequestHeaders.Authorization == null) return;
+            if (_httpClient.DefaultRequestHeaders.Authorization == null) return null;
 
+            IEnumerable<WebBuffer> buffers = null;
             HttpResponseMessage httpResponse;
             try
             {
@@ -111,13 +112,18 @@ namespace MultiBuffer.WpfApp.Models.Handlers
             catch (HttpRequestException ex)
             {
                 //TODO: Выводить сообщение о недоступности сервера
-                return;
+                return null;
             }
 
-            if (!httpResponse.IsSuccessStatusCode)
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                buffers = await httpResponse.Content.ReadAsAsync<IEnumerable<WebBuffer>>();
+            }
+            else
             {
                 //TODO: Выводить сообщение с ошибкой от сервера
             }
+            return buffers;
         }
 
         /// <summary>

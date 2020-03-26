@@ -67,10 +67,10 @@ namespace MultiBuffer.WebApi.Controllers
         /// <param name="localBuffers">Список буферов, которые необходимо обновить</param>
         /// <returns></returns>
         [HttpPost("refreshlist")]
-        public IActionResult RefreshList(IEnumerable<WebBuffer> localBuffers)
+        public IEnumerable<WebBuffer> RefreshList(IEnumerable<WebBuffer> localBuffers)
         {
             User user = _userService.GetUserByClaims(HttpContext.User);
-            if (user == null) return RequestResult.ClientError;
+            if (user == null) return null;
 
             var context = new MultiBufferContext();
             var queryDBBuffers =
@@ -99,7 +99,8 @@ namespace MultiBuffer.WebApi.Controllers
                 string value =
                     (from el in userBuffers
                     where el.Key == item.Key
-                    select el.Value).First();
+                    select el.Value).FirstOrDefault();
+                if (string.IsNullOrEmpty(value)) continue;
                 item.Value = value;
             }
 
@@ -110,9 +111,20 @@ namespace MultiBuffer.WebApi.Controllers
             }
             catch (Exception)
             {
-                return RequestResult.ServerError;
+                return null;
             }
-            return RequestResult.Success;
+
+            var syncQuery =
+                from el in context.BufferItems
+                where el.UserId == user.Id
+                select new WebBuffer
+                {
+                    Key = el.Key,
+                    Name = el.Name,
+                    Value = el.Value
+                };
+
+            return syncQuery.AsEnumerable();
         }
 
         /// <summary>
