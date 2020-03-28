@@ -4,12 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MultiBuffer.WpfApp.Views"
+             xmlns:viewModel="clr-namespace:MultiBuffer.WpfApp.ViewModels"
+             d:DataContext="{d:DesignInstance viewModel:RegistrationViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             HorizontalAlignment="Center" 
+             VerticalAlignment="Center">
     <UserControl.Resources>
         <Style x:Key="BorderStyle" TargetType="Border">
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Margin" Value="0, 5"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="10"/>
             <Setter Property="CornerRadius" Value="7"/>
             <Setter Property="Background">
                 <Setter.Value>
@@ -26,14 +30,14 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="Margin" Value="10, 0, 10, 0"/>
+            <Setter Property="Margin" Value="20"/>
         </Style>
         <Style TargetType="Button" x:Key="ButtonStyle">
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="7" Margin="5,10,10,0">
+                        <Border CornerRadius="7" Margin="10" Padding="10">
                             <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" 
                                               Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                               Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -50,6 +54,79 @@
         </Style>
     </UserControl.Resources>
     <StackPanel>
-        
+        <StackPanel Orientation="Horizontal">
+            <Border Style="{StaticResource BorderStyle}" Width="124">
+                <TextBlock TextWrapping="Wrap" 
+                                   TextAlignment="Center" 
+                                   Foreground="Black" 
+                                   FontWeight="SemiBold"
+                                   Text="Username:">
+                </TextBlock>
+            </Border>
+            <Border Style="{StaticResource BorderStyle}">
+                <TextBox TextWrapping="Wrap" 
+                                 Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 HorizontalContentAlignment="Stretch" 
+                                 VerticalContentAlignment="Stretch" 
+                                 HorizontalScrollBarVisibility="Visible" 
+                                 VerticalScrollBarVisibility="Auto" 
+                                 SelectionBrush="#FFD75800" BorderBrush="{x:Null}" BorderThickness="0" MinWidth="200">
+                    <TextBox.Background>
+                        <SolidColorBrush Color="White" Opacity="0"/>
+                    </TextBox.Background>
+                </TextBox>
+            </Border>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Border Style="{StaticResource BorderStyle}" Width="124">
+                <TextBlock TextWrapping="Wrap" 
+                                   TextAlignment="Center" 
+                                   Foreground="Black" 
+                                   FontWeight="SemiBold"
+                                   Text="Password:">
+                </TextBlock>
+            </Border>
+            <Border Style="{StaticResource BorderStyle}">
+                <TextBox TextWrapping="Wrap" 
+                                 Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 HorizontalContentAlignment="Stretch" 
+                                 VerticalContentAlignment="Stretch" 
+                                 HorizontalScrollBarVisibility="Visible" 
+                                 VerticalScrollBarVisibility="Auto" 
+                                 SelectionBrush="#FFD75800" BorderBrush="{x:Null}" BorderThickness="0" MinWidth="200">
+                    <TextBox.Background>
+                        <SolidColorBrush Color="White" Opacity="0"/>
+                    </TextBox.Background>
+                </TextBox>
+            </Border>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Border Style="{StaticResource BorderStyle}">
+                <TextBlock TextWrapping="Wrap" 
+                                   TextAlignment="Center" 
+                                   Foreground="Black" 
+                                   FontWeight="SemiBold"
+                                   Text="Confirm password:">
+                </TextBlock>
+            </Border>
+            <Border Style="{StaticResource BorderStyle}">
+                <PasswordBox PasswordChar=""
+                             HorizontalContentAlignment="Stretch" 
+                             VerticalContentAlignment="Stretch" 
+                             SelectionBrush="#FFD75800" BorderBrush="{x:Null}" BorderThickness="0" MinWidth="200">
+                    <PasswordBox.Background>
+                        <SolidColorBrush Color="White" Opacity="0"/>
+                    </PasswordBox.Background>
+                </PasswordBox>
+            </Border>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Style="{StaticResource ButtonStyle}" 
+                            Content="Register" VerticalContentAlignment="Center" 
+                            HorizontalContentAlignment="Center" Command="{Binding DeleteCommand}" />
+            <Button Style="{StaticResource ButtonStyle}" 
+                            Content="Cancel" VerticalContentAlignment="Center" 
+                            HorizontalContentAlignment="Center" Command="{Binding DeleteCommand}" />
+        </StackPanel>
     </StackPanel>
 </UserControl>

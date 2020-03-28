@@ -55,15 +55,17 @@ namespace MultiBuffer.WpfApp
             var buffersViewModel = container.Resolve<BuffersViewModel>();
             var windowViewModel = container.Resolve<MainWindowViewModel>();
             var notifyViewModel = container.Resolve<NotifyViewModel>();
+            var regViewModel = container.Resolve<RegistrationViewModel>();
 
             window.DataContext = windowViewModel;
             notifyView.DataContext = notifyViewModel;
 
             mainNavManager.Register<HelpViewModel, HelpView>(
                 helpViewModel, NavigationKeys.HelpView);
-
             mainNavManager.Register<BuffersViewModel, BuffersView>(
                 buffersViewModel, NavigationKeys.BuffersView);
+            mainNavManager.Register<RegistrationViewModel, RegistrationView>(
+                regViewModel, NavigationKeys.RegView);
 
             mainNavManager.Navigate(NavigationKeys.HelpView);
             window.Show();
@@ -89,6 +91,7 @@ namespace MultiBuffer.WpfApp
             container.RegisterService<BuffersViewModel, BuffersViewModel>();
             container.RegisterService<MainWindowViewModel, MainWindowViewModel>();
             container.RegisterService<NotifyViewModel, NotifyViewModel>();
+            container.RegisterService<RegistrationViewModel, RegistrationViewModel>();
         }
     }
 }
